@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private Transform[] waypoint;
+    [SerializeField] private Transform[] waypoints;
     [SerializeField] private float turnSpeed = 10f;
 
     private NavMeshAgent agent;
@@ -17,10 +17,10 @@ public class Enemy : MonoBehaviour
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    // void Start()
-    // {
-    //     agent.SetDestination(waypoint.position);
-    // }
+    void Start()
+    {
+        waypoints = FindFirstObjectByType<WaypointManager>().GetWaypoints();
+    }
 
     // Update is called once per frame
     void Update()
@@ -37,12 +37,12 @@ public class Enemy : MonoBehaviour
 
     private Vector3 GetNextWayPoint()
     {
-        if (waypointIndex >= waypoint.Length)
+        if (waypointIndex >= waypoints.Length)
         {
             return transform.position;
         }
 
-        Vector3 targetPosition = waypoint[waypointIndex].position;
+        Vector3 targetPosition = waypoints[waypointIndex].position;
         waypointIndex++;
         return targetPosition;
     }
