@@ -3698,6 +3698,7 @@ GameObject:
   - component: {fileID: 6625540978606134050}
   - component: {fileID: 4815706325521540118}
   - component: {fileID: 1083233571980570985}
+  - component: {fileID: 6625540978606134051}
   m_Layer: 0
   m_Name: basic_enemy_wheels_front
   m_TagString: Untagged
@@ -3915,6 +3916,7 @@ GameObject:
   - component: {fileID: 9119511246367471262}
   - component: {fileID: 2645708883677148766}
   - component: {fileID: 2869271885586093906}
+  - component: {fileID: 9119511246367471263}
   m_Layer: 0
   m_Name: fast_enemy_wheels
   m_TagString: Untagged
@@ -4061,6 +4063,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1722599760}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6625540978606134051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2217331914554845849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b489a106a0a7ac6e949143c93795f42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationVector: {x: 1, y: 0, z: 0}
+  rotateSpeed: 350
 --- !u!33 &7423805757479135863
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -4169,6 +4185,7 @@ GameObject:
   - component: {fileID: 4046423287949498122}
   - component: {fileID: 2144666411100693145}
   - component: {fileID: 5446356932751518710}
+  - component: {fileID: 8703334844098671945}
   m_Layer: 0
   m_Name: basic_enemy_wheels_back
   m_TagString: Untagged
@@ -4176,6 +4193,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8703334844098671945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8703334844098671944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b489a106a0a7ac6e949143c93795f42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationVector: {x: 1, y: 0, z: 0}
+  rotateSpeed: 350
 --- !u!1 &8905566395823441914
 GameObject:
   m_ObjectHideFlags: 0
@@ -4207,6 +4238,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8132724502439533888}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9119511246367471263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4448559906160694615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b489a106a0a7ac6e949143c93795f42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationVector: {x: 1, y: 0, z: 0}
+  rotateSpeed: 700
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
