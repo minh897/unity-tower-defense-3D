@@ -1241,68 +1241,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 590521600}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &608011710
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2526989445978640083, guid: 2e20384f4587b60889852631a85cb376, type: 3}
-      propertyPath: m_Name
-      value: Enemy Basic
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932627462927405589, guid: 2e20384f4587b60889852631a85cb376, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.0374024
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932627462927405589, guid: 2e20384f4587b60889852631a85cb376, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.34694365
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932627462927405589, guid: 2e20384f4587b60889852631a85cb376, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.048285007
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932627462927405589, guid: 2e20384f4587b60889852631a85cb376, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932627462927405589, guid: 2e20384f4587b60889852631a85cb376, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932627462927405589, guid: 2e20384f4587b60889852631a85cb376, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932627462927405589, guid: 2e20384f4587b60889852631a85cb376, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932627462927405589, guid: 2e20384f4587b60889852631a85cb376, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932627462927405589, guid: 2e20384f4587b60889852631a85cb376, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932627462927405589, guid: 2e20384f4587b60889852631a85cb376, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2e20384f4587b60889852631a85cb376, type: 3}
---- !u!4 &608011711 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4932627462927405589, guid: 2e20384f4587b60889852631a85cb376, type: 3}
-  m_PrefabInstance: {fileID: 608011710}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &630477121 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 391389089437768508, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
@@ -3072,9 +3010,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be5d363f0d1e072b82473af9aad40b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentEnemy: {fileID: 608011711}
+  currentEnemy: {fileID: 0}
   towerHead: {fileID: 7576018914481228582}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  maxEnemyOverlap: 10
   rotationSpeed: 10
+  attackRadius: 1.5
+  towerOverlapResults: []
 --- !u!1 &1614711753
 GameObject:
   m_ObjectHideFlags: 0
@@ -3242,7 +3186,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1631574962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3255,11 +3199,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d3f02fbd557ddd190c00a940177694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicEnemyPrefab: {fileID: 2036436298087905973, guid: 2e20384f4587b60889852631a85cb376, type: 3}
-  fastEnemyPrefab: {fileID: 7345076345936765910, guid: 04f0772b2f2551e2a84d2d49e9877f7c, type: 3}
+  basicEnemyPrefab: {fileID: 2526989445978640083, guid: 2e20384f4587b60889852631a85cb376, type: 3}
+  fastEnemyPrefab: {fileID: 4724842393436317557, guid: f53f49366b6bed25f87cd035deadb40c, type: 3}
   respawn: {fileID: 630477121}
   currentWave:
-    basicEnemyCount: 0
+    basicEnemyCount: 4
     fastEnemyCount: 0
   spawnCoolDown: 1
 --- !u!4 &1631574963
@@ -4054,7 +3998,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4222156787425793203, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: -1.0379324
       objectReference: {fileID: 0}
     - target: {fileID: 4222156787425793203, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4122,4 +4066,3 @@ SceneRoots:
   - {fileID: 1150545988}
   - {fileID: 1631574963}
   - {fileID: 6906305101643150430}
-  - {fileID: 608011710}

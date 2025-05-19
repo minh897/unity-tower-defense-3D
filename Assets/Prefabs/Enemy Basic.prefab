@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6489695239542470978}
   - component: {fileID: 7758283738458284083}
   - component: {fileID: 2562472376856474838}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy Basic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,8 +222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b489a106a0a7ac6e949143c93795f42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationVector: {x: 0, y: 0, z: 0}
-  rotateSpeed: 0
+  rotationVector: {x: 10, y: 0, z: 0}
+  rotateSpeed: 30
 --- !u!1 &7313493261443638459
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,5 +495,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b489a106a0a7ac6e949143c93795f42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationVector: {x: 1, y: 0, z: 0}
-  rotateSpeed: 10
+  rotationVector: {x: 10, y: 0, z: 0}
+  rotateSpeed: 30
