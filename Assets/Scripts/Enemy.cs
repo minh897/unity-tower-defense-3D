@@ -16,25 +16,19 @@ public class Enemy : MonoBehaviour
         agent.avoidancePriority = Mathf.RoundToInt(agent.speed * 10);
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         waypoints = FindFirstObjectByType<WaypointManager>().GetWaypoints();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        FaceTarget(agent.steeringTarget);
-        
-        // Check if the agent is close to current target point
-        // Then set a destination for the next waypoint
-        if (agent.remainingDistance < 0.5f)
-        {
-            agent.SetDestination(GetNextWayPoint());
-        }
+        FaceTarget(agent.steeringTarget);    
+        SetNextDestination();
     }
 
+    // Returns the position of the next waypoint in the sequence.
+    // If all waypoints have been reached, it returns the current position instead.
     private Vector3 GetNextWayPoint()
     {
         if (waypointIndex >= waypoints.Length)
@@ -43,20 +37,30 @@ public class Enemy : MonoBehaviour
         }
 
         Vector3 targetPosition = waypoints[waypointIndex].position;
-        
+
         waypointIndex++;
 
         return targetPosition;
     }
 
+    // Check if the agent is close to current target point
+    // Then set a destination for the next waypoint
+    private void SetNextDestination()
+    {
+        if (agent.remainingDistance < 0.5f)
+        {
+            agent.SetDestination(GetNextWayPoint());
+        }
+    }
+
+    // Rotate the game object to face the given target position smoothly
     private void FaceTarget(Vector3 newTarget)
     {
         // Calculate the direction from current position to next target
-        // Draw a vector from point A to point B essentially
         Vector3 directionToTarget = newTarget - transform.position;
 
         // Ignore any difference in vertical position
-        directionToTarget.y = 0; 
+        directionToTarget.y = 0;
 
         // Create a new rotation that points the forward vector (y) of the game object up to the calculated direction
         // Since we ignore the vertical position above, the game object can only rotate horizontally
