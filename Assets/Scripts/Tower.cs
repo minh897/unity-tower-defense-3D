@@ -1,35 +1,39 @@
+using System;
 using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    [Header("Tower Setup")]
+    [Header("TOWER SETUP")]
     [Space]
-    [SerializeField] private Transform towerHead;
-    [SerializeField] private LayerMask enemyLayer;
-    [SerializeField] private int maxEnemyOverlap;
-    [SerializeField] private float rotationSpeed;
-    [SerializeField] private float attackRadius;
-    [SerializeField] private Collider[] towerOverlapResults;
+    [SerializeField] protected Transform towerHead;
+    [SerializeField] protected LayerMask enemyLayer;
+    [SerializeField] protected float rotationSpeed = 10f;
+    [SerializeField] protected float attackRadius = 2.5f;
+    [SerializeField] protected float attackCoolDown = 1f;
 
-    private Transform currentEnemy;
+    protected Transform currentEnemy;
+    protected Collider[] towerOverlapResults;
+    protected int maxEnemyOverlap = 10;
+    protected float lastTimeAttacked;
+
 
     void Awake()
     {
         towerOverlapResults = new Collider[maxEnemyOverlap];
     }
 
-    void Update()
+    protected virtual void Update()
     {
         CheckForEnemies();
         RotateTowardsEnemy();
     }
 
-    void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, attackRadius);
     }
 
-    private void RotateTowardsEnemy()
+    protected virtual void RotateTowardsEnemy()
     {
         if (currentEnemy == null)
         {
@@ -52,19 +56,45 @@ public class Tower : MonoBehaviour
         Debug.DrawRay(towerHead.position, directionToTarget, Color.green);
     }
 
-    private bool IsEnemyOutOfRange(Transform enemy)
+    protected bool IsEnemyOutOfRange(Transform enemy)
     {
         return Vector3.Distance(enemy.position, transform.position) > attackRadius;
     }
 
-    private void CheckForEnemies()
+    protected bool CanAttack()
+    {
+        if (currentEnemy == null)
+        {
+            return false;
+        }
+
+        if (Time.time > lastTimeAttacked + attackCoolDown)
+        {
+            lastTimeAttacked = Time.time;
+            return true;
+        }
+
+        return false;
+    }
+
+    protected virtual void Attack()
+    {
+        Debug.Log("Attack start at " + Time.time);
+    }
+
+    protected void CheckForEnemies()
     {
         if (currentEnemy == null)
         {
             currentEnemy = FindTheClosestEnemyWithinRange();
             return;
         }
-        
+
+        if (CanAttack())
+        {
+            Attack();
+        }
+
         // Clear the current enemy if they're out of range
         if (IsEnemyOutOfRange(currentEnemy))
         {
@@ -76,7 +106,7 @@ public class Tower : MonoBehaviour
     // Return the enemy closest enemy withing the tower's attack radius
     // Uses Physics.OverlapSphereNonAlloc for performance
     // Loop through all detected enemies and return the one that is closest to the tower
-    private Transform FindTheClosestEnemyWithinRange()
+    protected Transform FindTheClosestEnemyWithinRange()
     {
         Transform closestEnemy = null;
         float closestDistance = Mathf.Infinity;

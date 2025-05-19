@@ -3007,18 +3007,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1606419141}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4be5d363f0d1e072b82473af9aad40b6, type: 3}
+  m_Script: {fileID: 11500000, guid: 30c4c36977fb9886db4b6b9f981e3b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentEnemy: {fileID: 0}
   towerHead: {fileID: 7576018914481228582}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
-  maxEnemyOverlap: 10
   rotationSpeed: 10
   attackRadius: 1.5
-  towerOverlapResults: []
+  attackCoolDown: 1
 --- !u!1 &1614711753
 GameObject:
   m_ObjectHideFlags: 0
@@ -3203,9 +3201,9 @@ MonoBehaviour:
   fastEnemyPrefab: {fileID: 4724842393436317557, guid: f53f49366b6bed25f87cd035deadb40c, type: 3}
   respawn: {fileID: 630477121}
   currentWave:
-    basicEnemyCount: 4
+    basicEnemyCount: 5
     fastEnemyCount: 0
-  spawnCoolDown: 1
+  spawnCoolDown: 2
 --- !u!4 &1631574963
 Transform:
   m_ObjectHideFlags: 0
@@ -4039,6 +4037,10 @@ PrefabInstance:
     - target: {fileID: 8975012910034059607, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
       propertyPath: m_Name
       value: Tower Crossbow
+      objectReference: {fileID: 0}
+    - target: {fileID: 8975012910034059607, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
