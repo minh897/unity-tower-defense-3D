@@ -3173,14 +3173,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d3f02fbd557ddd190c00a940177694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab_basicEnemy: {fileID: 2459797579894758490, guid: 331ded7ed2fc01d66a0b99174a8034a7, type: 3}
-  prefab_fastEnemy: {fileID: 7345076345936765910, guid: 04f0772b2f2551e2a84d2d49e9877f7c, type: 3}
+  basicEnemyPrefab: {fileID: 2459797579894758490, guid: 331ded7ed2fc01d66a0b99174a8034a7, type: 3}
+  fastEnemyPrefab: {fileID: 7345076345936765910, guid: 04f0772b2f2551e2a84d2d49e9877f7c, type: 3}
   respawn: {fileID: 630477121}
   currentWave:
-    basicEnemy: 4
-    fastEnemy: 2
+    basicEnemyCount: 4
+    fastEnemyCount: 2
   spawnCoolDown: 1
-  enemiesToCreate: []
 --- !u!4 &1631574963
 Transform:
   m_ObjectHideFlags: 0

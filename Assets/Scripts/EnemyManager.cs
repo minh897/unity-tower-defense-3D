@@ -4,15 +4,15 @@ using UnityEngine;
 [System.Serializable]
 class WaveEnemies
 {
-    public int basicEnemy;
-    public int fastEnemy;
+    public int basicEnemyCount;
+    public int fastEnemyCount;
 }
 
 public class EnemyManager : MonoBehaviour
 {
     [Header("Enemy Prefabs")]
-    [SerializeField] private GameObject prefab_basicEnemy;
-    [SerializeField] private GameObject prefab_fastEnemy;
+    [SerializeField] private GameObject basicEnemyPrefab;
+    [SerializeField] private GameObject fastEnemyPrefab;
 
     [Header("Respawn Point")]
     [SerializeField] private Transform respawn;
@@ -50,14 +50,14 @@ public class EnemyManager : MonoBehaviour
     {
         List<GameObject> newEnemyWave = new List<GameObject>();
 
-        for (int i = 0; i < currentWave.basicEnemy; i++)
+        for (int i = 0; i < currentWave.basicEnemyCount; i++)
         {
-            newEnemyWave.Add(prefab_basicEnemy);
+            newEnemyWave.Add(basicEnemyPrefab);
         }
         
-        for (int i = 0; i < currentWave.fastEnemy; i++)
+        for (int i = 0; i < currentWave.fastEnemyCount; i++)
         {
-            newEnemyWave.Add(prefab_fastEnemy);
+            newEnemyWave.Add(fastEnemyPrefab);
         }
 
         return newEnemyWave;

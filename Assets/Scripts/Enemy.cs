@@ -43,7 +43,9 @@ public class Enemy : MonoBehaviour
         }
 
         Vector3 targetPosition = waypoints[waypointIndex].position;
+        
         waypointIndex++;
+
         return targetPosition;
     }
 
