@@ -21,8 +21,7 @@ public class TowerCrossbow : Tower
         if (Physics.Raycast(gunPoint.position, directionToEnemy, out RaycastHit hitInfo, Mathf.Infinity))
         {
             Debug.DrawLine(gunPoint.position, hitInfo.point);
-            Debug.Log(hitInfo.collider.gameObject.name + " was attacked");
-            
+
             visual.PlayAttackFX(gunPoint.position, hitInfo.point);
             visual.PlayReloadFX(attackCoolDown);
         }

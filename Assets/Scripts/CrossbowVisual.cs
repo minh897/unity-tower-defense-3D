@@ -6,11 +6,31 @@ public class CrossbowVisual : MonoBehaviour
     [SerializeField] private LineRenderer attackLine;
     [SerializeField] private float attackVisualDur = .1f;
 
-    [Header("Glowing Visual")]
+    [Header("Tower Head Emission Visual")]
     [SerializeField] private MeshRenderer meshRenderer;
-    [SerializeField] private float maxIntensity = 150f;
     [SerializeField] private Color startColor;
     [SerializeField] private Color endColor;
+    [SerializeField] private float maxIntensity = 150f;
+
+    [Space]
+
+    [Header("Front String Visual")]
+    [SerializeField] private LineRenderer frontLine_L;
+    [SerializeField] private LineRenderer frontLine_R;
+    [SerializeField] private Transform frontStartPoint_L;
+    [SerializeField] private Transform frontStartPoint_R;
+    [SerializeField] private Transform frontEndPoint_L;
+    [SerializeField] private Transform frontEndPoint_R;
+
+    [Space]
+
+    [Header("Back String Visual")]
+    [SerializeField] private LineRenderer backLine_L;
+    [SerializeField] private LineRenderer backLine_R;
+    [SerializeField] private Transform backStartPoint_L;
+    [SerializeField] private Transform backStartPoint_R;
+    [SerializeField] private Transform backEndPoint_L;
+    [SerializeField] private Transform backEndPoint_R;
 
     private TowerCrossbow mainTower;
     private Material materialInstance;
@@ -29,6 +49,11 @@ public class CrossbowVisual : MonoBehaviour
     void Update()
     {
         UpdateEmissionColor();
+
+        UpdateStringVisual(frontLine_L, frontStartPoint_L, frontEndPoint_L);
+        UpdateStringVisual(frontLine_R, frontStartPoint_R, frontEndPoint_R);
+        UpdateStringVisual(backLine_L, backStartPoint_L, backEndPoint_L);
+        UpdateStringVisual(backLine_R, backStartPoint_R, backEndPoint_R);
     }
 
     public void PlayAttackFX(Vector3 startPoint, Vector3 endPoint)
@@ -50,6 +75,12 @@ public class CrossbowVisual : MonoBehaviour
         emissionColor = emissionColor * Mathf.LinearToGammaSpace(currentIntensity);
 
         materialInstance.SetColor("_EmissionColor", emissionColor);
+    }
+
+    private void UpdateStringVisual(LineRenderer lineRenderer, Transform startPoint, Transform endPoint)
+    {
+        lineRenderer.SetPosition(0, startPoint.position);
+        lineRenderer.SetPosition(1, endPoint.position);
     }
 
     private IEnumerator FXCoroutine(Vector3 startPoint, Vector3 endPoint)
