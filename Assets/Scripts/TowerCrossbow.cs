@@ -5,6 +5,14 @@ public class TowerCrossbow : Tower
     [Header("Crossbow Details")]
     [SerializeField] private Transform gunPoint;
 
+    private CrossbowVisual visual;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        visual = GetComponent<CrossbowVisual>();
+    }
 
     protected override void Attack()
     {
@@ -14,6 +22,8 @@ public class TowerCrossbow : Tower
         {
             Debug.DrawLine(gunPoint.position, hitInfo.point);
             Debug.Log(hitInfo.collider.gameObject.name + " was attacked");
+
+            visual.PlayAttackFX(gunPoint.position, hitInfo.point);
         }
     }
 }
