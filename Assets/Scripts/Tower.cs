@@ -33,6 +33,21 @@ public class Tower : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRadius);
     }
 
+    protected bool IsEnemyOutOfRange(Transform enemy)
+    {
+        return Vector3.Distance(enemy.position, transform.position) > attackRadius;
+    }
+
+    protected virtual void Attack()
+    {
+        Debug.Log("Attack start at " + Time.time);
+    }
+
+    protected Vector3 DirectionToEnemyFrom(Transform startPoint)
+    {
+        return (currentEnemy.position - startPoint.position).normalized;
+    }
+
     protected virtual void RotateTowardsEnemy()
     {
         if (currentEnemy == null)
@@ -56,11 +71,6 @@ public class Tower : MonoBehaviour
         Debug.DrawRay(towerHead.position, directionToTarget, Color.green);
     }
 
-    protected bool IsEnemyOutOfRange(Transform enemy)
-    {
-        return Vector3.Distance(enemy.position, transform.position) > attackRadius;
-    }
-
     protected bool CanAttack()
     {
         if (currentEnemy == null)
@@ -75,11 +85,6 @@ public class Tower : MonoBehaviour
         }
 
         return false;
-    }
-
-    protected virtual void Attack()
-    {
-        Debug.Log("Attack start at " + Time.time);
     }
 
     protected void CheckForEnemies()
