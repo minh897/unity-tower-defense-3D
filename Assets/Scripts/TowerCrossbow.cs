@@ -22,8 +22,9 @@ public class TowerCrossbow : Tower
         {
             Debug.DrawLine(gunPoint.position, hitInfo.point);
             Debug.Log(hitInfo.collider.gameObject.name + " was attacked");
-
+            
             visual.PlayAttackFX(gunPoint.position, hitInfo.point);
+            visual.PlayReloadFX(attackCoolDown);
         }
     }
 }
