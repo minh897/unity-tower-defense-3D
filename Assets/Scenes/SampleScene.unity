@@ -1929,6 +1929,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1150545988}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &881182284 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1199117824475998839, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
+  m_PrefabInstance: {fileID: 6906305101643150430}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &882351894
 GameObject:
   m_ObjectHideFlags: 0
@@ -3234,6 +3239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackLine: {fileID: 649875883}
   attackVisualDur: 0.1
+  meshRenderer: {fileID: 881182284}
 --- !u!1 &1614711753
 GameObject:
   m_ObjectHideFlags: 0
