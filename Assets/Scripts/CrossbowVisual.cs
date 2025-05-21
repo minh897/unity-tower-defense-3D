@@ -3,14 +3,12 @@ using UnityEngine;
 
 public class CrossbowVisual : MonoBehaviour
 {
-    [SerializeField] private LineRenderer attackLine;
-    [SerializeField] private float attackVisualDur = .1f;
-
     [Header("Tower Head Emission Visual")]
-    [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private float maxIntensity = 150f;
     [SerializeField] private Color startColor;
     [SerializeField] private Color endColor;
-    [SerializeField] private float maxIntensity = 150f;
+    [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private LineRenderer[] lineRenderers;
 
     [Space]
 
@@ -32,9 +30,19 @@ public class CrossbowVisual : MonoBehaviour
     [SerializeField] private Transform backEndPoint_L;
     [SerializeField] private Transform backEndPoint_R;
 
+    [Header("Rotor Visual")]
+    [SerializeField] private Transform rotor;
+    [SerializeField] private Transform rotorUnloadPoint;
+    [SerializeField] private Transform rotorLoadPoint;
+
+    [Space]
+
+    [SerializeField] private float attackVisualDur = .1f;
+    [SerializeField] private LineRenderer attackLine;
+
+    private float currentIntensity;
     private TowerCrossbow mainTower;
     private Material materialInstance;
-    private float currentIntensity;
 
     void Awake()
     {
@@ -42,6 +50,8 @@ public class CrossbowVisual : MonoBehaviour
 
         materialInstance = new Material(meshRenderer.material);
         meshRenderer.material = materialInstance;
+
+        SetupMaterialLR();
 
         StartCoroutine(ChangeEmission(1));
     }
@@ -63,7 +73,23 @@ public class CrossbowVisual : MonoBehaviour
 
     public void PlayReloadFX(float duration)
     {
-        StartCoroutine(ChangeEmission(duration / 2));
+        float newDuration = duration / 2;
+        StartCoroutine(ChangeEmission(newDuration));
+        StartCoroutine(ChangeRotoPosition(newDuration)); 
+    }
+
+    private void SetupMaterialLR()
+    {
+        foreach (var line in lineRenderers)
+        {
+            line.material = materialInstance;
+        }
+    }
+
+    private void UpdateStringVisual(LineRenderer lineRenderer, Transform startPoint, Transform endPoint)
+    {
+        lineRenderer.SetPosition(0, startPoint.position);
+        lineRenderer.SetPosition(1, endPoint.position);
     }
 
     private void UpdateEmissionColor()
@@ -72,15 +98,9 @@ public class CrossbowVisual : MonoBehaviour
 
         // Convert the current emission color to gamma space
         // Make sure the color is not too dark or too bright
-        emissionColor = emissionColor * Mathf.LinearToGammaSpace(currentIntensity);
+        emissionColor *= Mathf.LinearToGammaSpace(currentIntensity);
 
         materialInstance.SetColor("_EmissionColor", emissionColor);
-    }
-
-    private void UpdateStringVisual(LineRenderer lineRenderer, Transform startPoint, Transform endPoint)
-    {
-        lineRenderer.SetPosition(0, startPoint.position);
-        lineRenderer.SetPosition(1, endPoint.position);
     }
 
     private IEnumerator FXCoroutine(Vector3 startPoint, Vector3 endPoint)
@@ -114,5 +134,19 @@ public class CrossbowVisual : MonoBehaviour
         }
 
         currentIntensity = maxIntensity;
+    }
+
+    private IEnumerator ChangeRotoPosition(float duration)
+    {
+        float startTime = Time.time;
+
+        while (Time.time < startTime + duration)
+        {
+            float tValue = (Time.time - startTime) / duration;
+            rotor.position = Vector3.Lerp(rotorUnloadPoint.position, rotorLoadPoint.position, tValue);
+            yield return null;
+        }
+
+        rotor.position = rotorLoadPoint.position;
     }
 }
