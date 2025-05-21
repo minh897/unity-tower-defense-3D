@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour, IDamagable
 
     public int healthPoints = 4;
 
+    private float totalDistance;
     private int waypointIndex;
     private NavMeshAgent agent;
 
@@ -22,12 +23,29 @@ public class Enemy : MonoBehaviour, IDamagable
     void Start()
     {
         waypoints = FindFirstObjectByType<WaypointManager>().GetWaypoints();
+
+        CalculateTotalDistance();
     }
 
     void Update()
     {
         FaceTarget(agent.steeringTarget);    
         SetNextDestination();
+    }
+
+    public float CalculateDistanceToFininshLine()
+    {
+        return totalDistance + agent.remainingDistance;
+    }
+
+    // Calculate the distance between each waypoint and the add each of them to the total distance
+    private void CalculateTotalDistance()
+    {
+        for (int i = 0; i < waypoints.Length - 1; i++)
+        {
+            float distance = Vector3.Distance(waypoints[i].position, waypoints[i + 1].position);
+            totalDistance += distance;
+        }
     }
 
     // Returns the position of the next waypoint in the sequence.
@@ -41,13 +59,20 @@ public class Enemy : MonoBehaviour, IDamagable
 
         Vector3 targetPosition = waypoints[waypointIndex].position;
 
+        // Subtract the distance between the current waypoint and the previous one from the total distance
+        // Start from index 1 because index 0 has no previous waypoint (avoid out of bound error)
+        if (waypointIndex > 0)
+        {
+            float distance = Vector3.Distance(waypoints[waypointIndex].position, waypoints[waypointIndex - 1].position);
+            totalDistance -= distance;
+        }
+
         waypointIndex++;
 
         return targetPosition;
     }
 
-    // Check if the agent is close to current target point
-    // Then set a destination for the next waypoint
+    // Set a destination for the next waypoint when the enemy remaining distance is close to the current waypoint
     private void SetNextDestination()
     {
         if (agent.remainingDistance < 0.5f)
@@ -56,7 +81,7 @@ public class Enemy : MonoBehaviour, IDamagable
         }
     }
 
-    // Rotate the game object to face the given target position smoothly
+    // Smoothly rotate the enemy game object to face the given target position
     private void FaceTarget(Vector3 newTarget)
     {
         // Calculate the direction from current position to next target
