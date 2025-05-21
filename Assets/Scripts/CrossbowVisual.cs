@@ -75,7 +75,7 @@ public class CrossbowVisual : MonoBehaviour
     {
         float newDuration = duration / 2;
         StartCoroutine(ChangeEmission(newDuration));
-        StartCoroutine(ChangeRotoPosition(newDuration)); 
+        StartCoroutine(ChangeRotorPosition(newDuration)); 
     }
 
     private void SetupMaterialLR()
@@ -136,7 +136,7 @@ public class CrossbowVisual : MonoBehaviour
         currentIntensity = maxIntensity;
     }
 
-    private IEnumerator ChangeRotoPosition(float duration)
+    private IEnumerator ChangeRotorPosition(float duration)
     {
         float startTime = Time.time;
 

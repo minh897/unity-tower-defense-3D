@@ -1,17 +1,20 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamagable
 {
-    [SerializeField] private Transform[] waypoints;
     [SerializeField] private float turnSpeed = 10f;
+    [SerializeField] private Transform[] waypoints;
 
-    private NavMeshAgent agent;
+    public int healthPoints = 4;
+
     private int waypointIndex;
+    private NavMeshAgent agent;
 
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        
         agent.updateRotation = false;
         agent.avoidancePriority = Mathf.RoundToInt(agent.speed * 10);
     }
@@ -69,5 +72,15 @@ public class Enemy : MonoBehaviour
         // Create a smooth rotation from the current rotation to the target rotation at a defined speed
         // Time.deltaTime makes this framerate independent
         transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, turnSpeed * Time.deltaTime);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        healthPoints -= damage;
+
+        if (healthPoints <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

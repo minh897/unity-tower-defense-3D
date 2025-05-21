@@ -36,6 +36,8 @@ Transform:
   - {fileID: 2907943520245457205}
   - {fileID: 3225231371984132728}
   - {fileID: 6687547297330336888}
+  - {fileID: 3046091012630707520}
+  - {fileID: 389275627807487759}
   m_Father: {fileID: 4320969938805224709}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6737184427402937647
@@ -489,10 +491,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca03122baba3f8c14852f51bba8fa081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 4061674857716918488}
+  maxIntensity: 150
   startColor: {r: 0, g: 0, b: 0, a: 0}
   endColor: {r: 0, g: 0.8298459, b: 1, a: 1}
-  maxIntensity: 150
+  meshRenderer: {fileID: 4061674857716918488}
+  lineRenderers:
+  - {fileID: 5445433501160862367}
+  - {fileID: 9225213614081547}
+  - {fileID: 8823211270167453373}
+  - {fileID: 4953570402337318831}
   frontLine_L: {fileID: 5445433501160862367}
   frontLine_R: {fileID: 9225213614081547}
   frontStartPoint_L: {fileID: 8368073616591591160}
@@ -505,8 +512,11 @@ MonoBehaviour:
   backStartPoint_R: {fileID: 8643005024061262101}
   backEndPoint_L: {fileID: 1175996203792816890}
   backEndPoint_R: {fileID: 2780620595672162577}
-  attackLine: {fileID: 5864418176272268874}
+  rotor: {fileID: 2907943520245457205}
+  rotorUnloadPoint: {fileID: 389275627807487759}
+  rotorLoadPoint: {fileID: 3046091012630707520}
   attackVisualDur: 0.1
+  attackLine: {fileID: 5864418176272268874}
 --- !u!1 &2689691096766452125
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,6 +889,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4973537809229729106}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4779519042822878187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3046091012630707520}
+  m_Layer: 0
+  m_Name: tower_crossbow_head_rotor_loaded
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3046091012630707520
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4779519042822878187}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.425, z: -0.15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7057486507410325546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5145805627331177928
 GameObject:
@@ -1415,8 +1456,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8215910526721633456}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.00012513093, y: -0.42354736, z: -0.00011026484}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: -0.425, z: -0.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1785,6 +1826,37 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!1 &8786814172726513489
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 389275627807487759}
+  m_Layer: 0
+  m_Name: tower_crossbow_head_rotor_unloaded
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &389275627807487759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8786814172726513489}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.425, z: 0.06}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7057486507410325546}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8893141455224204856
 GameObject:
   m_ObjectHideFlags: 0

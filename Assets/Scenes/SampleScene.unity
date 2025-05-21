@@ -227,11 +227,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 65554551}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!120 &200444301 stripped
-LineRenderer:
-  m_CorrespondingSourceObject: {fileID: 5445433501160862367, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-  m_PrefabInstance: {fileID: 1116906856081519627}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &223514586
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,11 +796,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1150545988}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!120 &394000976 stripped
-LineRenderer:
-  m_CorrespondingSourceObject: {fileID: 8823211270167453373, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-  m_PrefabInstance: {fileID: 1116906856081519627}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,37 +917,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
---- !u!1 &442795522
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 442795523}
-  m_Layer: 0
-  m_Name: tower_crossbow_head_rotor_loaded
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &442795523
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 442795522}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.425, z: -0.15}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4975291899809354952}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &500323374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,37 +1025,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 500323374}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &527102783
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 527102784}
-  m_Layer: 0
-  m_Name: tower_crossbow_head_rotor_unloaded
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &527102784
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 527102783}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.425, z: 0.06}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4975291899809354952}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &572120683
 GameObject:
   m_ObjectHideFlags: 0
@@ -2400,11 +2328,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1283791807}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!120 &1307183486 stripped
-LineRenderer:
-  m_CorrespondingSourceObject: {fileID: 4953570402337318831, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-  m_PrefabInstance: {fileID: 1116906856081519627}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1327577708 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4690008287559229862, guid: 591c629b6622c7067a680a51f2d2843c, type: 3}
@@ -2422,11 +2345,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a55cef06fea37508682a63a07c8235d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!120 &1372532794 stripped
-LineRenderer:
-  m_CorrespondingSourceObject: {fileID: 9225213614081547, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-  m_PrefabInstance: {fileID: 1116906856081519627}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1401285863
 GameObject:
   m_ObjectHideFlags: 0
@@ -3992,62 +3910,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tower Crossbow
       objectReference: {fileID: 0}
-    - target: {fileID: 2907943520245457205, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2907943520245457205, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.425
-      objectReference: {fileID: 0}
-    - target: {fileID: 2907943520245457205, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2907943520245457205, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2907943520245457205, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2907943520245457205, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4163412314516803931, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: rotor
-      value: 
-      objectReference: {fileID: 8809495188283783408}
-    - target: {fileID: 4163412314516803931, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: rotorLoadPoint
-      value: 
-      objectReference: {fileID: 442795523}
-    - target: {fileID: 4163412314516803931, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: rotorUnloadPoint
-      value: 
-      objectReference: {fileID: 527102784}
-    - target: {fileID: 4163412314516803931, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: lineRenderers.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4163412314516803931, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: 'lineRenderers.Array.data[0]'
-      value: 
-      objectReference: {fileID: 200444301}
-    - target: {fileID: 4163412314516803931, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: 'lineRenderers.Array.data[1]'
-      value: 
-      objectReference: {fileID: 1372532794}
-    - target: {fileID: 4163412314516803931, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: 'lineRenderers.Array.data[2]'
-      value: 
-      objectReference: {fileID: 394000976}
-    - target: {fileID: 4163412314516803931, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: 'lineRenderers.Array.data[3]'
-      value: 
-      objectReference: {fileID: 1307183486}
     - target: {fileID: 6176817097746386812, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.0758644
@@ -4088,15 +3950,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9107052978125824497, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
+      propertyPath: towerDamage
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7057486507410325546, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 442795523}
-    - targetCorrespondingSourceObject: {fileID: 7057486507410325546, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 527102784}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
 --- !u!1001 &4949117120688694697
@@ -4163,16 +4023,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1327577711}
   m_SourcePrefab: {fileID: 100100000, guid: 591c629b6622c7067a680a51f2d2843c, type: 3}
---- !u!4 &4975291899809354952 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7057486507410325546, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-  m_PrefabInstance: {fileID: 1116906856081519627}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8809495188283783408 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2907943520245457205, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-  m_PrefabInstance: {fileID: 1116906856081519627}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
