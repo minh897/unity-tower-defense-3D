@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour, IDamagable
         SetNextDestination();
     }
 
-    public float CalculateDistanceToFininshLine()
+    public float CalculateDistanceToGoal()
     {
         return totalDistance + agent.remainingDistance;
     }

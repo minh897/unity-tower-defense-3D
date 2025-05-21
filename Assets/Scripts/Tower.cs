@@ -76,7 +76,7 @@ public class Tower : MonoBehaviour
     {
         if (currentEnemy == null)
         {
-            currentEnemy = GetAllEnemiesWithinRadius();
+            currentEnemy = FindEnemy();
             return;
         }
 
@@ -122,7 +122,7 @@ public class Tower : MonoBehaviour
     // Returns the transform of the closest enemy within the tower's attack radius.
     // Uses Physics.OverlapSphereNonAlloc to detect nearby enemies and FindTheClosestEnemy()
     // to determine which one is closest to the finish line.
-    protected Transform GetAllEnemiesWithinRadius()
+    protected Transform FindEnemy()
     {
         List<Enemy> enemyList = new();
 
@@ -141,17 +141,17 @@ public class Tower : MonoBehaviour
             }
         }
 
-        return FindTheClosestEnemy(enemyList);
+        return GetTheClosestEnemy(enemyList);
     }
 
-    protected Transform FindTheClosestEnemy(List<Enemy> enemyList)
+    protected Transform GetTheClosestEnemy(List<Enemy> enemyList)
     {
         Transform closestEnemy = null;
         float closestDistance = Mathf.Infinity;
 
         foreach (Enemy enemy in enemyList)
         {
-            float remainDistance = enemy.CalculateDistanceToFininshLine();
+            float remainDistance = enemy.CalculateDistanceToGoal();
 
             // Update if the enemy distance is closer than previous closest distance
             if (remainDistance < closestDistance)
