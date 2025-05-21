@@ -13,6 +13,8 @@ public class TowerCrossbow : Tower
         base.Awake();
 
         visual = GetComponent<CrossbowVisual>();
+
+        EnableRotation(true);
     }
 
     protected override void Attack()

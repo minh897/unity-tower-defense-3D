@@ -38,9 +38,10 @@ public class CrossbowVisual : MonoBehaviour
     [Space]
 
     [SerializeField] private float attackVisualDur = .1f;
-    [SerializeField] private LineRenderer attackLine;
+    [SerializeField] private LineRenderer attackLineVisual;
 
     private float currentIntensity;
+    private Enemy enemyHit;
     private TowerCrossbow mainTower;
     private Material materialInstance;
 
@@ -53,7 +54,7 @@ public class CrossbowVisual : MonoBehaviour
 
         SetupMaterialLR();
 
-        StartCoroutine(ChangeEmission(1));
+        StartCoroutine(ChangeEmissionCoroutine(1));
     }
 
     void Update()
@@ -64,17 +65,25 @@ public class CrossbowVisual : MonoBehaviour
         UpdateStringVisual(frontLine_R, frontStartPoint_R, frontEndPoint_R);
         UpdateStringVisual(backLine_L, backStartPoint_L, backEndPoint_L);
         UpdateStringVisual(backLine_R, backStartPoint_R, backEndPoint_R);
+
+        // Update the attack visual everyframe until it's disabled and enemy can't be found
+        // Make the attack line follow the enemy instead of staying in place
+        if (attackLineVisual.enabled && enemyHit != null)
+        {
+            attackLineVisual.SetPosition(1, enemyHit.GetCenterPoint());
+        }
     }
 
     public void PlayAttackFX(Vector3 startPoint, Vector3 endPoint)
     {
-        StartCoroutine(FXCoroutine(startPoint, endPoint));
+        StartCoroutine(AttackVFXCoroutine(startPoint, endPoint));
     }
 
     public void PlayReloadFX(float duration)
     {
         float newDuration = duration / 2;
-        StartCoroutine(ChangeEmission(newDuration));
+
+        StartCoroutine(ChangeEmissionCoroutine(newDuration));
         StartCoroutine(ChangeRotorPosition(newDuration)); 
     }
 
@@ -103,21 +112,24 @@ public class CrossbowVisual : MonoBehaviour
         materialInstance.SetColor("_EmissionColor", emissionColor);
     }
 
-    private IEnumerator FXCoroutine(Vector3 startPoint, Vector3 endPoint)
+    private IEnumerator AttackVFXCoroutine(Vector3 startPoint, Vector3 endPoint)
     {
-        mainTower.EnableRotation(false);
-        attackLine.enabled = true;
+        // mainTower.EnableRotation(false);
 
-        attackLine.SetPosition(0, startPoint);
-        attackLine.SetPosition(1, endPoint);
+        enemyHit = mainTower.currentEnemy;
+
+        attackLineVisual.enabled = true;
+
+        attackLineVisual.SetPosition(0, startPoint);
+        attackLineVisual.SetPosition(1, endPoint);
 
         yield return new WaitForSeconds(attackVisualDur);
 
-        mainTower.EnableRotation(true);
-        attackLine.enabled = false;
+        // mainTower.EnableRotation(true);
+        attackLineVisual.enabled = false;
     }
 
-    private IEnumerator ChangeEmission(float duration)
+    private IEnumerator ChangeEmissionCoroutine(float duration)
     {
         // Record the moment when this coroutine start
         float startTime = Time.time;

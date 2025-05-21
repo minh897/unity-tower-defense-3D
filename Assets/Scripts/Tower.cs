@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    [Header("TOWER SETUP")]
-    [Space]
+    [Header("Tower Setup")]
     [SerializeField] protected float rotationSpeed = 10f;
     [SerializeField] protected float attackRadius = 2.5f;
     [SerializeField] protected float attackCoolDown = 1f;
+
+    [Space]
+    
     [SerializeField] protected Transform towerHead;
     [SerializeField] protected LayerMask enemyLayer;
 
+    public Enemy currentEnemy;
+
     protected int maxEnemyOverlap = 10;
     protected float lastTimeAttacked;
-    protected Transform currentEnemy;
     protected Collider[] enemyOverlapList;
 
     private bool canRotate;
@@ -48,7 +51,7 @@ public class Tower : MonoBehaviour
 
     protected Vector3 DirectionToEnemyFrom(Transform startPoint)
     {
-        return (currentEnemy.position - startPoint.position).normalized;
+        return (currentEnemy.GetCenterPoint() - startPoint.position).normalized;
     }
 
     public void EnableRotation(bool isEnable)
@@ -86,7 +89,7 @@ public class Tower : MonoBehaviour
         }
 
         // Clear the current enemy if they're out of range
-        if (IsEnemyOutOfRange(currentEnemy))
+        if (IsEnemyOutOfRange(currentEnemy.transform))
         {
             currentEnemy = null;
             return;
@@ -106,7 +109,7 @@ public class Tower : MonoBehaviour
         }
 
         // Calculate the vector direction from the tower head to the current enemy's position
-        Vector3 directionToTarget = currentEnemy.position - towerHead.position;
+        Vector3 directionToTarget = DirectionToEnemyFrom(towerHead);
 
         // Create a new rotation that look in the direction of the target
         Quaternion newRotation = Quaternion.LookRotation(directionToTarget);
@@ -122,7 +125,7 @@ public class Tower : MonoBehaviour
     // Returns the transform of the closest enemy within the tower's attack radius.
     // Uses Physics.OverlapSphereNonAlloc to detect nearby enemies and FindTheClosestEnemy()
     // to determine which one is closest to the finish line.
-    protected Transform FindEnemy()
+    protected Enemy FindEnemy()
     {
         List<Enemy> enemyList = new();
 
@@ -144,9 +147,9 @@ public class Tower : MonoBehaviour
         return GetTheClosestEnemy(enemyList);
     }
 
-    protected Transform GetTheClosestEnemy(List<Enemy> enemyList)
+    protected Enemy GetTheClosestEnemy(List<Enemy> enemyList)
     {
-        Transform closestEnemy = null;
+        Enemy closestEnemy = null;
         float closestDistance = Mathf.Infinity;
 
         foreach (Enemy enemy in enemyList)
@@ -157,7 +160,7 @@ public class Tower : MonoBehaviour
             if (remainDistance < closestDistance)
             {
                 closestDistance = remainDistance;
-                closestEnemy = enemy.transform;
+                closestEnemy = enemy;
             }
         }
 

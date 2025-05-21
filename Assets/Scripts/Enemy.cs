@@ -4,6 +4,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour, IDamagable
 {
     [SerializeField] private float turnSpeed = 10f;
+    [SerializeField] private Transform centerPoint;
     [SerializeField] private Transform[] waypoints;
 
     public int healthPoints = 4;
@@ -33,10 +34,9 @@ public class Enemy : MonoBehaviour, IDamagable
         SetNextDestination();
     }
 
-    public float CalculateDistanceToGoal()
-    {
-        return totalDistance + agent.remainingDistance;
-    }
+    public float CalculateDistanceToGoal() => totalDistance + agent.remainingDistance;
+
+    public Vector3 GetCenterPoint() => centerPoint.position;
 
     // Calculate the distance between each waypoint and the add each of them to the total distance
     private void CalculateTotalDistance()
