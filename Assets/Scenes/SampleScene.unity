@@ -3910,6 +3910,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tower Crossbow
       objectReference: {fileID: 0}
+    - target: {fileID: 2407414552725649156, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6176817097746386812, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.0758644

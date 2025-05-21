@@ -1,27 +1,28 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
     [Header("TOWER SETUP")]
     [Space]
-    [SerializeField] protected Transform towerHead;
-    [SerializeField] protected LayerMask enemyLayer;
     [SerializeField] protected float rotationSpeed = 10f;
     [SerializeField] protected float attackRadius = 2.5f;
     [SerializeField] protected float attackCoolDown = 1f;
+    [SerializeField] protected Transform towerHead;
+    [SerializeField] protected LayerMask enemyLayer;
 
-    protected Transform currentEnemy;
-    protected Collider[] towerOverlapResults;
     protected int maxEnemyOverlap = 10;
     protected float lastTimeAttacked;
+    protected Transform currentEnemy;
+    protected Collider[] enemyOverlapList;
 
     private bool canRotate;
 
 
     protected virtual void Awake()
     {
-        towerOverlapResults = new Collider[maxEnemyOverlap];
+        enemyOverlapList = new Collider[maxEnemyOverlap];
     }
 
     protected virtual void Update()
@@ -75,7 +76,7 @@ public class Tower : MonoBehaviour
     {
         if (currentEnemy == null)
         {
-            currentEnemy = FindTheClosestEnemyWithinRange();
+            currentEnemy = GetAllEnemiesWithinRadius();
             return;
         }
 
@@ -118,27 +119,45 @@ public class Tower : MonoBehaviour
         towerHead.rotation = Quaternion.Euler(rotation);
     }
 
-    // Return the enemy closest enemy withing the tower's attack radius
-    // Uses Physics.OverlapSphereNonAlloc for performance
-    // Loop through all detected enemies and return the one that is closest to the tower
-    protected Transform FindTheClosestEnemyWithinRange()
+    // Returns the transform of the closest enemy within the tower's attack radius.
+    // Uses Physics.OverlapSphereNonAlloc to detect nearby enemies and FindTheClosestEnemy()
+    // to determine which one is closest to the finish line.
+    protected Transform GetAllEnemiesWithinRadius()
+    {
+        List<Enemy> enemyList = new();
+
+        // Check for all enemies within attack radius using layer mask, and store them in pre-allocated array
+        int enemyNumber = Physics.OverlapSphereNonAlloc(transform.position, attackRadius, enemyOverlapList, enemyLayer);
+
+        for (int i = 0; i < enemyNumber; i++)
+        {
+            Collider enemyCollider = enemyOverlapList[i];
+
+            // Try to get the component Eney from enemyCollider
+            // Return true if it exists and store the result in the variable enemy
+            if (enemyCollider.TryGetComponent<Enemy>(out var enemy))
+            {
+                enemyList.Add(enemy);
+            }
+        }
+
+        return FindTheClosestEnemy(enemyList);
+    }
+
+    protected Transform FindTheClosestEnemy(List<Enemy> enemyList)
     {
         Transform closestEnemy = null;
         float closestDistance = Mathf.Infinity;
 
-        // Check for all enemies withing attack radius, and store them in pre-allocated array
-        int hits = Physics.OverlapSphereNonAlloc(transform.position, attackRadius, towerOverlapResults, enemyLayer);
-
-        for (int i = 0; i < hits; i++)
+        foreach (Enemy enemy in enemyList)
         {
-            Transform potentialEnemy = towerOverlapResults[i].transform;
-            float currentEnemyDistance = Vector3.Distance(transform.position, potentialEnemy.position);
+            float remainDistance = enemy.CalculateDistanceToFininshLine();
 
             // Update if the enemy distance is closer than previous closest distance
-            if (currentEnemyDistance < closestDistance)
+            if (remainDistance < closestDistance)
             {
-                closestDistance = currentEnemyDistance;
-                closestEnemy = potentialEnemy;
+                closestDistance = remainDistance;
+                closestEnemy = enemy.transform;
             }
         }
 
