@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ public class Tower : MonoBehaviour
     [SerializeField] protected float attackCoolDown = 1f;
 
     [Space]
-    
+
     [SerializeField] protected Transform towerHead;
     [SerializeField] protected LayerMask enemyLayer;
     [SerializeField] protected EnemyType enemyPriorityType;
@@ -139,10 +138,10 @@ public class Tower : MonoBehaviour
         {
             if (!enemyOverlapList[i].TryGetComponent<Enemy>(out var enemy))
                 continue;
-            
+
             if (enemy.GetEnemyType() == enemyPriorityType)
                 priorityEnemies.Add(enemy);
-             else
+            else
                 allEnemy.Add(enemy);
         }
 

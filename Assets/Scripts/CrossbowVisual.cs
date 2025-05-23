@@ -30,6 +30,8 @@ public class CrossbowVisual : MonoBehaviour
     [SerializeField] private Transform backEndPoint_L;
     [SerializeField] private Transform backEndPoint_R;
 
+    [Space]
+
     [Header("Rotor Visual")]
     [SerializeField] private Transform rotor;
     [SerializeField] private Transform rotorUnloadPoint;
