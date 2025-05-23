@@ -471,13 +471,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30c4c36977fb9886db4b6b9f981e3b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 10
+  attackRange: 2.5
+  attackCoolDown: 1
   towerHead: {fileID: 7057486507410325546}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
-  rotationSpeed: 10
-  attackRadius: 2.5
-  attackCoolDown: 1
+  enemyPriorityType: 2
+  currentEnemy: {fileID: 0}
+  towerDamage: 0
   gunPoint: {fileID: 4884208571705384344}
 --- !u!114 &4163412314516803931
 MonoBehaviour:
@@ -516,7 +519,7 @@ MonoBehaviour:
   rotorUnloadPoint: {fileID: 389275627807487759}
   rotorLoadPoint: {fileID: 3046091012630707520}
   attackVisualDur: 0.1
-  attackLine: {fileID: 5864418176272268874}
+  attackLineVisual: {fileID: 0}
 --- !u!1 &2689691096766452125
 GameObject:
   m_ObjectHideFlags: 0

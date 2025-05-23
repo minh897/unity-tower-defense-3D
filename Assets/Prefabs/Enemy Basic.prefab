@@ -53,9 +53,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 10
+  enemyType: 1
   centerPoint: {fileID: 1328323548602607329}
   waypoints: []
-  healthPoints: 4
+  healthPoints: 12
 --- !u!195 &6489695239542470978
 NavMeshAgent:
   m_ObjectHideFlags: 0

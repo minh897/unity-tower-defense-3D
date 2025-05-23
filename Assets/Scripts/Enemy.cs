@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum EnemyType {None, Basic, Fast}
+
 public class Enemy : MonoBehaviour, IDamagable
 {
     [SerializeField] private float turnSpeed = 10f;
+    [SerializeField] private EnemyType enemyType;
     [SerializeField] private Transform centerPoint;
     [SerializeField] private Transform[] waypoints;
 
@@ -16,7 +19,7 @@ public class Enemy : MonoBehaviour, IDamagable
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        
+
         agent.updateRotation = false;
         agent.avoidancePriority = Mathf.RoundToInt(agent.speed * 10);
     }
@@ -30,13 +33,15 @@ public class Enemy : MonoBehaviour, IDamagable
 
     void Update()
     {
-        FaceTarget(agent.steeringTarget);    
+        FaceTarget(agent.steeringTarget);
         SetNextDestination();
     }
 
     public float CalculateDistanceToGoal() => totalDistance + agent.remainingDistance;
 
     public Vector3 GetCenterPoint() => centerPoint.position;
+
+    public EnemyType GetEnemyType() => enemyType;
 
     // Calculate the distance between each waypoint and the add each of them to the total distance
     private void CalculateTotalDistance()

@@ -6,13 +6,14 @@ public class Tower : MonoBehaviour
 {
     [Header("Tower Setup")]
     [SerializeField] protected float rotationSpeed = 10f;
-    [SerializeField] protected float attackRadius = 2.5f;
+    [SerializeField] protected float attackRange = 2.5f;
     [SerializeField] protected float attackCoolDown = 1f;
 
     [Space]
     
     [SerializeField] protected Transform towerHead;
     [SerializeField] protected LayerMask enemyLayer;
+    [SerializeField] protected EnemyType enemyPriorityType;
 
     public Enemy currentEnemy;
 
@@ -26,6 +27,7 @@ public class Tower : MonoBehaviour
     protected virtual void Awake()
     {
         enemyOverlapList = new Collider[maxEnemyOverlap];
+        enemyPriorityType = EnemyType.None;
     }
 
     protected virtual void Update()
@@ -36,12 +38,12 @@ public class Tower : MonoBehaviour
 
     protected virtual void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, attackRadius);
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
     protected bool IsEnemyOutOfRange(Transform enemy)
     {
-        return Vector3.Distance(enemy.position, transform.position) > attackRadius;
+        return Vector3.Distance(enemy.position, transform.position) > attackRange;
     }
 
     protected virtual void Attack()
@@ -79,7 +81,7 @@ public class Tower : MonoBehaviour
     {
         if (currentEnemy == null)
         {
-            currentEnemy = FindEnemy();
+            currentEnemy = FindEnemiesWithinRange();
             return;
         }
 
@@ -125,26 +127,32 @@ public class Tower : MonoBehaviour
     // Returns the transform of the closest enemy within the tower's attack radius.
     // Uses Physics.OverlapSphereNonAlloc to detect nearby enemies and FindTheClosestEnemy()
     // to determine which one is closest to the finish line.
-    protected Enemy FindEnemy()
+    protected Enemy FindEnemiesWithinRange()
     {
-        List<Enemy> enemyList = new();
+        List<Enemy> allEnemy = new();
+        List<Enemy> priorityEnemies = new();
 
         // Check for all enemies within attack radius using layer mask, and store them in pre-allocated array
-        int enemyNumber = Physics.OverlapSphereNonAlloc(transform.position, attackRadius, enemyOverlapList, enemyLayer);
+        int enemycount = Physics.OverlapSphereNonAlloc(transform.position, attackRange, enemyOverlapList, enemyLayer);
 
-        for (int i = 0; i < enemyNumber; i++)
+        for (int i = 0; i < enemycount; i++)
         {
-            Collider enemyCollider = enemyOverlapList[i];
-
-            // Try to get the component Eney from enemyCollider
-            // Return true if it exists and store the result in the variable enemy
-            if (enemyCollider.TryGetComponent<Enemy>(out var enemy))
-            {
-                enemyList.Add(enemy);
-            }
+            if (!enemyOverlapList[i].TryGetComponent<Enemy>(out var enemy))
+                continue;
+            
+            if (enemy.GetEnemyType() == enemyPriorityType)
+                priorityEnemies.Add(enemy);
+             else
+                allEnemy.Add(enemy);
         }
 
-        return GetTheClosestEnemy(enemyList);
+        if (priorityEnemies.Count > 0)
+            return GetTheClosestEnemy(priorityEnemies);
+
+        if (allEnemy.Count > 0)
+            return GetTheClosestEnemy(allEnemy);
+
+        return null;
     }
 
     protected Enemy GetTheClosestEnemy(List<Enemy> enemyList)
