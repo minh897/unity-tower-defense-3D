@@ -12,41 +12,33 @@ public class TileSlotEditor : Editor
 
         float buttonWidth = (EditorGUIUtility.currentViewWidth - 25) / 2;
 
+        // Field and road
         GUILayout.BeginHorizontal();
 
-        // Make a simple that return true when clicked
-        // Find TileSetHolder component and apply a new tile
-        // Switch each selected tile to the new tile
         MakeButtonSwitchTile("Field", FindFirstObjectByType<TileSetHolder>().tileField, buttonWidth);
         MakeButtonSwitchTile("Road", FindFirstObjectByType<TileSetHolder>().tileRoad, buttonWidth);
 
-        // if (GUILayout.Button("Road", GUILayout.Width(buttonWidth)))
-        // {
-        //     GameObject newTile = FindFirstObjectByType<TileSetHolder>().tileRoad;
-        //     foreach (var target in targets)
-        //     {
-        //         ((TileSlot)target).SwitchTile(newTile);
-        //     }
-        // }
-
         GUILayout.EndHorizontal();
 
+        // Sideway
         GUILayout.BeginHorizontal();
 
         MakeButtonSwitchTile("Sideway", FindFirstObjectByType<TileSetHolder>().tileSideway, buttonWidth * 2);
-        
-        // if (GUILayout.Button("Sideway", GUILayout.Width(buttonWidth * 2)))
-        // {
-        //     GameObject newTile = FindFirstObjectByType<TileSetHolder>().tileSideway;
-        //     foreach (var target in targets)
-        //     {
-        //         ((TileSlot)target).SwitchTile(newTile);
-        //     }
-        // }
+
+        GUILayout.EndHorizontal();
+
+        // Corners
+        GUILayout.BeginHorizontal();
+
+        MakeButtonSwitchTile("Inner Corner", FindFirstObjectByType<TileSetHolder>().tileInnerCorner, buttonWidth);
+        MakeButtonSwitchTile("Outer Corner", FindFirstObjectByType<TileSetHolder>().tileOuterCorner, buttonWidth);
 
         GUILayout.EndHorizontal();
     }
 
+    // Make a simple that return true when clicked
+    // Find TileSetHolder component and apply a new tile
+    // Switch each selected tile to the new tile
     private void MakeButtonSwitchTile(string tileText, GameObject tileObject, float buttonWidth)
     {
         if (GUILayout.Button(tileText, GUILayout.Width(buttonWidth)))
