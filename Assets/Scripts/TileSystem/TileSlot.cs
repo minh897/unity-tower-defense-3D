@@ -50,26 +50,26 @@ public class TileSlot : MonoBehaviour
     }
 
     // Change the current collider to a new one when switching different tile
-    public void UpdateCollider(Collider originalCollider)
+    public void UpdateCollider(Collider referenceCollider)
     {
         DestroyImmediate(tileCollider);
 
-        if (originalCollider is BoxCollider)
+        if (referenceCollider is BoxCollider)
         {
-            BoxCollider original = originalCollider.GetComponent<BoxCollider>();
+            BoxCollider reference = referenceCollider.GetComponent<BoxCollider>();
             BoxCollider newCollider = transform.AddComponent<BoxCollider>();
 
-            newCollider.center = original.center;
-            newCollider.size = original.size;
+            newCollider.center = reference.center;
+            newCollider.size = reference.size;
         }
 
-        if (originalCollider is MeshCollider)
+        if (referenceCollider is MeshCollider)
         {
-            MeshCollider original = originalCollider.GetComponent<MeshCollider>();
+            MeshCollider reference = referenceCollider.GetComponent<MeshCollider>();
             MeshCollider newCollider = transform.AddComponent<MeshCollider>();
 
-            newCollider.sharedMesh = original.sharedMesh;
-            newCollider.convex = original.convex;
+            newCollider.sharedMesh = reference.sharedMesh;
+            newCollider.convex = reference.convex;
         }
     }
 }
