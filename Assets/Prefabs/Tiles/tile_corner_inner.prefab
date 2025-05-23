@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3874190205349362292}
   - component: {fileID: 3256616051205980314}
   - component: {fileID: 9152802118338243142}
+  - component: {fileID: 4561958025548932996}
   m_Layer: 7
   m_Name: tile_corner_inner
   m_TagString: Untagged
@@ -110,6 +111,18 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6920570469935848300, guid: e4f015fced1635b4faf93701b2d56f47, type: 3}
+--- !u!114 &4561958025548932996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3649525860150797009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb9294e945b2fc4feba4932a2635c469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5905422635322097453
 GameObject:
   m_ObjectHideFlags: 0
