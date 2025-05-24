@@ -16,6 +16,11 @@ public class TileSlot : MonoBehaviour
     public Collider GetCollider() => tileCollider;
 
 
+    public void AdjustYRotation(int dir) => transform.Rotate(0, 90 * dir, 0);
+
+    public void AdjustYPosition(int verticalDir) => transform.position += new Vector3(0, 0.1f * verticalDir, 0);
+
+    
     public void SwitchTile(GameObject referenceTile)
     {
         TileSlot newTile = referenceTile.GetComponent<TileSlot>();
@@ -72,4 +77,5 @@ public class TileSlot : MonoBehaviour
             newCollider.convex = reference.convex;
         }
     }
+
 }
