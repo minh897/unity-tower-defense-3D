@@ -23,6 +23,8 @@ public class TileSlot : MonoBehaviour
     
     public void SwitchTile(GameObject referenceTile)
     {
+        gameObject.name = referenceTile.name;
+        
         TileSlot newTile = referenceTile.GetComponent<TileSlot>();
 
         tileMeshRenderer.material = newTile.GetMaterial();
@@ -36,6 +38,8 @@ public class TileSlot : MonoBehaviour
             DestroyImmediate(child);
         }
 
+        // Find every child game object in the new tile
+        // and create them in the selected tile
         foreach (GameObject obj in newTile.GetAllChildren())
         {
             Instantiate(obj, transform);

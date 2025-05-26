@@ -342,6 +342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 846847691}
   - component: {fileID: 846847690}
+  - component: {fileID: 846847692}
   m_Layer: 0
   m_Name: GridBuilder
   m_TagString: Untagged
@@ -387,72 +388,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1352599667
-PrefabInstance:
+--- !u!114 &846847692
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2066958833693678496, guid: 7789156b8683e76408b92de59d4cdb12, type: 3}
-      propertyPath: m_Name
-      value: tile_field
-      objectReference: {fileID: 0}
-    - target: {fileID: 4474417578640341164, guid: 7789156b8683e76408b92de59d4cdb12, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: -5934104426993707271, guid: e4f015fced1635b4faf93701b2d56f47, type: 3}
-    - target: {fileID: 5146547048284286877, guid: 7789156b8683e76408b92de59d4cdb12, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5146547048284286877, guid: 7789156b8683e76408b92de59d4cdb12, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5146547048284286877, guid: 7789156b8683e76408b92de59d4cdb12, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5146547048284286877, guid: 7789156b8683e76408b92de59d4cdb12, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5146547048284286877, guid: 7789156b8683e76408b92de59d4cdb12, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5146547048284286877, guid: 7789156b8683e76408b92de59d4cdb12, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5146547048284286877, guid: 7789156b8683e76408b92de59d4cdb12, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5146547048284286877, guid: 7789156b8683e76408b92de59d4cdb12, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5146547048284286877, guid: 7789156b8683e76408b92de59d4cdb12, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5146547048284286877, guid: 7789156b8683e76408b92de59d4cdb12, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7637605820846611874, guid: 7789156b8683e76408b92de59d4cdb12, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: b1228c7329f4b5244a344960a5909de8, type: 2}
-    m_RemovedComponents:
-    - {fileID: 4789834965344531198, guid: 7789156b8683e76408b92de59d4cdb12, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7789156b8683e76408b92de59d4cdb12, type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846847689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7844c0149e12861b792023ba0cbce831, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridLength: 10
+  gridWidth: 5
+  mainPrefab: {fileID: 2066958833693678496, guid: 7789156b8683e76408b92de59d4cdb12, type: 3}
+  createdTiles: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -460,4 +411,3 @@ SceneRoots:
   - {fileID: 600413964}
   - {fileID: 459409048}
   - {fileID: 846847691}
-  - {fileID: 1352599667}
