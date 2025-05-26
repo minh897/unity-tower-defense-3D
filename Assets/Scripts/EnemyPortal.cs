@@ -6,10 +6,15 @@ public class EnemyPortal : MonoBehaviour
     [Header("Respawn Details")]
     [SerializeField] private float spawnCoolDown;
 
-    private float spawnTimer;
     public List<GameObject> enemiesToCreate;
-    
+    public List<Waypoint> waypoints;
 
+    private float spawnTimer;
+
+    void Awake()
+    {
+        CollectWaypoints();    
+    }
 
     void Update()
     {
@@ -18,7 +23,6 @@ public class EnemyPortal : MonoBehaviour
             CreateEnemy();
         }
     }
-
 
     private bool CanMakeNewEnemy()
     {
@@ -45,6 +49,24 @@ public class EnemyPortal : MonoBehaviour
     {
         GameObject randomEnemy = GetRandomEnemy();
         GameObject newEnemy = Instantiate(randomEnemy, transform.position, Quaternion.identity);
+
+        Enemy enemy = newEnemy.GetComponent<Enemy>();
+        enemy.SetupEnemyWaypoint(waypoints);
+    }
+
+    [ContextMenu("Collect waypoints")]
+    private void CollectWaypoints()
+    {
+        // Make a new waypoint list each time
+        waypoints = new();
+
+        foreach (Transform child in transform)
+        {
+            if (child.TryGetComponent<Waypoint>(out var waypoint))
+            {
+                waypoints.Add(waypoint);
+            }
+        }
     }
 
 

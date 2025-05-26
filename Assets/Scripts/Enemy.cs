@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,7 +9,7 @@ public class Enemy : MonoBehaviour, IDamagable
     [SerializeField] private float turnSpeed = 10f;
     [SerializeField] private EnemyType enemyType;
     [SerializeField] private Transform centerPoint;
-    [SerializeField] private Transform[] waypoints;
+    [SerializeField] private List<Transform> enemyWaypoints;
 
     public int healthPoints = 4;
 
@@ -26,8 +27,6 @@ public class Enemy : MonoBehaviour, IDamagable
 
     void Start()
     {
-        waypoints = FindFirstObjectByType<WaypointManager>().GetWaypoints();
-
         CalculateTotalDistance();
     }
 
@@ -37,18 +36,24 @@ public class Enemy : MonoBehaviour, IDamagable
         SetNextDestination();
     }
 
-    public float CalculateDistanceToGoal() => totalDistance + agent.remainingDistance;
+    public void SetupEnemyWaypoint(List<Waypoint> newEnemyWaypoints)
+    {
+        enemyWaypoints = new();
 
-    public Vector3 GetCenterPoint() => centerPoint.position;
+        foreach (var point in newEnemyWaypoints)
+        {
+            enemyWaypoints.Add(point.transform);
+        }
 
-    public EnemyType GetEnemyType() => enemyType;
+        CalculateTotalDistance();
+    }
 
     // Calculate the distance between each waypoint and the add each of them to the total distance
     private void CalculateTotalDistance()
     {
-        for (int i = 0; i < waypoints.Length - 1; i++)
+        for (int i = 0; i < enemyWaypoints.Count - 1; i++)
         {
-            float distance = Vector3.Distance(waypoints[i].position, waypoints[i + 1].position);
+            float distance = Vector3.Distance(enemyWaypoints[i].position, enemyWaypoints[i + 1].position);
             totalDistance += distance;
         }
     }
@@ -57,18 +62,18 @@ public class Enemy : MonoBehaviour, IDamagable
     // If all waypoints have been reached, it returns the current position instead.
     private Vector3 GetNextWayPoint()
     {
-        if (waypointIndex >= waypoints.Length)
+        if (waypointIndex >= enemyWaypoints.Count)
         {
             return transform.position;
         }
 
-        Vector3 targetPosition = waypoints[waypointIndex].position;
+        Vector3 targetPosition = enemyWaypoints[waypointIndex].position;
 
         // Subtract the distance between the current waypoint and the previous one from the total distance
         // Start from index 1 because index 0 has no previous waypoint (avoid out of bound error)
         if (waypointIndex > 0)
         {
-            float distance = Vector3.Distance(waypoints[waypointIndex].position, waypoints[waypointIndex - 1].position);
+            float distance = Vector3.Distance(enemyWaypoints[waypointIndex].position, enemyWaypoints[waypointIndex - 1].position);
             totalDistance -= distance;
         }
 
@@ -113,4 +118,11 @@ public class Enemy : MonoBehaviour, IDamagable
             Destroy(gameObject);
         }
     }
+
+    public float CalculateDistanceToGoal() => totalDistance + agent.remainingDistance;
+
+    public Vector3 GetCenterPoint() => centerPoint.position;
+
+    public EnemyType GetEnemyType() => enemyType;
+
 }

@@ -24,20 +24,23 @@ public class EnemyManager : MonoBehaviour
     void Awake()
     {
         enemyPortals = new List<EnemyPortal>(FindObjectsByType<EnemyPortal>(FindObjectsSortMode.None));
-    }
 
+        SetupNextWave();
+    }
 
     [ContextMenu("Setup Next Wave")]
     private void SetupNextWave()
     {
-        List<GameObject> newEnemies = CreateEnemywave();
+        List<GameObject> enemyList = CreateEnemyWave();
 
         int portalIndex = 0;
-        for (int i = 0; i < newEnemies.Count; i++)
+        for (int i = 0; i < enemyList.Count; i++)
         {
-            GameObject enemyToAdd = newEnemies[i];
+            GameObject enemyToAdd = enemyList[i];
             EnemyPortal portal = enemyPortals[portalIndex];
+
             portal.GetEnemyList().Add(enemyToAdd);
+
             portalIndex++;
 
             if (portalIndex >= enemyPortals.Count)
@@ -48,21 +51,21 @@ public class EnemyManager : MonoBehaviour
     }
 
 
-    private List<GameObject> CreateEnemywave()
+    private List<GameObject> CreateEnemyWave()
     {
-        List<GameObject> newEnemyWave = new List<GameObject>();
+        List<GameObject> enemyList = new();
 
         for (int i = 0; i < currentWave.basicEnemyCount; i++)
         {
-            newEnemyWave.Add(basicEnemyPrefab);
+            enemyList.Add(basicEnemyPrefab);
         }
 
         for (int i = 0; i < currentWave.fastEnemyCount; i++)
         {
-            newEnemyWave.Add(fastEnemyPrefab);
+            enemyList.Add(fastEnemyPrefab);
         }
 
-        return newEnemyWave;
+        return enemyList;
     }
 
 }
