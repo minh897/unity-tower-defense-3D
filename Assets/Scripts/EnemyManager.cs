@@ -14,37 +14,39 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private GameObject basicEnemyPrefab;
     [SerializeField] private GameObject fastEnemyPrefab;
 
-    [Header("Respawn Point")]
-    [SerializeField] private Transform respawn;
     
     [Header("Wave Details")]
     [SerializeField] private WaveEnemies currentWave;
-    [SerializeField] private float spawnCoolDown;
-    
-    private float spawnTimer;
-    private List<GameObject> enemiesToCreate;
 
-    void Start()
+    public List<EnemyPortal> enemyPortals;
+
+
+    void Awake()
     {
-        enemiesToCreate = CreateEnemywave();
+        enemyPortals = new List<EnemyPortal>(FindObjectsByType<EnemyPortal>(FindObjectsSortMode.None));
     }
 
-    void Update()
-    {
-        spawnTimer -= Time.deltaTime;
 
-        if (spawnTimer <= 0 && enemiesToCreate.Count > 0)
+    [ContextMenu("Setup Next Wave")]
+    private void SetupNextWave()
+    {
+        List<GameObject> newEnemies = CreateEnemywave();
+
+        int portalIndex = 0;
+        for (int i = 0; i < newEnemies.Count; i++)
         {
-            CreateEnemy();
-            spawnTimer = spawnCoolDown;
+            GameObject enemyToAdd = newEnemies[i];
+            EnemyPortal portal = enemyPortals[portalIndex];
+            portal.GetEnemyList().Add(enemyToAdd);
+            portalIndex++;
+
+            if (portalIndex >= enemyPortals.Count)
+            {
+                portalIndex = 0;
+            }
         }
     }
 
-    private void CreateEnemy()
-    {
-        GameObject randomEnemy = GetRandomEnemy();
-        GameObject newEnemy = Instantiate(randomEnemy, respawn.position, Quaternion.identity);
-    }
 
     private List<GameObject> CreateEnemywave()
     {
@@ -54,7 +56,7 @@ public class EnemyManager : MonoBehaviour
         {
             newEnemyWave.Add(basicEnemyPrefab);
         }
-        
+
         for (int i = 0; i < currentWave.fastEnemyCount; i++)
         {
             newEnemyWave.Add(fastEnemyPrefab);
@@ -63,11 +65,4 @@ public class EnemyManager : MonoBehaviour
         return newEnemyWave;
     }
 
-    private GameObject GetRandomEnemy()
-    {
-        int randomIndex = Random.Range(0, enemiesToCreate.Count);
-        GameObject choosenEnemy = enemiesToCreate[randomIndex];
-        enemiesToCreate.Remove(choosenEnemy);
-        return choosenEnemy;
-    }
 }

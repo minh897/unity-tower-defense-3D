@@ -1094,6 +1094,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7483135895019411533}
   - component: {fileID: 1755358989078187673}
+  - component: {fileID: 8097899536145068068}
   m_Layer: 0
   m_Name: Player Castle
   m_TagString: Untagged
@@ -1110,7 +1111,7 @@ Transform:
   m_GameObject: {fileID: 4690008287559229862}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9506209, y: 0, z: -19.998652}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1142,6 +1143,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.957597, y: 0.50348175, z: 1.9618397}
   m_Center: {x: -0.016136527, y: 0.24825913, z: -0.0035734177}
+--- !u!114 &8097899536145068068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4690008287559229862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a55cef06fea37508682a63a07c8235d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5157999955244507321
 GameObject:
   m_ObjectHideFlags: 0
