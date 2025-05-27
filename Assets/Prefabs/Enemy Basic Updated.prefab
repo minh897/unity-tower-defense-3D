@@ -133,11 +133,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3001041770833728872e2fa6fe3c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visuals: {fileID: 0}
-  groundLayer:
+  verticalRotationSpeed: 5
+  visuals: {fileID: 7538336303945918025}
+  roadLayer:
     serializedVersion: 2
-    m_Bits: 0
-  verticalRotationSpeed: 0
+    m_Bits: 64
 --- !u!195 &601259885261640618
 NavMeshAgent:
   m_ObjectHideFlags: 0
