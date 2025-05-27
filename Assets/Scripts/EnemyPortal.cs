@@ -6,13 +6,15 @@ public class EnemyPortal : MonoBehaviour
     [Header("Respawn Details")]
     [SerializeField] private float spawnCoolDown;
 
-    public List<GameObject> enemiesToCreate;
     public List<Waypoint> waypoints;
 
     private float spawnTimer;
+    private List<GameObject> enemiesToCreate;
 
     void Awake()
     {
+        enemiesToCreate = new();
+
         CollectWaypoints();    
     }
 
@@ -70,5 +72,5 @@ public class EnemyPortal : MonoBehaviour
     }
 
 
-    public List<GameObject> GetEnemyList() => enemiesToCreate;
+    public void AddEnemy(GameObject enemy) => enemiesToCreate.Add(enemy);
 }

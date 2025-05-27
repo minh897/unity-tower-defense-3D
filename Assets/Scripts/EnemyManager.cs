@@ -16,7 +16,8 @@ public class EnemyManager : MonoBehaviour
 
     
     [Header("Wave Details")]
-    [SerializeField] private WaveEnemies currentWave;
+    [SerializeField] private WaveEnemies[] currentWave;
+    private int waveIndex;
 
     public List<EnemyPortal> enemyPortals;
 
@@ -24,7 +25,10 @@ public class EnemyManager : MonoBehaviour
     void Awake()
     {
         enemyPortals = new List<EnemyPortal>(FindObjectsByType<EnemyPortal>(FindObjectsSortMode.None));
+    }
 
+    void Start()
+    {
         SetupNextWave();
     }
 
@@ -34,12 +38,18 @@ public class EnemyManager : MonoBehaviour
         List<GameObject> enemyList = CreateEnemyWave();
 
         int portalIndex = 0;
+        
+        if (enemyList == null)
+        {
+            Debug.Log("No more wave to setup");
+        }
+
         for (int i = 0; i < enemyList.Count; i++)
         {
             GameObject enemyToAdd = enemyList[i];
             EnemyPortal portal = enemyPortals[portalIndex];
 
-            portal.GetEnemyList().Add(enemyToAdd);
+            portal.AddEnemy(enemyToAdd);
 
             portalIndex++;
 
@@ -53,17 +63,25 @@ public class EnemyManager : MonoBehaviour
 
     private List<GameObject> CreateEnemyWave()
     {
+        // Check if there are still more waves available
+        if (waveIndex >= currentWave.Length)
+        {
+            return null;
+        }
+
         List<GameObject> enemyList = new();
 
-        for (int i = 0; i < currentWave.basicEnemyCount; i++)
+        for (int i = 0; i < currentWave[waveIndex].basicEnemyCount; i++)
         {
             enemyList.Add(basicEnemyPrefab);
         }
 
-        for (int i = 0; i < currentWave.fastEnemyCount; i++)
+        for (int i = 0; i < currentWave[waveIndex].fastEnemyCount; i++)
         {
             enemyList.Add(fastEnemyPrefab);
         }
+
+        waveIndex++;
 
         return enemyList;
     }

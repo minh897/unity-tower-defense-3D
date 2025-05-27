@@ -13,8 +13,9 @@ public class Enemy : MonoBehaviour, IDamagable
 
     public int healthPoints = 4;
 
+    private int nextWaypointIndex;
+    private int currentWavepointIndex;
     private float totalDistance;
-    private int waypointIndex;
     private NavMeshAgent agent;
 
     void Awake()
@@ -58,26 +59,49 @@ public class Enemy : MonoBehaviour, IDamagable
         }
     }
 
+    private bool ShouldChangeWaypoint()
+    {
+        if (nextWaypointIndex >= enemyWaypoints.Count)
+        {
+            return false;
+        }
+
+        if (agent.remainingDistance <= 0.1f)
+        {
+            return true;
+        }
+        
+        Vector3 currentWaypoint = enemyWaypoints[currentWavepointIndex].position;
+        Vector3 nextWaypoint = enemyWaypoints[nextWaypointIndex].position;
+
+        float distanceToNextWaypoint = Vector3.Distance(transform.position, nextWaypoint);
+        float distanceBetweenWaypoints = Vector3.Distance(currentWaypoint, nextWaypoint);
+
+        return distanceToNextWaypoint < distanceBetweenWaypoints;
+    }
+
     // Returns the position of the next waypoint in the sequence.
     // If all waypoints have been reached, it returns the current position instead.
     private Vector3 GetNextWayPoint()
     {
-        if (waypointIndex >= enemyWaypoints.Count)
+        if (nextWaypointIndex >= enemyWaypoints.Count)
         {
             return transform.position;
         }
 
-        Vector3 targetPosition = enemyWaypoints[waypointIndex].position;
+        Vector3 targetPosition = enemyWaypoints[nextWaypointIndex].position;
 
         // Subtract the distance between the current waypoint and the previous one from the total distance
         // Start from index 1 because index 0 has no previous waypoint (avoid out of bound error)
-        if (waypointIndex > 0)
+        if (nextWaypointIndex > 0)
         {
-            float distance = Vector3.Distance(enemyWaypoints[waypointIndex].position, enemyWaypoints[waypointIndex - 1].position);
+            float distance = Vector3.Distance(enemyWaypoints[nextWaypointIndex].position, enemyWaypoints[nextWaypointIndex - 1].position);
             totalDistance -= distance;
         }
 
-        waypointIndex++;
+        nextWaypointIndex++;
+
+        currentWavepointIndex = nextWaypointIndex - 1;
 
         return targetPosition;
     }
@@ -85,7 +109,7 @@ public class Enemy : MonoBehaviour, IDamagable
     // Set a destination for the next waypoint when the enemy remaining distance is close to the current waypoint
     private void SetNextDestination()
     {
-        if (agent.remainingDistance < 0.5f)
+        if (ShouldChangeWaypoint())
         {
             agent.SetDestination(GetNextWayPoint());
         }
