@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour, IDamagable
     private int currentWavepointIndex;
     private float totalDistance;
     private NavMeshAgent agent;
+    private EnemyPortal enemyPortal;
 
     void Awake()
     {
@@ -37,7 +38,7 @@ public class Enemy : MonoBehaviour, IDamagable
         SetNextDestination();
     }
 
-    public void SetupEnemyWaypoint(List<Waypoint> newEnemyWaypoints)
+    public void SetupEnemyWaypoint(List<Waypoint> newEnemyWaypoints, EnemyPortal referencePortal)
     {
         enemyWaypoints = new();
 
@@ -47,6 +48,8 @@ public class Enemy : MonoBehaviour, IDamagable
         }
 
         CalculateTotalDistance();
+
+        enemyPortal = referencePortal;
     }
 
     // Calculate the distance between each waypoint and the add each of them to the total distance
@@ -139,8 +142,14 @@ public class Enemy : MonoBehaviour, IDamagable
 
         if (healthPoints <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        enemyPortal.RemoveActiveEnemy(gameObject);
+        Destroy(gameObject);
     }
 
     public float CalculateDistanceToGoal() => totalDistance + agent.remainingDistance;

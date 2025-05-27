@@ -10,12 +10,14 @@ public class EnemyPortal : MonoBehaviour
 
     private float spawnTimer;
     private List<GameObject> enemiesToCreate;
+    private List<GameObject> activeEnemies;
 
     void Awake()
     {
         enemiesToCreate = new();
+        activeEnemies = new();
 
-        CollectWaypoints();    
+        CollectWaypoints();
     }
 
     void Update()
@@ -53,7 +55,9 @@ public class EnemyPortal : MonoBehaviour
         GameObject newEnemy = Instantiate(randomEnemy, transform.position, Quaternion.identity);
 
         Enemy enemy = newEnemy.GetComponent<Enemy>();
-        enemy.SetupEnemyWaypoint(waypoints);
+        enemy.SetupEnemyWaypoint(waypoints, this);
+
+        activeEnemies.Add(newEnemy);
     }
 
     [ContextMenu("Collect waypoints")]
@@ -71,6 +75,15 @@ public class EnemyPortal : MonoBehaviour
         }
     }
 
+    public void RemoveActiveEnemy(GameObject enemyToRemove)
+    {
+        if (activeEnemies.Contains(enemyToRemove))
+        {
+            activeEnemies.Remove(enemyToRemove);
+        }
+    }
 
     public void AddEnemy(GameObject enemy) => enemiesToCreate.Add(enemy);
+
+    public List<GameObject> GetActiveEnemies() => activeEnemies;
 }

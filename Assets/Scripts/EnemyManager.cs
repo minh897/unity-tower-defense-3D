@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 [System.Serializable]
@@ -14,13 +15,16 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private GameObject basicEnemyPrefab;
     [SerializeField] private GameObject fastEnemyPrefab;
 
-    
-    [Header("Wave Details")]
+    [Header("Wave Settings")]
+    [SerializeField] private float timeBetweenWaves = 10f;
     [SerializeField] private WaveEnemies[] currentWave;
+    private bool waveCompleted;
     private int waveIndex;
+    private float waveTimer;
 
-    public List<EnemyPortal> enemyPortals;
-
+    private float checkInterval = .5f;
+    private float nextCheckTime;
+    private List<EnemyPortal> enemyPortals;
 
     void Awake()
     {
@@ -32,17 +36,53 @@ public class EnemyManager : MonoBehaviour
         SetupNextWave();
     }
 
+    void Update()
+    {
+        HandleWaveCompletion();
+        HandleWaveTiming();
+    }
+
+    private void HandleWaveTiming()
+    {
+        if (waveCompleted)
+        {
+            waveTimer -= Time.deltaTime;
+
+            if (waveTimer <= 0)
+            {
+                SetupNextWave();
+            }
+        }
+    }
+
+    private void HandleWaveCompletion()
+    {
+        if (IsCheckReady() == false)
+        {
+            return;
+        }
+        
+        if (!waveCompleted && AreAllEnemiesDie())
+        {
+            waveCompleted = true;
+            waveTimer = timeBetweenWaves;
+        }
+    }
+
     [ContextMenu("Setup Next Wave")]
     private void SetupNextWave()
     {
+        waveCompleted = false;
+
         List<GameObject> enemyList = CreateEnemyWave();
 
-        int portalIndex = 0;
-        
         if (enemyList == null)
         {
             Debug.Log("No more wave to setup");
+            return;
         }
+
+        int portalIndex = 0;
 
         for (int i = 0; i < enemyList.Count; i++)
         {
@@ -86,4 +126,27 @@ public class EnemyManager : MonoBehaviour
         return enemyList;
     }
 
+    private bool AreAllEnemiesDie()
+    {
+        foreach (EnemyPortal portal in enemyPortals)
+        {
+            if (portal.GetActiveEnemies().Count > 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private bool IsCheckReady()
+    {
+        if (Time.time >= nextCheckTime)
+        {
+            nextCheckTime = Time.time + checkInterval;
+            return true;
+        }
+
+        return false;
+    }
 }
