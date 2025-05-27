@@ -75,15 +75,9 @@ public class EnemyPortal : MonoBehaviour
         }
     }
 
-    public void RemoveActiveEnemy(GameObject enemyToRemove)
-    {
-        if (activeEnemies.Contains(enemyToRemove))
-        {
-            activeEnemies.Remove(enemyToRemove);
-        }
-    }
+    public List<GameObject> GetActiveEnemies() => activeEnemies;
 
     public void AddEnemy(GameObject enemy) => enemiesToCreate.Add(enemy);
 
-    public List<GameObject> GetActiveEnemies() => activeEnemies;
+    public void RemoveActiveEnemy(GameObject enemyToRemove) => activeEnemies.Remove(enemyToRemove);
 }
