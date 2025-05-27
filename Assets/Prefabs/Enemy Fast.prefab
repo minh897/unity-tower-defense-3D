@@ -257,7 +257,7 @@ MonoBehaviour:
   turnSpeed: 10
   enemyType: 2
   centerPoint: {fileID: 122472948504400295}
-  waypoints: []
+  enemyWaypoints: []
   healthPoints: 6
 --- !u!195 &1215748260877129306
 NavMeshAgent:

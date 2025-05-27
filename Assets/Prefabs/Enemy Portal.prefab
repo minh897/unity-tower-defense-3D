@@ -460,7 +460,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnCoolDown: 1
-  enemiesToCreate: []
   waypoints:
   - {fileID: 3433316943751682684}
   - {fileID: 0}

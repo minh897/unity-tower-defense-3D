@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 [System.Serializable]
@@ -7,9 +6,11 @@ class WaveEnemies
 {
     public int basicEnemyCount;
     public int fastEnemyCount;
+    public GirdBuilder newGrid;
+    public EnemyPortal[] newPortals;
 }
 
-public class EnemyManager : MonoBehaviour
+public class WaveManager : MonoBehaviour
 {
     [Header("Enemy Prefabs")]
     [SerializeField] private GameObject basicEnemyPrefab;
@@ -17,14 +18,16 @@ public class EnemyManager : MonoBehaviour
 
     [Header("Wave Settings")]
     [SerializeField] private float timeBetweenWaves = 10f;
+    [SerializeField] private GirdBuilder currentGrid;
     [SerializeField] private WaveEnemies[] currentWave;
+
     private bool waveCompleted;
     private int waveIndex;
     private float waveTimer;
 
     private float checkInterval = .5f;
     private float nextCheckTime;
-    private List<EnemyPortal> enemyPortals;
+    public List<EnemyPortal> enemyPortals;
 
     void Awake()
     {
@@ -61,11 +64,12 @@ public class EnemyManager : MonoBehaviour
         {
             return;
         }
-        
-        if (!waveCompleted && AreAllEnemiesDie())
+
+        if (!waveCompleted && AreAllEnemiesDead())
         {
             waveCompleted = true;
             waveTimer = timeBetweenWaves;
+            CheckForNewLayout();
         }
     }
 
@@ -100,7 +104,6 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-
     private List<GameObject> CreateEnemyWave()
     {
         // Check if there are still more waves available
@@ -126,7 +129,61 @@ public class EnemyManager : MonoBehaviour
         return enemyList;
     }
 
-    private bool AreAllEnemiesDie()
+    private void CheckForNewLayout()
+    {
+        if (waveIndex >= currentWave.Length)
+        {
+            return;
+        }
+
+        WaveEnemies nextWave = currentWave[waveIndex];
+
+        if (nextWave.newGrid != null)
+        {
+            UpdateLevelTiles(nextWave.newGrid);
+            EnableNewPortals(nextWave.newPortals);
+        }
+
+        currentGrid.UpdateNewNavMesh();
+    }
+
+    private void UpdateLevelTiles(GirdBuilder nextGrid)
+    {
+        List<GameObject> grid = currentGrid.GetTileSetup();
+        List<GameObject> newGrid = nextGrid.GetTileSetup();
+
+        for (int i = 0; i < grid.Count; i++)
+        {
+            TileSlot currentTile = grid[i].GetComponent<TileSlot>();
+            TileSlot newTile = newGrid[i].GetComponent<TileSlot>();
+
+            bool shouldBeUpdated = currentTile.GetMesh() != newTile.GetMesh() ||
+                currentTile.GetMaterial() != newTile.GetMaterial() ||
+                currentTile.GetAllChildren() != newTile.GetAllChildren() ||
+                currentTile.transform.rotation != newTile.transform.rotation;
+
+            if (shouldBeUpdated)
+            {
+                currentTile.gameObject.SetActive(false);
+                newTile.gameObject.SetActive(true);
+                newTile.transform.parent = currentGrid.transform;
+                
+                grid[i] = newTile.gameObject;
+                Destroy(currentTile.gameObject);
+            }
+        }
+    }
+
+    private void EnableNewPortals(EnemyPortal[] newPortals)
+    {
+        foreach (EnemyPortal portal in newPortals)
+        {
+            portal.gameObject.SetActive(true);
+            enemyPortals.Add(portal);
+        }
+    }
+
+    private bool AreAllEnemiesDead()
     {
         foreach (EnemyPortal portal in enemyPortals)
         {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class GirdBuilder : MonoBehaviour
@@ -7,6 +8,8 @@ public class GirdBuilder : MonoBehaviour
     [SerializeField] private int gridWidth = 10;
     [SerializeField] private GameObject mainPrefab;
     [SerializeField] private List<GameObject> createdTiles;
+
+    private NavMeshSurface myNavMesh => GetComponent<NavMeshSurface>();
 
     private void CreateTile(float xPosition, float zPosition)
     {
@@ -40,4 +43,8 @@ public class GirdBuilder : MonoBehaviour
 
         createdTiles.Clear();
     }
+
+    public List<GameObject> GetTileSetup() => createdTiles;
+
+    public void UpdateNewNavMesh() => myNavMesh.BuildNavMesh();
 }
