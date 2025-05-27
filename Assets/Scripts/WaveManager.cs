@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-class WaveEnemies
+class WaveDetails
 {
     public int basicEnemyCount;
     public int fastEnemyCount;
@@ -19,7 +19,7 @@ public class WaveManager : MonoBehaviour
     [Header("Wave Settings")]
     [SerializeField] private float timeBetweenWaves = 10f;
     [SerializeField] private GirdBuilder currentGrid;
-    [SerializeField] private WaveEnemies[] currentWave;
+    [SerializeField] private WaveDetails[] currentWave;
 
     private bool waveCompleted;
     private int waveIndex;
@@ -27,7 +27,7 @@ public class WaveManager : MonoBehaviour
 
     private float checkInterval = .5f;
     private float nextCheckTime;
-    public List<EnemyPortal> enemyPortals;
+    private List<EnemyPortal> enemyPortals;
 
     void Awake()
     {
@@ -136,7 +136,7 @@ public class WaveManager : MonoBehaviour
             return;
         }
 
-        WaveEnemies nextWave = currentWave[waveIndex];
+        WaveDetails nextWave = currentWave[waveIndex];
 
         if (nextWave.newGrid != null)
         {
@@ -167,7 +167,7 @@ public class WaveManager : MonoBehaviour
                 currentTile.gameObject.SetActive(false);
                 newTile.gameObject.SetActive(true);
                 newTile.transform.parent = currentGrid.transform;
-                
+
                 grid[i] = newTile.gameObject;
                 Destroy(currentTile.gameObject);
             }
