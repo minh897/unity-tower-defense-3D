@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    [SerializeField] private Vector3 levelCenterPoint;
+    [SerializeField] private float maxDistanceFromCenter;
 
     [Header("Rotation")]
     [SerializeField] private float rotateSpeed;
@@ -17,11 +19,9 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float minZoom = 3f;
     [SerializeField] private float maxZoom = 15f;
 
-    [Header("Mouse Movement")]
-    [SerializeField] private float moveSpeed = 120f;
-    [SerializeField] private float mouseSpeed = 5f;
-
-    [Header("Screen Edge Movement")]
+    [Header("Movement")]
+    [SerializeField] private float keyboardMoveSpeed = 90f;
+    [SerializeField] private float mouseMoveSpeed = 5f;
     [SerializeField] private float edgeMovementSpeed = 10f;
     [SerializeField] private float screenEdgePadding = 10f;
     private float screenHeight;
@@ -43,34 +43,12 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         HandleZoom();
-        HandleMovement();
         HandleRotation();
         HandleMouseMovement();
         HandleEdgeMovement();
+        HandleKeyBoardMovement();
 
         focusPoint.position = transform.position + transform.forward * GetFocusPointDistance();
-    }
-
-    private void HandleMovement()
-    {
-        Vector3 targetPosition = transform.position;
-        float vInput = Input.GetAxisRaw("Vertical");
-        float hInput = Input.GetAxisRaw("Horizontal");
-
-        Vector3 flatForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
-
-        if (vInput > 0)
-            targetPosition += flatForward * moveSpeed * Time.deltaTime;
-        if (vInput < 0)
-            targetPosition -= flatForward * moveSpeed * Time.deltaTime;
-
-        if (hInput > 0)
-            targetPosition += transform.right * moveSpeed * Time.deltaTime;
-        if (hInput < 0)
-            targetPosition -= transform.right * moveSpeed * Time.deltaTime;
-
-
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref movementVelocity, smoothTime);
     }
 
     private void HandleRotation()
@@ -113,7 +91,35 @@ public class CameraController : MonoBehaviour
             return;
 
         // Smoothly move the camera from its current position to the target position
-            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref zoomVelocity, smoothTime);
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref zoomVelocity, smoothTime);
+    }
+
+    private void HandleKeyBoardMovement()
+    {
+        Vector3 targetPosition = transform.position;
+        float vInput = Input.GetAxisRaw("Vertical");
+        float hInput = Input.GetAxisRaw("Horizontal");
+
+        if (vInput == 0 && hInput == 0)
+            return;
+
+        Vector3 flatForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+
+        if (vInput > 0)
+            targetPosition += flatForward * keyboardMoveSpeed * Time.deltaTime;
+        if (vInput < 0)
+            targetPosition -= flatForward * keyboardMoveSpeed * Time.deltaTime;
+
+        if (hInput > 0)
+            targetPosition += transform.right * keyboardMoveSpeed * Time.deltaTime;
+        if (hInput < 0)
+            targetPosition -= transform.right * keyboardMoveSpeed * Time.deltaTime;
+
+        // Restrict the camera position to stay within the distance to the level center point
+        if (Vector3.Distance(levelCenterPoint, targetPosition) > maxDistanceFromCenter)
+            targetPosition = levelCenterPoint + (targetPosition - levelCenterPoint).normalized * maxDistanceFromCenter;
+
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref movementVelocity, smoothTime);
     }
 
     private void HandleMouseMovement()
@@ -128,8 +134,8 @@ public class CameraController : MonoBehaviour
             Vector3 positionDifference = Input.mousePosition - lastMousePosition;
 
             // Convert mouse movement into world space movement
-            Vector3 moveRight = transform.right * (-positionDifference.x) * mouseSpeed * Time.deltaTime;
-            Vector3 moveForward = transform.forward * (-positionDifference.y) * mouseSpeed * Time.deltaTime;
+            Vector3 moveRight = transform.right * (-positionDifference.x) * mouseMoveSpeed * Time.deltaTime;
+            Vector3 moveForward = transform.forward * (-positionDifference.y) * mouseMoveSpeed * Time.deltaTime;
 
             // Prevent vertical movement
             moveRight.y = 0;
@@ -138,6 +144,10 @@ public class CameraController : MonoBehaviour
             // Combine right and forward movement into a single movement vector
             Vector3 movement = moveRight + moveForward;
             Vector3 targetPosition = transform.position + movement;
+
+            // Restrict the camera position to stay within the distance to the level center point
+            if (Vector3.Distance(levelCenterPoint, targetPosition) > maxDistanceFromCenter)
+                targetPosition = levelCenterPoint + (targetPosition - levelCenterPoint).normalized * maxDistanceFromCenter;
 
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref mouseMovementVelocity, smoothTime);
 
@@ -165,13 +175,19 @@ public class CameraController : MonoBehaviour
         if (mousePosition.y < screenEdgePadding)
             targetPosition -= flatForward * edgeMovementSpeed * Time.deltaTime;
 
+        // Restrict the camera position to stay within the distance to the level center point
+        if (Vector3.Distance(levelCenterPoint, targetPosition) > maxDistanceFromCenter)
+            targetPosition = levelCenterPoint + (targetPosition - levelCenterPoint).normalized * maxDistanceFromCenter;
+
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref edgeMovementVelocity, smoothTime);
     }
 
     private float GetFocusPointDistance()
     {
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, focusPointDistance))
+        {
             return hit.distance;
+        }
 
         return focusPointDistance;
     }

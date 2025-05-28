@@ -6,7 +6,7 @@ class WaveDetails
 {
     public int basicEnemyCount;
     public int fastEnemyCount;
-    public GirdBuilder newGrid;
+    public GridBuilder newGrid;
     public EnemyPortal[] newPortals;
 }
 
@@ -18,7 +18,7 @@ public class WaveManager : MonoBehaviour
 
     [Header("Wave Settings")]
     [SerializeField] private float timeBetweenWaves = 10f;
-    [SerializeField] private GirdBuilder currentGrid;
+    [SerializeField] private GridBuilder currentGrid;
     [SerializeField] private WaveDetails[] currentWave;
 
     private bool waveCompleted;
@@ -147,7 +147,7 @@ public class WaveManager : MonoBehaviour
         currentGrid.UpdateNewNavMesh();
     }
 
-    private void UpdateLevelTiles(GirdBuilder nextGrid)
+    private void UpdateLevelTiles(GridBuilder nextGrid)
     {
         List<GameObject> grid = currentGrid.GetTileSetup();
         List<GameObject> newGrid = nextGrid.GetTileSetup();

@@ -68,11 +68,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3942910946322426670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7844c0149e12861b792023ba0cbce831, type: 3}
+  m_Script: {fileID: 11500000, guid: 74c1c451f049a5269828b87d1e209a46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridLength: 3
-  gridWidth: 3
+  gridLength: 10
+  gridWidth: 10
   mainPrefab: {fileID: 2066958833693678496, guid: 7789156b8683e76408b92de59d4cdb12, type: 3}
   createdTiles: []
 --- !u!114 &5329377091043264438

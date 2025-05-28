@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
 
-public class GirdBuilder : MonoBehaviour
+public class GridBuilder : MonoBehaviour
 {
     [SerializeField] private int gridLength = 10;
     [SerializeField] private int gridWidth = 10;
