@@ -12209,15 +12209,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15e553f494e3dbbfd9d7f98104ebd5d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 120
   rotateSpeed: 120
-  maxFocusPointDistance: 15
+  focusPointDistance: 15
   focusPoint: {fileID: 51631118}
   minPitch: 10
   maxPitch: 85
   zoomSpeed: 40
   minZoom: 3
   maxZoom: 15
+  moveSpeed: 120
+  mouseSpeed: 5
+  edgeMovementSpeed: 10
+  edgeThreshold: 10
 --- !u!1 &334423211
 GameObject:
   m_ObjectHideFlags: 0
@@ -54205,7 +54208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1631574963
 Transform:
   m_ObjectHideFlags: 0

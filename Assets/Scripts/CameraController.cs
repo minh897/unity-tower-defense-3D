@@ -21,23 +21,37 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float moveSpeed = 120f;
     [SerializeField] private float mouseSpeed = 5f;
 
+    [Header("Screen Edge Movement")]
+    [SerializeField] private float edgeMovementSpeed = 10f;
+    [SerializeField] private float screenEdgePadding = 10f;
+    private float screenHeight;
+    private float screenWidth;
+
     private float smoothTime = .1f;
+    private Vector3 lastMousePosition;
     private Vector3 movementVelocity = Vector3.zero;
     private Vector3 zoomVelocity = Vector3.zero;
     private Vector3 mouseMovementVelocity = Vector3.zero;
-    private Vector3 lastMousePosition;
+    private Vector3 edgeMovementVelocity = Vector3.zero;
+
+    void Start()
+    {
+        screenHeight = Screen.height;
+        screenWidth = Screen.width;
+    }
 
     void Update()
     {
+        HandleZoom();
         HandleMovement();
         HandleRotation();
-        HandleZoom();
         HandleMouseMovement();
+        HandleEdgeMovement();
 
         focusPoint.position = transform.position + transform.forward * GetFocusPointDistance();
     }
 
-    public void HandleMovement()
+    private void HandleMovement()
     {
         Vector3 targetPosition = transform.position;
         float vInput = Input.GetAxisRaw("Vertical");
@@ -59,7 +73,7 @@ public class CameraController : MonoBehaviour
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref movementVelocity, smoothTime);
     }
 
-    public void HandleRotation()
+    private void HandleRotation()
     {
         // Check if the right mouse button is being hold
         if (Input.GetMouseButton(1))
@@ -82,7 +96,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    public void HandleZoom()
+    private void HandleZoom()
     {
         float scroll = Input.GetAxis("Mouse ScrollWheel");
 
@@ -130,6 +144,28 @@ public class CameraController : MonoBehaviour
             // Save the current mouse position to compare it in the next frame
             lastMousePosition = Input.mousePosition;
         }
+    }
+
+    private void HandleEdgeMovement()
+    {
+        Vector3 mousePosition = Input.mousePosition;
+        Vector3 targetPosition = transform.position;
+        Vector3 flatForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+
+        // Check if mouse position is pass far right side of the screen
+        if (mousePosition.x > screenWidth - screenEdgePadding)
+            targetPosition += transform.right * edgeMovementSpeed * Time.deltaTime;
+
+        if (mousePosition.x < screenEdgePadding)
+            targetPosition -= transform.right * edgeMovementSpeed * Time.deltaTime;
+
+        if (mousePosition.y > screenHeight - screenEdgePadding)
+            targetPosition += flatForward * edgeMovementSpeed * Time.deltaTime;
+
+        if (mousePosition.y < screenEdgePadding)
+            targetPosition -= flatForward * edgeMovementSpeed * Time.deltaTime;
+
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref edgeMovementVelocity, smoothTime);
     }
 
     private float GetFocusPointDistance()
