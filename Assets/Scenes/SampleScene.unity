@@ -12215,6 +12215,9 @@ MonoBehaviour:
   focusPoint: {fileID: 51631118}
   minPitch: 10
   maxPitch: 85
+  zoomSpeed: 40
+  minZoom: 3
+  maxZoom: 15
 --- !u!1 &334423211
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,13 +13,20 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float maxPitch = 85f;
     private float pitch;
 
+    [Header("Zoom Settings")]
+    [SerializeField] private float zoomSpeed = 10f;
+    [SerializeField] private float minZoom = 3f;
+    [SerializeField] private float maxZoom = 15f;
+
     private float smoothTime = .1f;
     private Vector3 movementVelocity = Vector3.zero;
+    private Vector3 zoomVelocity = Vector3.zero;
 
     void Update()
     {
         HandleMovement();
         HandleRotation();
+        HandleZoom();
 
         focusPoint.position = transform.position + transform.forward * GetFocusPointDistance();
     }
@@ -67,6 +74,26 @@ public class CameraController : MonoBehaviour
             // Make the camera always look at the focus point
             transform.LookAt(focusPoint);
         }
+    }
+
+    public void HandleZoom()
+    {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+        // Determines the direction and strength of the zoom
+        Vector3 zoomDirection = transform.forward * scroll * zoomSpeed;
+
+        // Calculate new camera position after zooming
+        Vector3 targetPosition = transform.position + zoomDirection;
+
+        if (transform.position.y < minZoom && scroll > 0)
+            return;
+
+        if (transform.position.y > maxZoom && scroll < 0)
+            return;
+
+        // Smoothly move the camera from its current position to the target position
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref zoomVelocity, smoothTime);
     }
 
     private float GetFocusPointDistance()
