@@ -11985,6 +11985,7 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
+  - component: {fileID: 330585548}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -12031,9 +12032,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.87
+  near clip plane: 0.01
   far clip plane: 1000
-  field of view: 45.8
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -12059,8 +12060,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 7.711794, y: 21.389133, z: 7.3340564}
+  m_LocalRotation: {x: -0.0641344, y: -0.93463415, z: 0.22125483, w: -0.27090997}
+  m_LocalPosition: {x: 0.36665478, y: 3.4493403, z: 16.314928}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12110,6 +12111,19 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &330585548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e553f494e3dbbfd9d7f98104ebd5d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 120
 --- !u!1 &334423211
 GameObject:
   m_ObjectHideFlags: 0
@@ -54126,12 +54140,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basicEnemyPrefab: {fileID: 3152973171064502831, guid: 65e89d1da6ffc6a47ab0b7ba99a2f0ab, type: 3}
-  fastEnemyPrefab: {fileID: 4724842393436317557, guid: f53f49366b6bed25f87cd035deadb40c, type: 3}
+  fastEnemyPrefab: {fileID: 8347791830468167753, guid: 5e783f239bd9e531c8bfc2467bf28a67, type: 3}
   timeBetweenWaves: 5
   currentGrid: {fileID: 1920765348}
   currentWave:
-  - basicEnemyCount: 1
-    fastEnemyCount: 0
+  - basicEnemyCount: 10
+    fastEnemyCount: 6
     newGrid: {fileID: 0}
     newPortals: []
   - basicEnemyCount: 0
