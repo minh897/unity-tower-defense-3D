@@ -12238,7 +12238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15e553f494e3dbbfd9d7f98104ebd5d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistanceFromCenter: 20
+  canControl: 0
+  maxDistanceFromCenter: 10
   levelCenterPoint: {x: 7, y: 10, z: 7}
   rotateSpeed: 120
   maxFocusPointDistance: 15
@@ -12268,6 +12269,8 @@ MonoBehaviour:
   inMenuRotation: {x: 0.116455495, y: 0.88135934, z: -0.3551939, w: 0.28893107}
   inGamePosition: {x: 7.75, y: 7.5, z: 20}
   inGameRotation: {x: -0.0011252962, y: 0.9457965, z: -0.32474127, w: -0.0032985867}
+  shakeMagnitude: 0.209
+  shakeDuration: 0.3
 --- !u!1 &334423211
 GameObject:
   m_ObjectHideFlags: 0
