@@ -54,7 +54,9 @@ public class CameraController : MonoBehaviour
         // HandleEdgeMovement();
         HandleKeyBoardMovement();
 
-        focusPoint.position = transform.position + transform.forward * GetFocusPointDistance();
+        // focusPoint.position = transform.position + transform.forward * GetFocusPointDistance();
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, maxFocusPointDistance))
+            focusPoint.position = transform.position + transform.forward * hit.distance;
     }
 
     private void HandleRotation()
