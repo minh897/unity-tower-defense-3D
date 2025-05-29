@@ -3,10 +3,18 @@ using UnityEngine;
 
 public class CameraEffects : MonoBehaviour
 {
+    [Header("Camera Transition")]
     [SerializeField] private Vector3 inMenuPosition;
     [SerializeField] private Quaternion inMenuRotation;
+    [Space]
     [SerializeField] private Vector3 inGamePosition;
     [SerializeField] private Quaternion inGameRotation;
+
+    [Header("Camera Shake")]
+    [Range(0.01f, 0.5f)]
+    [SerializeField] private float shakeMagnitude;
+    [Range(0.1f, 3f)]
+    [SerializeField] private float shakeDuration;
 
     private CameraController cameraController;
 
@@ -27,6 +35,14 @@ public class CameraEffects : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
             SwitchToMenuView();
+
+        if (Input.GetKeyDown(KeyCode.V))
+            ShakeScreen(shakeDuration, shakeMagnitude);
+    }
+
+    public void ShakeScreen(float refDuration, float refMagnitude)
+    {
+        StartCoroutine(ScreenShakeFX(refDuration, refMagnitude));
     }
 
     private void SwitchToMenuView()
@@ -63,5 +79,24 @@ public class CameraEffects : MonoBehaviour
         transform.rotation = targetRotation;
 
         cameraController.EnableCamControl(true);
+    }
+
+    private IEnumerator ScreenShakeFX(float duration, float magnitude)
+    {
+        Vector3 originalPosition = cameraController.transform.position;
+        float elapsed = 0;
+
+        while (elapsed < duration)
+        {
+            float x = Random.Range(-1, 1) * magnitude;
+            float y = Random.Range(-1, 1) * magnitude;
+
+            cameraController.transform.position = originalPosition + new Vector3(x, y, 0);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        cameraController.transform.position = originalPosition;
     }
 }
