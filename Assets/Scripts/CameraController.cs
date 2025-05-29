@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Vector3 levelCenterPoint;
+    public bool canControl;
+
     [SerializeField] private float maxDistanceFromCenter;
+    [SerializeField] private Vector3 levelCenterPoint;
 
     [Header("Rotation")]
     [SerializeField] private float rotateSpeed;
-    [SerializeField] private float focusPointDistance = 15f;
+    [SerializeField] private float maxFocusPointDistance = 15f;
     [SerializeField] private Transform focusPoint;
     [Space]
     [SerializeField] private float minPitch = 5f;
@@ -27,6 +29,7 @@ public class CameraController : MonoBehaviour
     private float screenHeight;
     private float screenWidth;
 
+
     private float smoothTime = .1f;
     private Vector3 lastMousePosition;
     private Vector3 movementVelocity = Vector3.zero;
@@ -42,10 +45,13 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
+        if (canControl == false)
+            return;
+
         HandleZoom();
         HandleRotation();
         HandleMouseMovement();
-        HandleEdgeMovement();
+        // HandleEdgeMovement();
         HandleKeyBoardMovement();
 
         focusPoint.position = transform.position + transform.forward * GetFocusPointDistance();
@@ -184,11 +190,14 @@ public class CameraController : MonoBehaviour
 
     private float GetFocusPointDistance()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, focusPointDistance))
-        {
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, maxFocusPointDistance))
             return hit.distance;
-        }
 
-        return focusPointDistance;
+        return maxFocusPointDistance;
     }
+
+    public void EnableCamControl(bool enable) => canControl = enable;
+
+    public float AdjustPicthValue(float value) => pitch = value;
+
 }

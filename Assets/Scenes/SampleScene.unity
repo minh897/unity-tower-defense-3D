@@ -2519,7 +2519,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 391389089437768508, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4369858
+      value: 0.297
       objectReference: {fileID: 0}
     - target: {fileID: 391389089437768508, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12100,6 +12100,7 @@ GameObject:
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
+  - component: {fileID: 330585549}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -12174,8 +12175,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0641344, y: -0.93463415, z: 0.22125483, w: -0.27090997}
-  m_LocalPosition: {x: 0.36665478, y: 3.4493403, z: 16.314928}
+  m_LocalRotation: {x: 0.0011395112, y: -0.94586456, z: 0.32454258, w: 0.0033402736}
+  m_LocalPosition: {x: 7.753173, y: 7.4827824, z: 20.830082}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12237,10 +12238,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15e553f494e3dbbfd9d7f98104ebd5d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelCenterPoint: {x: 7, y: 10, z: 7}
   maxDistanceFromCenter: 20
+  levelCenterPoint: {x: 7, y: 10, z: 7}
   rotateSpeed: 120
-  focusPointDistance: 15
+  maxFocusPointDistance: 15
   focusPoint: {fileID: 51631118}
   minPitch: 10
   maxPitch: 85
@@ -12251,6 +12252,22 @@ MonoBehaviour:
   mouseMoveSpeed: 5
   edgeMovementSpeed: 10
   screenEdgePadding: 10
+--- !u!114 &330585549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e107f5dd09c007f2eaed787c133473ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inMenuPosition: {x: -3.5, y: 11.5, z: 19.7}
+  inMenuRotation: {x: 0.116455495, y: 0.88135934, z: -0.3551939, w: 0.28893107}
+  inGamePosition: {x: 7.75, y: 7.5, z: 20}
+  inGameRotation: {x: -0.0011252962, y: 0.9457965, z: -0.32474127, w: -0.0032985867}
 --- !u!1 &334423211
 GameObject:
   m_ObjectHideFlags: 0
@@ -38850,7 +38867,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 391389089437768508, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4369858
+      value: 0.296
       objectReference: {fileID: 0}
     - target: {fileID: 391389089437768508, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -39064,6 +39081,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GridBuilder
       objectReference: {fileID: 0}
+    - target: {fileID: 5329377091043264438, guid: 7a99fd38f0c331949a08bfd0de0e43f3, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: 5d1eb2e268e09712cbfdfa1ba7761986, type: 2}
     - target: {fileID: 8178166653368395277, guid: 7a99fd38f0c331949a08bfd0de0e43f3, type: 3}
       propertyPath: createdTiles.Array.size
       value: 256
