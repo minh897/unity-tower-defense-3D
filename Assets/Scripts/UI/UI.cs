@@ -5,6 +5,18 @@ public class UI : MonoBehaviour
 {
     [SerializeField] private GameObject[] uiElement;
 
+    private UISetting uISetting;
+    private UIMainMenu uIMainMenu;
+
+    void Awake()
+    {
+        uISetting = GetComponentInChildren<UISetting>(true);
+        uIMainMenu = GetComponentInChildren<UIMainMenu>(true);
+
+        SwitchUIElemnt(uISetting.gameObject);
+        SwitchUIElemnt(uIMainMenu.gameObject);
+    }
+
     public void SwitchUIElemnt(GameObject uiToEnable)
     {
         foreach (GameObject element in uiElement)

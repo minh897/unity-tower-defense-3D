@@ -200,8 +200,10 @@ public class CameraController : MonoBehaviour
 
     public void EnableCamControl(bool enable) => canControl = enable;
 
-    public float AdjustPicthValue(float value) => pitch = value;
+    public float AdjustPicthValue(float changeValue) => pitch = changeValue;
 
-    public float AdjustKeyboardMoveSpeed(float value) => keyboardMoveSpeed = value;
+    public float AdjustKeyboardMoveSpeed(float changeValue) => keyboardMoveSpeed = changeValue;
+
+    public float AdjustMouseMoveSpeed(float changeValue) => mouseMoveSpeed = changeValue;
 
 }
