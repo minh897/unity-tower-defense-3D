@@ -202,4 +202,6 @@ public class CameraController : MonoBehaviour
 
     public float AdjustPicthValue(float value) => pitch = value;
 
+    public float AdjustKeyboardMoveSpeed(float value) => keyboardMoveSpeed = value;
+
 }
