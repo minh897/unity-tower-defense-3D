@@ -480,7 +480,7 @@ MonoBehaviour:
     m_Bits: 256
   enemyPriorityType: 2
   currentEnemy: {fileID: 0}
-  towerDamage: 0
+  towerDamage: 10
   gunPoint: {fileID: 4884208571705384344}
 --- !u!114 &4163412314516803931
 MonoBehaviour:
@@ -519,7 +519,7 @@ MonoBehaviour:
   rotorUnloadPoint: {fileID: 389275627807487759}
   rotorLoadPoint: {fileID: 3046091012630707520}
   attackVisualDur: 0.1
-  attackLineVisual: {fileID: 0}
+  attackLineVisual: {fileID: 5864418176272268874}
 --- !u!1 &2689691096766452125
 GameObject:
   m_ObjectHideFlags: 0

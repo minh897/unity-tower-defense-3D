@@ -5,6 +5,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int maxHP;
     [SerializeField] private int currentHP;
 
+    [SerializeField] private int currency;
+
     private UIInGame uIInGame;
 
     void Awake()
@@ -22,5 +24,11 @@ public class GameManager : MonoBehaviour
     {
         currentHP += changeValue;
         uIInGame.UpdateHealthPointUIText(currentHP, maxHP);
+    }
+
+    public void UpdateCurrency(int changeValue)
+    {
+        currency += changeValue;
+        uIInGame.UpdateCurrencyText(currency);
     }
 }
