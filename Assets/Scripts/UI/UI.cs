@@ -7,14 +7,17 @@ public class UI : MonoBehaviour
 
     private UISetting uISetting;
     private UIMainMenu uIMainMenu;
+    private UIInGame uIInGame;
 
     void Awake()
     {
         uISetting = GetComponentInChildren<UISetting>(true);
         uIMainMenu = GetComponentInChildren<UIMainMenu>(true);
+        uIInGame = GetComponentInChildren<UIInGame>(true);
 
         SwitchUIElemnt(uISetting.gameObject);
-        SwitchUIElemnt(uIMainMenu.gameObject);
+        // SwitchUIElemnt(uIMainMenu.gameObject);
+        SwitchUIElemnt(uIInGame.gameObject);
     }
 
     public void SwitchUIElemnt(GameObject uiToEnable)
