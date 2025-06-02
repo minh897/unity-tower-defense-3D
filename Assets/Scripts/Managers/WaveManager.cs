@@ -28,10 +28,12 @@ public class WaveManager : MonoBehaviour
     private float checkInterval = .5f;
     private float nextCheckTime;
     private List<EnemyPortal> enemyPortals;
+    private UIInGame uIInGame;
 
     void Awake()
     {
         enemyPortals = new List<EnemyPortal>(FindObjectsByType<EnemyPortal>(FindObjectsSortMode.None));
+        uIInGame = FindFirstObjectByType<UIInGame>(FindObjectsInactive.Include);
     }
 
     void Start()
@@ -45,14 +47,22 @@ public class WaveManager : MonoBehaviour
         HandleWaveTiming();
     }
 
+    public void ForceNextWave()
+    {
+        SetupNextWave();
+        uIInGame.ToggleWaveTimer(false);
+    }
+
     private void HandleWaveTiming()
     {
         if (waveCompleted)
         {
             waveTimer -= Time.deltaTime;
+            uIInGame.UpdateWaveTimerText(waveTimer);
 
             if (waveTimer <= 0)
             {
+                uIInGame.ToggleWaveTimer(false);
                 SetupNextWave();
             }
         }
@@ -67,9 +77,10 @@ public class WaveManager : MonoBehaviour
 
         if (!waveCompleted && AreAllEnemiesDead())
         {
+            CheckForNewLayout();
             waveCompleted = true;
             waveTimer = timeBetweenWaves;
-            CheckForNewLayout();
+            uIInGame.ToggleWaveTimer(true);
         }
     }
 

@@ -34,7 +34,7 @@ public class UISetting : MonoBehaviour
 
     public void AdjustMouseSense(float changeValue)
     {
-        float newSense = Mathf.Lerp(minKeyboardSense, maxKeyboardSense, changeValue);
+        float newSense = Mathf.Lerp(minMouseSense, maxMouseSense, changeValue);
         cameraController.AdjustMouseMoveSpeed(newSense);
         mouseSenseText.text = Mathf.RoundToInt(changeValue * 100) + "%";
     }

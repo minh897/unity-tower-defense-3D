@@ -5,6 +5,7 @@ public class UIInGame : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI healthPointsText;
     [SerializeField] private TextMeshProUGUI currencyText;
+    [SerializeField] private TextMeshProUGUI waveTimerText;
 
     public void UpdateHealthPointUIText(int changeValue, int maxValue)
     {
@@ -12,8 +13,15 @@ public class UIInGame : MonoBehaviour
         healthPointsText.text = "Threat : " + newValue + "/" + maxValue;
     }
 
-    public void UpdateCurrencyText(int changeValue)
+    public void UpdateCurrencyText(int changeValue) => currencyText.text = "Currency : " + changeValue;
+
+    public void UpdateWaveTimerText(float changeValue) => waveTimerText.text = "Next Wave : " + changeValue.ToString("00") + " secs";
+
+    public void ToggleWaveTimer(bool enable) => waveTimerText.transform.parent.gameObject.SetActive(enable);
+
+    public void ActivateNextWave()
     {
-        currencyText.text = "Currency : " + changeValue;
+        WaveManager waveManager = FindFirstObjectByType<WaveManager>();
+        waveManager.ForceNextWave();
     }
 }
