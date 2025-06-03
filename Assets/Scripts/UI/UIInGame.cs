@@ -9,11 +9,21 @@ public class UIInGame : MonoBehaviour
     [SerializeField] private UITextBlinkEffect waveTimerTextBlinkEffect;
     [SerializeField] private float waveTimerOffset;
 
+    private UI ui;
     private UIAnimator uIAnimator;
+    private UIPauseMenu uiPauseMenu;
 
     void Awake()
     {
+        ui = GetComponentInParent<UI>();
         uIAnimator = GetComponentInParent<UIAnimator>();
+        uiPauseMenu = ui.GetComponentInChildren<UIPauseMenu>(true);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            ui.SwitchUIElemnt(uiPauseMenu.gameObject);
     }
 
     public void UpdateHealthPointUIText(int changeValue, int maxValue)
@@ -34,7 +44,6 @@ public class UIInGame : MonoBehaviour
 
         uIAnimator.ChangePosition(waveTimerTransform, offset);
         waveTimerTextBlinkEffect.ToggleBlinkEffect(true);
-        // waveTimerText.transform.parent.gameObject.SetActive(enable);
     }
 
     public void ActivateNextWave()
