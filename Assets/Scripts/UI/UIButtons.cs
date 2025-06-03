@@ -5,6 +5,7 @@ public class UIButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 {
     [SerializeField] private float showCaseScale = 1.1f;
     [SerializeField] private float scaleUpDuration = .25f;
+    [SerializeField] private UITextBlinkEffect uITextBlinkEffect;
 
     private UIAnimator uIAnim;
     private RectTransform myRect;
@@ -22,6 +23,9 @@ public class UIButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         // Avoid same coroutine stacking on top of each other
         if (scaleRoutine != null)
             StopCoroutine(scaleRoutine);
+
+        if (uITextBlinkEffect != null)
+            uITextBlinkEffect.ToggleBlinkEffect(false);
             
         scaleRoutine = StartCoroutine(uIAnim.ChangeScaleRoutine(myRect, showCaseScale, scaleUpDuration));
     }
@@ -30,6 +34,9 @@ public class UIButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         if (scaleRoutine != null)
             StopCoroutine(scaleRoutine);
+
+        if (uITextBlinkEffect != null)
+            uITextBlinkEffect.ToggleBlinkEffect(true);
         
         scaleRoutine = StartCoroutine(uIAnim.ChangeScaleRoutine(myRect, 1, scaleUpDuration));
     }
