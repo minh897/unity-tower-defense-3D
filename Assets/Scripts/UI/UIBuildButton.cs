@@ -3,13 +3,16 @@ using UnityEngine;
 public class UIBuildButton : MonoBehaviour
 {
     [SerializeField] private float yPosOffset;
+    [SerializeField] private float openAnimDuration = .1f;
 
-    private bool isActive;
+    private bool isBuildMenuActive;
     private UIAnimator uIAnimator;
+    private UIBuildButtonHoverEffect[] buildButtons;
 
     void Awake()
     {
         uIAnimator = GetComponentInParent<UIAnimator>();
+        buildButtons = GetComponentsInChildren<UIBuildButtonHoverEffect>();
     }
 
     void Update()
@@ -20,10 +23,20 @@ public class UIBuildButton : MonoBehaviour
 
     public void ShowBuildButtons()
     {
-        isActive = !isActive;
-        float changeYOffset = isActive ? yPosOffset : -yPosOffset;
-        Vector3 changeOffset = new(0, changeYOffset);
+        isBuildMenuActive = !isBuildMenuActive;
 
-        uIAnimator.ChangePosition(transform, changeOffset);
+        float changeYOffset = isBuildMenuActive ? yPosOffset : -yPosOffset;
+        float methodDelay = isBuildMenuActive ? openAnimDuration : 0;
+
+        uIAnimator.ChangePosition(transform, new(0, changeYOffset), openAnimDuration);
+        Invoke(nameof(ToggleButtonMovement), methodDelay);
+    }
+
+    private void ToggleButtonMovement()
+    {
+        foreach (var button in buildButtons)
+        {
+            button.ToggleMovement(isBuildMenuActive);
+        }
     }
 }

@@ -26,7 +26,7 @@ public class UIButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         if (uITextBlinkEffect != null)
             uITextBlinkEffect.ToggleBlinkEffect(false);
-            
+
         scaleRoutine = StartCoroutine(uIAnim.ChangeScaleRoutine(myRect, showCaseScale, scaleUpDuration));
     }
 
@@ -37,7 +37,7 @@ public class UIButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         if (uITextBlinkEffect != null)
             uITextBlinkEffect.ToggleBlinkEffect(true);
-        
+
         scaleRoutine = StartCoroutine(uIAnim.ChangeScaleRoutine(myRect, 1, scaleUpDuration));
     }
 
