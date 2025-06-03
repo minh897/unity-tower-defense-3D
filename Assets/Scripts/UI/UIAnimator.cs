@@ -1,5 +1,7 @@
 using System.Collections;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIAnimator : MonoBehaviour
 {
@@ -13,6 +15,11 @@ public class UIAnimator : MonoBehaviour
     {
         RectTransform rectTransform = transform.GetComponent<RectTransform>();
         StartCoroutine(ChangeScaleRoutine(rectTransform, targetScale, duration));
+    }
+
+    public void ChangeColor(Image image, float targetAlpha, float duration)
+    {
+        StartCoroutine(ChangeColorRoutine(image, targetAlpha, duration));
     }
 
     private IEnumerator ChangePositionRoutine(RectTransform rectTransform, Vector3 offset, float duration)
@@ -46,5 +53,22 @@ public class UIAnimator : MonoBehaviour
         }
 
         rectTransform.localScale = targetScale;
+    }
+
+    private IEnumerator ChangeColorRoutine(Image image, float targetAlpha, float duration)
+    {
+        float time = 0;
+        Color currentcolor = image.color;
+        float startAlpha = currentcolor.a;
+
+        while (time < duration)
+        {
+            float alpha = Mathf.Lerp(startAlpha, targetAlpha, time / duration);
+            image.color = new(currentcolor.r, currentcolor.g, currentcolor.b, alpha);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        image.color = new(currentcolor.r, currentcolor.g, currentcolor.b, targetAlpha);
     }
 }
