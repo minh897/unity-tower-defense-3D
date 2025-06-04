@@ -9,6 +9,7 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private Coroutine currentMovementUpCo;
 
     private bool canMoveTile = true;
+    private bool isBuildSlotAvailable = true;
 
     void Awake()
     {
@@ -19,6 +20,9 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (isBuildSlotAvailable == false)
+            return;
+
         if (eventData.button != PointerEventData.InputButton.Left)
             return;
 
@@ -39,6 +43,9 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (isBuildSlotAvailable == false)
+            return;
+
         if (Input.GetKey(KeyCode.Mouse1) || Input.GetKey(KeyCode.Mouse2))
             return;
 
@@ -54,13 +61,9 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             return;
 
         if (currentMovementUpCo != null)
-        {
             Invoke(nameof(MoveTileDefault), tileAnimator.GetYTravelDuration());
-        }
         else
-        {
             MoveTileDefault();
-        }
 
         MoveTileDefault();
     }
@@ -81,4 +84,8 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         tileAnimator.MoveTile(transform, defaultPosition);
     }
+
+    public void SetSlotAvailable(bool enable) => isBuildSlotAvailable = enable;
+
+    public Vector3 GetBuildPosition(float yPosOffset) => defaultPosition + new Vector3(0, yPosOffset);
 }

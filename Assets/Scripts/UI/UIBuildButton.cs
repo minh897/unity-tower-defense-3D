@@ -1,36 +1,25 @@
 using UnityEngine;
 
-public class UIBuildButton : MonoBehaviour
+public class UiBuildButton : MonoBehaviour
 {
-    [SerializeField] private float yPosOffset;
-    [SerializeField] private float openAnimDuration = .1f;
+    [SerializeField] private GameObject towerToBuild;
+    [SerializeField] private float towerCenterY = .5f;
 
-    private bool isBuildMenuActive;
-    private UIAnimator uIAnimator;
-    private UIBuildButtonHoverEffect[] buildButtons;
+    private BuildManager buildManager;
 
     void Awake()
     {
-        uIAnimator = GetComponentInParent<UIAnimator>();
-        buildButtons = GetComponentsInChildren<UIBuildButtonHoverEffect>();
+        buildManager = FindFirstObjectByType<BuildManager>();
     }
 
-    public void ShowBuildButtons(bool enable)
+    public void BuildTower()
     {
-        isBuildMenuActive = enable;
+        if (towerToBuild == null)
+            Debug.LogWarning("Didn't tower assigned to this button");
 
-        float changeYOffset = isBuildMenuActive ? yPosOffset : -yPosOffset;
-        float methodDelay = isBuildMenuActive ? openAnimDuration : 0;
+        BuildSlot slotToUse = buildManager.GetSelectedBuildSlot();
+        buildManager.CancelBuildAction();
 
-        uIAnimator.ChangePosition(transform, new(0, changeYOffset), openAnimDuration);
-        Invoke(nameof(ToggleButtonMovement), methodDelay);
-    }
-
-    private void ToggleButtonMovement()
-    {
-        foreach (var button in buildButtons)
-        {
-            button.ToggleMovement(isBuildMenuActive);
-        }
+        GameObject newTower = Instantiate(towerToBuild, slotToUse.GetBuildPosition(towerCenterY), Quaternion.identity);
     }
 }
