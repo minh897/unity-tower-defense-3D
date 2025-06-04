@@ -19,6 +19,12 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         defaultPosition = transform.position;
     }
 
+    void Start()
+    {
+        if (isBuildSlotAvailable == false)
+            transform.position += new Vector3(0, .1f);
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if (isBuildSlotAvailable == false)
@@ -58,6 +64,9 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (isBuildSlotAvailable == false)
+            return;
+            
         if (canMoveTile == false)
             return;
 

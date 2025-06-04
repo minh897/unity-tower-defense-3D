@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildManager : MonoBehaviour
@@ -5,9 +6,13 @@ public class BuildManager : MonoBehaviour
     private UI ui;
     private BuildSlot selectedBuildSlot;
 
+    public WaveManager waveManager;
+    public GridBuilder currentGrid;
+
     void Awake()
     {
         ui = FindFirstObjectByType<UI>();
+        MakeSlotNotAvailableIfNeeded(waveManager, currentGrid);
     }
 
     void Update()
@@ -25,6 +30,34 @@ public class BuildManager : MonoBehaviour
 
                 if (isBuildSlotClicked)
                     CancelBuildAction();
+            }
+        }
+    }
+
+    public void MakeSlotNotAvailableIfNeeded(WaveManager waveManager, GridBuilder currentGrid)
+    {
+        foreach (var wave in waveManager.GetLevelWaves())
+        {
+            if (wave.nextGrid == null)
+                continue;
+            
+            List<GameObject> grid = currentGrid.GetTileSetup();
+            List<GameObject> nextWaveGrid = wave.nextGrid.GetTileSetup();
+
+            for (int i = 0; i < grid.Count; i++)
+            {
+                TileSlot currentTile = grid[i].GetComponent<TileSlot>();
+                TileSlot nextTile = nextWaveGrid[i].GetComponent<TileSlot>();
+
+                bool isTileNotTheSame = currentTile.GetMesh() != nextTile.GetMesh() ||
+                    currentTile.GetMaterial() != nextTile.GetMaterial() ||
+                    currentTile.GetAllChildren().Count != nextTile.GetAllChildren().Count;
+
+                if (isTileNotTheSame == false)
+                    continue;
+                
+                if (grid[i].TryGetComponent<BuildSlot>(out var buildSlot))
+                    buildSlot.SetSlotAvailable(false);
             }
         }
     }

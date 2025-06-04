@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-class WaveDetails
+public class WaveDetails
 {
     public int basicEnemyCount;
     public int fastEnemyCount;
-    public GridBuilder newGrid;
+    public GridBuilder nextGrid;
     public EnemyPortal[] newPortals;
 }
 
@@ -19,7 +19,7 @@ public class WaveManager : MonoBehaviour
     [Header("Wave Settings")]
     [SerializeField] private float timeBetweenWaves = 10f;
     [SerializeField] private GridBuilder currentGrid;
-    [SerializeField] private WaveDetails[] currentWave;
+    [SerializeField] private WaveDetails[] levelWaves;
 
     private bool waveCompleted;
     private int waveIndex;
@@ -71,9 +71,7 @@ public class WaveManager : MonoBehaviour
     private void HandleWaveCompletion()
     {
         if (IsCheckReady() == false)
-        {
             return;
-        }
 
         if (!waveCompleted && AreAllEnemiesDead())
         {
@@ -109,31 +107,23 @@ public class WaveManager : MonoBehaviour
             portalIndex++;
 
             if (portalIndex >= enemyPortals.Count)
-            {
                 portalIndex = 0;
-            }
         }
     }
 
     private List<GameObject> CreateEnemyWave()
     {
         // Check if there are still more waves available
-        if (waveIndex >= currentWave.Length)
-        {
+        if (waveIndex >= levelWaves.Length)
             return null;
-        }
 
         List<GameObject> enemyList = new();
 
-        for (int i = 0; i < currentWave[waveIndex].basicEnemyCount; i++)
-        {
+        for (int i = 0; i < levelWaves[waveIndex].basicEnemyCount; i++)
             enemyList.Add(basicEnemyPrefab);
-        }
 
-        for (int i = 0; i < currentWave[waveIndex].fastEnemyCount; i++)
-        {
+        for (int i = 0; i < levelWaves[waveIndex].fastEnemyCount; i++)
             enemyList.Add(fastEnemyPrefab);
-        }
 
         waveIndex++;
 
@@ -142,16 +132,16 @@ public class WaveManager : MonoBehaviour
 
     private void CheckForNewLayout()
     {
-        if (waveIndex >= currentWave.Length)
+        if (waveIndex >= levelWaves.Length)
         {
             return;
         }
 
-        WaveDetails nextWave = currentWave[waveIndex];
+        WaveDetails nextWave = levelWaves[waveIndex];
 
-        if (nextWave.newGrid != null)
+        if (nextWave.nextGrid != null)
         {
-            UpdateLevelTiles(nextWave.newGrid);
+            UpdateLevelTiles(nextWave.nextGrid);
             EnableNewPortals(nextWave.newPortals);
         }
 
@@ -170,7 +160,7 @@ public class WaveManager : MonoBehaviour
 
             bool shouldBeUpdated = currentTile.GetMesh() != newTile.GetMesh() ||
                 currentTile.GetMaterial() != newTile.GetMaterial() ||
-                currentTile.GetAllChildren() != newTile.GetAllChildren() ||
+                currentTile.GetAllChildren().Count != newTile.GetAllChildren().Count ||
                 currentTile.transform.rotation != newTile.transform.rotation;
 
             if (shouldBeUpdated)
@@ -217,4 +207,6 @@ public class WaveManager : MonoBehaviour
 
         return false;
     }
+
+    public WaveDetails[] GetLevelWaves() => levelWaves;
 }
