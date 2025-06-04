@@ -7,6 +7,7 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private BuildManager buildManager;
     private Vector3 defaultPosition;
     private Coroutine currentMovementUpCo;
+    private Coroutine moveToDefaultCo;
 
     private bool canMoveTile = true;
     private bool isBuildSlotAvailable = true;
@@ -82,7 +83,15 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void MoveTileDefault()
     {
-        tileAnimator.MoveTile(transform, defaultPosition);
+        moveToDefaultCo = StartCoroutine(tileAnimator.MoveTileRoutine(transform, defaultPosition));
+    }
+
+    public void SnapToDefaultPosition()
+    {
+        if (moveToDefaultCo != null)
+            StopCoroutine(moveToDefaultCo);
+
+        transform.position = defaultPosition;
     }
 
     public void SetSlotAvailable(bool enable) => isBuildSlotAvailable = enable;
