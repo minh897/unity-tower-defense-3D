@@ -7,13 +7,17 @@ public class UIBuildButtonsHolder : MonoBehaviour
 
     private bool isBuildMenuActive;
     private UIAnimator uIAnimator;
-    private UIBuildButtonHoverEffect[] buildButtons;
+    private UIBuildButtonHoverEffect[] buildButtonEffects;
+    private UiBuildButton[] buildButtons;
 
     void Awake()
     {
         uIAnimator = GetComponentInParent<UIAnimator>();
-        buildButtons = GetComponentsInChildren<UIBuildButtonHoverEffect>();
+        buildButtonEffects = GetComponentsInChildren<UIBuildButtonHoverEffect>();
+        buildButtons = GetComponentsInChildren<UiBuildButton>();
     }
+
+    public UiBuildButton[] GetUIBuildButtons() => buildButtons;
 
     public void ShowBuildButtons(bool enable)
     {
@@ -28,7 +32,7 @@ public class UIBuildButtonsHolder : MonoBehaviour
 
     private void ToggleButtonMovement()
     {
-        foreach (var button in buildButtons)
+        foreach (var button in buildButtonEffects)
         {
             button.ToggleMovement(isBuildMenuActive);
         }
