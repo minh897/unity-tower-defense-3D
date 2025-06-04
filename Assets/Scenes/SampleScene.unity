@@ -12640,7 +12640,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &270738778
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31818,7 +31818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showCaseScale: 1.1
   scaleUpDuration: 0.25
-  uITextBlinkEffect: {fileID: 0}
+  uITextBlinkEffect: {fileID: 1416221387}
 --- !u!114 &718673473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31875,9 +31875,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 270738779}
-        m_TargetAssemblyTypeName: UIPauseMenu, Assembly-CSharp
-        m_MethodName: SwitchPauseUIElements
+      - m_Target: {fileID: 2056761541}
+        m_TargetAssemblyTypeName: UI, Assembly-CSharp
+        m_MethodName: SwitchUIElemnt
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1786150015}
