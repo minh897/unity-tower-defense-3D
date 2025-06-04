@@ -8,27 +8,8 @@ public class TileSlot : MonoBehaviour
     private MeshRenderer tileMeshRenderer => GetComponent<MeshRenderer>();
     private MeshFilter tileMeshFilter => GetComponent<MeshFilter>();
     private Collider tileCollider => GetComponent<Collider>();
-    private NavMeshSurface tileNavMesh => GetComponentInParent<NavMeshSurface>();
-
-
-    public Material GetMaterial() => tileMeshRenderer.sharedMaterial;
-
-    public Mesh GetMesh() => tileMeshFilter.sharedMesh;
-
-    public Collider GetCollider() => tileCollider;
-
-
-    public void AdjustYRotation(int dir)
-    {
-        transform.Rotate(0, 90 * dir, 0);
-        UpdateNavMesh();
-    }
-
-    public void AdjustYPosition(int verticalDir)
-    {
-        transform.position += new Vector3(0, 0.1f * verticalDir, 0);
-        UpdateNavMesh();
-    }
+    private NavMeshSurface tileNavMesh => GetComponentInParent<NavMeshSurface>(true);
+    private TileSetHolder tileSetHolder => GetComponentInParent<TileSetHolder>(true);
 
     public void SwitchTile(GameObject referenceTile)
     {
@@ -43,6 +24,8 @@ public class TileSlot : MonoBehaviour
         UpdateChildrenObject(newTile);
         UpdateLayer(referenceTile);
         UpdateNavMesh();
+
+        CheckForBuildSlot(referenceTile);
     }
 
     public List<GameObject> GetAllChildren()
@@ -96,6 +79,40 @@ public class TileSlot : MonoBehaviour
             Instantiate(obj, transform);
         }
     }
+
+    private void CheckForBuildSlot(GameObject refTile)
+    {
+        BuildSlot buildSlot = GetComponent<BuildSlot>();
+
+        if (refTile != tileSetHolder.tileField)
+        {
+            if (buildSlot != null)
+                DestroyImmediate(buildSlot);
+        }
+        else
+        {
+            if (buildSlot == null)
+                gameObject.AddComponent<BuildSlot>();
+        }
+    }
+
+    public void AdjustYRotation(int dir)
+    {
+        transform.Rotate(0, 90 * dir, 0);
+        UpdateNavMesh();
+    }
+
+    public void AdjustYPosition(int verticalDir)
+    {
+        transform.position += new Vector3(0, 0.1f * verticalDir, 0);
+        UpdateNavMesh();
+    }
+
+    public Material GetMaterial() => tileMeshRenderer.sharedMaterial;
+
+    public Mesh GetMesh() => tileMeshFilter.sharedMesh;
+
+    public Collider GetCollider() => tileCollider;
 
     private void UpdateLayer(GameObject referenceObj) => gameObject.layer = referenceObj.layer;
 
