@@ -21,9 +21,19 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         if (eventData.button != PointerEventData.InputButton.Left)
             return;
-            
+
+        // Prevent running the same functions 
+        // from selecting the same tile over and over
+        if (buildManager.GetSelectedBuildSlot() == this)
+            return;
+
+        // EnableBuildMenu need to be above SelectBuildSlot 
+        // so the build menu can be enable correctly    
+        buildManager.EnableBuildMenu();
         buildManager.SelectBuildSlot(this);
+
         MoveTileUp();
+
         canMoveTile = false;
     }
 
