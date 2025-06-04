@@ -31,4 +31,16 @@ public class GameManager : MonoBehaviour
         currency += changeValue;
         uIInGame.UpdateCurrencyText(currency);
     }
+
+    public bool HasEnoughCurrency(int price)
+    {
+        if (price < currency)
+        {
+            currency -= price;
+            uIInGame.UpdateCurrencyText(currency);
+            return true;
+        }
+
+        return false;
+    }
 }

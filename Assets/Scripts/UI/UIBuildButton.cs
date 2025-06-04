@@ -2,25 +2,31 @@ using UnityEngine;
 
 public class UiBuildButton : MonoBehaviour
 {
-    [SerializeField] private GameObject towerToBuild;
+    [SerializeField] private int price = 50;
     [SerializeField] private float towerCenterY = .5f;
+    [SerializeField] private GameObject towerToBuild;
 
     private BuildManager buildManager;
     private CameraEffects cameraEffects;
+    private GameManager gameManager;
 
     void Awake()
     {
         buildManager = FindFirstObjectByType<BuildManager>();
         cameraEffects = FindFirstObjectByType<CameraEffects>();
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     public void BuildTower()
     {
-        if (towerToBuild == null)
-        {
-            Debug.LogWarning("Didn't tower assigned to this button");
+        if (gameManager.HasEnoughCurrency(price) == false)
             return;
-        }
+
+        if (towerToBuild == null)
+            {
+                Debug.LogWarning("Didn't tower assigned to this button");
+                return;
+            }
 
         BuildSlot slotToUse = buildManager.GetSelectedBuildSlot();
         buildManager.CancelBuildAction();
