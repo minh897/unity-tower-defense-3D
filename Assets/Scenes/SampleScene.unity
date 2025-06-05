@@ -990,6 +990,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b02b6a2977470323bafce9da918eae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeMagnitude: 0
+  shakeDuration: 0
+  shakeRotationMagnitude: 0
+  defaultUIScale: 1.5
+  scaleChangeAvailable: 0
 --- !u!1 &20827845
 GameObject:
   m_ObjectHideFlags: 0
@@ -3724,7 +3729,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 100
   currentHP: 0
-  currency: 500
+  currency: 1
 --- !u!4 &81195850
 Transform:
   m_ObjectHideFlags: 0
@@ -15198,6 +15203,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b02b6a2977470323bafce9da918eae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeMagnitude: 0
+  shakeDuration: 0
+  shakeRotationMagnitude: 0
+  defaultUIScale: 1.5
+  scaleChangeAvailable: 0
 --- !u!1 &333579908
 GameObject:
   m_ObjectHideFlags: 0
@@ -22435,6 +22445,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b02b6a2977470323bafce9da918eae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeMagnitude: 0
+  shakeDuration: 0
+  shakeRotationMagnitude: 0
+  defaultUIScale: 1.5
+  scaleChangeAvailable: 0
 --- !u!114 &457202809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32426,6 +32441,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b02b6a2977470323bafce9da918eae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeMagnitude: 0
+  shakeDuration: 0
+  shakeRotationMagnitude: 0
+  defaultUIScale: 1.5
+  scaleChangeAvailable: 0
 --- !u!114 &718673474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38396,6 +38416,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b02b6a2977470323bafce9da918eae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeMagnitude: 0
+  shakeDuration: 0
+  shakeRotationMagnitude: 0
+  defaultUIScale: 1.5
+  scaleChangeAvailable: 0
 --- !u!114 &863382604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43145,6 +43170,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b02b6a2977470323bafce9da918eae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeMagnitude: 0
+  shakeDuration: 0
+  shakeRotationMagnitude: 0
+  defaultUIScale: 1.5
+  scaleChangeAvailable: 0
 --- !u!1 &1004065621
 GameObject:
   m_ObjectHideFlags: 0
@@ -47386,6 +47416,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b02b6a2977470323bafce9da918eae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeMagnitude: 0
+  shakeDuration: 0
+  shakeRotationMagnitude: 0
+  defaultUIScale: 1.5
+  scaleChangeAvailable: 0
 --- !u!1 &1116515278
 GameObject:
   m_ObjectHideFlags: 0
@@ -47865,6 +47900,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b02b6a2977470323bafce9da918eae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeMagnitude: 0
+  shakeDuration: 0
+  shakeRotationMagnitude: 0
+  defaultUIScale: 1.5
+  scaleChangeAvailable: 0
 --- !u!1 &1131418962
 GameObject:
   m_ObjectHideFlags: 0
@@ -49781,6 +49821,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b02b6a2977470323bafce9da918eae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeMagnitude: 0
+  shakeDuration: 0
+  shakeRotationMagnitude: 0
+  defaultUIScale: 1.5
+  scaleChangeAvailable: 0
 --- !u!114 &1155515271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56235,6 +56280,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b02b6a2977470323bafce9da918eae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeMagnitude: 0
+  shakeDuration: 0
+  shakeRotationMagnitude: 0
+  defaultUIScale: 1.5
+  scaleChangeAvailable: 0
 --- !u!1 &1342496294
 GameObject:
   m_ObjectHideFlags: 0
@@ -57143,6 +57193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b02b6a2977470323bafce9da918eae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeMagnitude: 0
+  shakeDuration: 0
+  shakeRotationMagnitude: 0
+  defaultUIScale: 1.5
+  scaleChangeAvailable: 0
 --- !u!1 &1376362305
 GameObject:
   m_ObjectHideFlags: 0
@@ -69417,6 +69472,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b02b6a2977470323bafce9da918eae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeMagnitude: 0
+  shakeDuration: 0
+  shakeRotationMagnitude: 0
+  defaultUIScale: 1.5
+  scaleChangeAvailable: 0
 --- !u!1 &1649120493
 GameObject:
   m_ObjectHideFlags: 0
@@ -85720,6 +85780,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b02b6a2977470323bafce9da918eae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeMagnitude: 5
+  shakeDuration: 0.5
+  shakeRotationMagnitude: 3
+  defaultUIScale: 0
+  scaleChangeAvailable: 0
 --- !u!1 &2057115595
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,9 +9,9 @@ public class UI : MonoBehaviour
 
     private UISetting uISetting;
     private UIMainMenu uIMainMenu;
-    private UIInGame uIInGame;
-    private UIAnimator uIAnimator;
 
+    public UIInGame uIInGame { get; private set; }
+    public UIAnimator uIAnimator { get; private set; }
     public UIBuildButtonsHolder uiBuildButton { get; private set; }
 
     void Awake()

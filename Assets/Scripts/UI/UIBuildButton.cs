@@ -15,12 +15,14 @@ public class UiBuildButton : MonoBehaviour
     private BuildManager buildManager;
     private CameraEffects cameraEffects;
     private GameManager gameManager;
+    private UI ui;
 
     void Awake()
     {
         buildManager = FindFirstObjectByType<BuildManager>();
         cameraEffects = FindFirstObjectByType<CameraEffects>();
         gameManager = FindFirstObjectByType<GameManager>();
+        ui = GetComponentInParent<UI>();
     }
 
     void OnValidate()
@@ -41,7 +43,10 @@ public class UiBuildButton : MonoBehaviour
     public void BuildTower()
     {
         if (gameManager.HasEnoughCurrency(towerPrice) == false)
+        {
+            ui.uIInGame.ShakeCurrencyUI();
             return;
+        }
 
         if (towerToBuild == null)
         {

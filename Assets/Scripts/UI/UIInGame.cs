@@ -32,10 +32,6 @@ public class UIInGame : MonoBehaviour
         healthPointsText.text = "Threat : " + newValue + "/" + maxValue;
     }
 
-    public void UpdateCurrencyText(int changeValue) => currencyText.text = "Currency : " + changeValue;
-
-    public void UpdateWaveTimerText(float changeValue) => waveTimerText.text = "Next Wave : " + changeValue.ToString("00") + " secs";
-
     public void ToggleWaveTimer(bool enable)
     {
         Transform waveTimerTransform = waveTimerText.transform.parent;
@@ -51,4 +47,13 @@ public class UIInGame : MonoBehaviour
         WaveManager waveManager = FindFirstObjectByType<WaveManager>();
         waveManager.ForceNextWave();
     }
+
+    public void UpdateCurrencyText(int changeValue) => currencyText.text = "Currency : " + changeValue;
+
+    public void UpdateWaveTimerText(float changeValue) => waveTimerText.text = "Next Wave : " + changeValue.ToString("00") + " secs";
+
+    public void ShakeCurrencyUI() => ui.uIAnimator.Shake(currencyText.transform.parent);
+
+    public void ShakeHealthUI() => ui.uIAnimator.Shake(healthPointsText.transform.parent);
+
 }

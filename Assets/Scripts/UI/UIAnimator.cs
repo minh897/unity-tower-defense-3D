@@ -1,10 +1,18 @@
 using System.Collections;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIAnimator : MonoBehaviour
 {
+    [Header("UI Feedbacl - Shake Effect")]
+    [SerializeField] private float shakeMagnitude;
+    [SerializeField] private float shakeDuration;
+    [SerializeField] private float shakeRotationMagnitude;
+    [Space]
+    [SerializeField] private float defaultUIScale = 1.5f;
+    [SerializeField] private bool scaleChangeAvailable;
+    
+
     public void ChangePosition(Transform transform, Vector3 offset, float duration = .1f)
     {
         RectTransform rectTransform = transform.GetComponent<RectTransform>();
@@ -20,6 +28,12 @@ public class UIAnimator : MonoBehaviour
     public void ChangeColor(Image image, float targetAlpha, float duration)
     {
         StartCoroutine(ChangeColorRoutine(image, targetAlpha, duration));
+    }
+
+    public void Shake(Transform transformToShake)
+    {
+        RectTransform rectTransform = transformToShake.GetComponent<RectTransform>();
+        StartCoroutine(ShakeRoutine(rectTransform));
     }
 
     private IEnumerator ChangePositionRoutine(RectTransform rectTransform, Vector3 offset, float duration)
@@ -70,5 +84,36 @@ public class UIAnimator : MonoBehaviour
         }
 
         image.color = new(currentcolor.r, currentcolor.g, currentcolor.b, targetAlpha);
+    }
+
+    private IEnumerator ShakeRoutine(RectTransform rectTransform)
+    {
+        float time = 0;
+        Vector3 originalPosition = rectTransform.anchoredPosition;
+
+        float currentScale = rectTransform.localScale.x;
+
+        if (scaleChangeAvailable)
+            StartCoroutine(ChangeScaleRoutine(rectTransform, currentScale * 1.1f, shakeDuration / 2));
+
+        while (time < shakeDuration)
+        {
+            float xOffset = Random.Range(-shakeMagnitude, shakeMagnitude);
+            float yOffset = Random.Range(-shakeMagnitude, shakeMagnitude);
+            float randomRotation = Random.Range(-shakeRotationMagnitude, shakeRotationMagnitude);
+
+            rectTransform.anchoredPosition = originalPosition + new Vector3(xOffset, yOffset);
+            rectTransform.localRotation = Quaternion.Euler(0, 0, randomRotation);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        rectTransform.anchoredPosition = originalPosition;
+        rectTransform.localRotation = Quaternion.Euler(Vector3.zero);
+        
+
+        if (scaleChangeAvailable)
+            StartCoroutine(ChangeScaleRoutine(rectTransform, defaultUIScale, shakeDuration / 2));
     }
 }
