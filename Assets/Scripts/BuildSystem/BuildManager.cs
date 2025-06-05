@@ -9,6 +9,10 @@ public class BuildManager : MonoBehaviour
     public WaveManager waveManager;
     public GridBuilder currentGrid;
 
+    [Header("Build Material")]
+    [SerializeField] private Material attackRangeMat;
+    [SerializeField] private Material buildPreviewMat;
+
     void Awake()
     {
         ui = FindFirstObjectByType<UI>();
@@ -40,7 +44,7 @@ public class BuildManager : MonoBehaviour
         {
             if (wave.nextGrid == null)
                 continue;
-            
+
             List<GameObject> grid = currentGrid.GetTileSetup();
             List<GameObject> nextWaveGrid = wave.nextGrid.GetTileSetup();
 
@@ -55,7 +59,7 @@ public class BuildManager : MonoBehaviour
 
                 if (isTileNotTheSame == false)
                     continue;
-                
+
                 if (grid[i].TryGetComponent<BuildSlot>(out var buildSlot))
                     buildSlot.SetSlotAvailable(false);
             }
@@ -66,7 +70,7 @@ public class BuildManager : MonoBehaviour
     {
         if (selectedBuildSlot == null)
             return;
-        
+
         selectedBuildSlot.UnSelectTile();
         selectedBuildSlot = null;
         DisableBuildMenu();
@@ -94,4 +98,8 @@ public class BuildManager : MonoBehaviour
     }
 
     public BuildSlot GetSelectedBuildSlot() => selectedBuildSlot;
+
+    public Material GetAttackRangeMaterial() => attackRangeMat;
+
+    public Material GetBuildPreviewMaterial() => buildPreviewMat;
 }

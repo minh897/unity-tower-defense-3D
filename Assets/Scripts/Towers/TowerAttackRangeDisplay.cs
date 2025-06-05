@@ -4,6 +4,7 @@ using UnityEngine;
 public class TowerAttackRangeDisplay : MonoBehaviour
 {
     [SerializeField] private float range;
+    [SerializeField] private float lineWidth = .1f;
     private int segments = 50; // Amount of dots used to create a circle
 
     private LineRenderer lineRenderer;
@@ -14,23 +15,31 @@ public class TowerAttackRangeDisplay : MonoBehaviour
         lineRenderer.positionCount = segments + 1; // Add extra point to close the circle
         lineRenderer.useWorldSpace = true;
         lineRenderer.enabled = false;
+        lineRenderer.startWidth = lineWidth;
+        lineRenderer.endWidth = lineWidth;
+        lineRenderer.material = FindFirstObjectByType<BuildManager>().GetAttackRangeMaterial();
     }
 
-    public void ShowAttackRange(bool isRangeShow, float newRange, Vector3 newCenter)
-    {
-        lineRenderer.enabled = isRangeShow;
+    // public void ShowAttackRange(bool isRangeShow, float newRange, Vector3 newCenter)
+    // {
+    //     lineRenderer.enabled = isRangeShow;
 
-        if (isRangeShow == false)
+    //     if (isRangeShow == false)
+    //         return;
+
+    //     transform.position = newCenter;
+    //     range = newRange;
+
+    //     CreateCircle();
+    // }
+
+    public void CreateCircle(bool isCircleShow, float range = 0)
+    {
+        lineRenderer.enabled = isCircleShow;
+
+        if (isCircleShow == false)
             return;
 
-        transform.position = newCenter;
-        range = newRange;
-
-        CreateCircle();
-    }
-
-    private void CreateCircle()
-    {
         float angle = 0;
         Vector3 center = transform.position;
 

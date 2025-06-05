@@ -44,12 +44,12 @@ public class UiBuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerEnter(PointerEventData eventData)
     {
         BuildSlot slotToUse = buildManager.GetSelectedBuildSlot();
-        towerAttackRangeDisplay.ShowAttackRange(true, towerAttackRange, slotToUse.GetBuildPosition(.5f));
+        // towerAttackRangeDisplay.ShowAttackRange(true, towerAttackRange, slotToUse.GetBuildPosition(.5f));
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        towerAttackRangeDisplay.ShowAttackRange(false, towerAttackRange, Vector3.zero);
+        // towerAttackRangeDisplay.ShowAttackRange(false, towerAttackRange, Vector3.zero);
     }
 
     public void UnlockTower(string towerNameToCheck, bool unlockStatus)
