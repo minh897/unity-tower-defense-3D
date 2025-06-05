@@ -3,18 +3,16 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    public Enemy currentEnemy;
+
     [Header("Tower Setup")]
     [SerializeField] protected float rotationSpeed = 10f;
     [SerializeField] protected float attackRange = 2.5f;
     [SerializeField] protected float attackCoolDown = 1f;
-
     [Space]
-
     [SerializeField] protected Transform towerHead;
     [SerializeField] protected LayerMask enemyLayer;
     [SerializeField] protected EnemyType enemyPriorityType;
-
-    public Enemy currentEnemy;
 
     protected int maxEnemyOverlap = 10;
     protected float lastTimeAttacked;
@@ -63,9 +61,7 @@ public class Tower : MonoBehaviour
     protected bool CanAttack()
     {
         if (currentEnemy == null)
-        {
             return false;
-        }
 
         if (Time.time > lastTimeAttacked + attackCoolDown)
         {
@@ -85,16 +81,12 @@ public class Tower : MonoBehaviour
         }
 
         if (CanAttack())
-        {
             Attack();
-        }
 
         // Clear the current enemy if they're out of range
         if (IsEnemyOutOfRange(currentEnemy.transform))
-        {
             currentEnemy = null;
             return;
-        }
     }
 
     protected virtual void RotateTowardsEnemy()
@@ -173,4 +165,6 @@ public class Tower : MonoBehaviour
 
         return closestEnemy;
     }
+
+    public float GetAttackRange() => attackRange;
 }

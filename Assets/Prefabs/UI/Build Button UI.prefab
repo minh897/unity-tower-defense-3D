@@ -731,6 +731,7 @@ MonoBehaviour:
   towerToBuild: {fileID: 0}
   towerNameText: {fileID: 4274520288164181113}
   towerPriceText: {fileID: 418099162755804676}
+  towerAttackRange: 3
 --- !u!1 &7700189369426979480
 GameObject:
   m_ObjectHideFlags: 0
