@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UIBuildButton : MonoBehaviour, IPointerEnterHandler
+public class UIBuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private string towerName;
     [SerializeField] private int towerPrice = 50;
@@ -49,14 +49,22 @@ public class UIBuildButton : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        buildManager.OnMouseOverUI(true);
+
         // Turn off the preview visual for other button in UIBuildButtonHolder
         foreach (var button in buildButtonHolder.GetBuildButtons())
         {
-            button.TogglePreviewVisual(false);
+            if (button.gameObject.activeSelf)
+                button.TogglePreviewVisual(false);
         }
 
         // Toggle the visual for the selected button
         TogglePreviewVisual(true);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        buildManager.OnMouseOverUI(false);
     }
 
     // Toggle tower visual preview during tower placement
@@ -131,4 +139,5 @@ public class UIBuildButton : MonoBehaviour, IPointerEnterHandler
         towerPriceText.text = towerPrice + "";
         gameObject.name = "Build Button - " + towerName;
     }
+
 }

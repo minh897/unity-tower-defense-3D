@@ -28,14 +28,17 @@ public class UIBuildButtonsHolder : MonoBehaviour
 
     private void CheckBuildButtonHotkey()
     {
+        if (isBuildMenuActive == false)
+            return;
+
         for (int i = 0; i < unlockedButtons.Count; i++)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1 + i))
             {
-                SelectNewButton(i);
-                break;
+                if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+                {
+                    SelectNewButton(i);
+                    break;
+                }
             }
-        }
 
         if (Input.GetKeyDown(KeyCode.Space) && lastSelectedButton != null)
             lastSelectedButton.BuildTower();

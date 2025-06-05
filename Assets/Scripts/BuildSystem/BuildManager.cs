@@ -13,6 +13,8 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private Material attackRangeMat;
     [SerializeField] private Material buildPreviewMat;
 
+    private bool isMouseOverUI;
+
     void Awake()
     {
         ui = FindFirstObjectByType<UI>();
@@ -26,6 +28,9 @@ public class BuildManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+            if (isMouseOverUI)
+                return;
+
             // Collect hit collider info by using Raycast from the camera to the clicked mouse position
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             {
@@ -70,14 +75,9 @@ public class BuildManager : MonoBehaviour
     {
         if (selectedBuildSlot == null)
             return;
+            
+        ui.uiBuildButton.GetLastSelectedButton()?.TogglePreviewVisual(false);
 
-        UIBuildButton lastBuildButton = ui.uiBuildButton.GetLastSelectedButton();
-
-        if (lastBuildButton == null)
-            return;
-
-        lastBuildButton.TogglePreviewVisual(false);
-        
         selectedBuildSlot.UnSelectTile();
         selectedBuildSlot = null;
         DisableBuildMenu();
@@ -103,6 +103,8 @@ public class BuildManager : MonoBehaviour
     {
         ui.uiBuildButton.ShowBuildButtons(false);
     }
+
+    public void OnMouseOverUI(bool isOverUI) => isMouseOverUI = isOverUI;
 
     public BuildSlot GetSelectedBuildSlot() => selectedBuildSlot;
 
