@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UiBuildButton : MonoBehaviour, IPointerEnterHandler
+public class UIBuildButton : MonoBehaviour, IPointerEnterHandler
 {
     [SerializeField] private string towerName;
     [SerializeField] private int towerPrice = 50;
@@ -20,7 +20,6 @@ public class UiBuildButton : MonoBehaviour, IPointerEnterHandler
     private BuildManager buildManager;
     private CameraEffects cameraEffects;
     private GameManager gameManager;
-    private TowerAttackRangeDisplay towerAttackRangeDisplay;
     private UIBuildButtonsHolder buildButtonHolder;
     private UIBuildButtonHoverEffect onHoverEffect;
 
@@ -38,7 +37,6 @@ public class UiBuildButton : MonoBehaviour, IPointerEnterHandler
         buildManager = FindFirstObjectByType<BuildManager>();
         cameraEffects = FindFirstObjectByType<CameraEffects>();
         gameManager = FindFirstObjectByType<GameManager>();
-        towerAttackRangeDisplay = FindFirstObjectByType<TowerAttackRangeDisplay>(FindObjectsInactive.Include);
 
         if (towerToBuild != null)
             towerAttackRange = towerToBuild.GetComponent<Tower>().GetAttackRange();
@@ -110,11 +108,17 @@ public class UiBuildButton : MonoBehaviour, IPointerEnterHandler
             return;
         }
 
+        // Check if we have the current selected button
+        if (ui.uiBuildButton.GetLastSelectedButton() == null)
+            return;
+
         BuildSlot slotToUse = buildManager.GetSelectedBuildSlot();
         buildManager.CancelBuildAction();
 
         slotToUse.SnapToDefaultPosition();
         slotToUse.SetSlotAvailable(false);
+
+        ui.uiBuildButton.SetLastSelected(null);
 
         cameraEffects.ShakeScreen(.15f, .02f);
 

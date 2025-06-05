@@ -9,23 +9,57 @@ public class UIBuildButtonsHolder : MonoBehaviour
     private bool isBuildMenuActive;
     private UIAnimator uIAnimator;
     private UIBuildButtonHoverEffect[] buildButtonEffects;
-    private UiBuildButton[] buildButtons;
+    private UIBuildButton[] buildButtons;
 
-    private List<UiBuildButton> unlockedButtons;
-    private UiBuildButton lastSelectedButton;
+    private List<UIBuildButton> unlockedButtons;
+    private UIBuildButton lastSelectedButton;
 
     void Awake()
     {
         uIAnimator = GetComponentInParent<UIAnimator>();
         buildButtonEffects = GetComponentsInChildren<UIBuildButtonHoverEffect>();
-        buildButtons = GetComponentsInChildren<UiBuildButton>();
+        buildButtons = GetComponentsInChildren<UIBuildButton>();
+    }
+
+    void Update()
+    {
+        CheckBuildButtonHotkey();
+    }
+
+    private void CheckBuildButtonHotkey()
+    {
+        for (int i = 0; i < unlockedButtons.Count; i++)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+            {
+                SelectNewButton(i);
+                break;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && lastSelectedButton != null)
+            lastSelectedButton.BuildTower();
+    }
+
+    public void SelectNewButton(int buttonIndex)
+    {
+        if (buttonIndex >= unlockedButtons.Count)
+            return;
+
+        foreach (var button in unlockedButtons)
+        {
+            button.TogglePreviewVisual(false);
+        }
+
+        UIBuildButton selectedButton = unlockedButtons[buttonIndex];
+        selectedButton.TogglePreviewVisual(true);
     }
 
     public void UpdateUnlockedButton()
     {
-        unlockedButtons = new();
+        unlockedButtons = new List<UIBuildButton>();
 
-        foreach (var button in unlockedButtons)
+        foreach (var button in buildButtons)
         {
             if (button.isUnlocked)
                 unlockedButtons.Add(button);
@@ -51,11 +85,11 @@ public class UIBuildButtonsHolder : MonoBehaviour
         }
     }
 
-    public void SetLastSelected(UiBuildButton newLastSelected) => lastSelectedButton = newLastSelected;
+    public void SetLastSelected(UIBuildButton newLastSelected) => lastSelectedButton = newLastSelected;
 
-    public UiBuildButton[] GetBuildButtons() => buildButtons;
+    public UIBuildButton[] GetBuildButtons() => buildButtons;
 
-    public List<UiBuildButton> GetUnlockedButtons() => unlockedButtons;
+    public List<UIBuildButton> GetUnlockedButtons() => unlockedButtons;
 
-    public UiBuildButton GetLastSelectedButton() => lastSelectedButton;
+    public UIBuildButton GetLastSelectedButton() => lastSelectedButton;
 }

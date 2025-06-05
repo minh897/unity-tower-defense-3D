@@ -3729,7 +3729,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 100
   currentHP: 0
-  currency: 1
+  currency: 500
 --- !u!4 &81195850
 Transform:
   m_ObjectHideFlags: 0
@@ -7478,12 +7478,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 624219582026262509, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
       propertyPath: showcaseY
-      value: 150
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 1900067076160819096, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
       propertyPath: towerName
       value: Minigun
       objectReference: {fileID: 0}
+    - target: {fileID: 1900067076160819096, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
+      propertyPath: towerToBuild
+      value: 
+      objectReference: {fileID: 2407414552725649156, guid: e149470a94d39126bb438deb8e1ec48d, type: 3}
     - target: {fileID: 1900067076160819096, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
       propertyPath: towerAttackRange
       value: 7
@@ -27217,7 +27221,7 @@ GameObject:
   - component: {fileID: 573328672}
   - component: {fileID: 573328671}
   m_Layer: 5
-  m_Name: Build Buttons UI
+  m_Name: Build Button Holder UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30493,12 +30497,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 624219582026262509, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
       propertyPath: showcaseY
-      value: 150
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 1900067076160819096, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
       propertyPath: towerName
       value: Cannon
       objectReference: {fileID: 0}
+    - target: {fileID: 1900067076160819096, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
+      propertyPath: towerToBuild
+      value: 
+      objectReference: {fileID: 2407414552725649156, guid: bc5d3a8a0e30d3995a9e27a1ef8b9baa, type: 3}
     - target: {fileID: 1900067076160819096, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
       propertyPath: towerAttackRange
       value: 5
@@ -77657,7 +77665,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 624219582026262509, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
       propertyPath: showcaseY
-      value: 150
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 1900067076160819096, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
       propertyPath: towerName
@@ -78590,7 +78598,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 624219582026262509, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
       propertyPath: showcaseY
-      value: 150
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 1900067076160819096, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
       propertyPath: towerName
@@ -78730,7 +78738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 624219582026262509, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
       propertyPath: showcaseY
-      value: 150
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 1900067076160819096, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
       propertyPath: towerName
@@ -83946,7 +83954,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 624219582026262509, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
       propertyPath: showcaseY
-      value: 150
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 1900067076160819096, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
       propertyPath: towerName
@@ -88803,7 +88811,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 624219582026262509, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
       propertyPath: showcaseY
-      value: 150
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 1900067076160819096, guid: 331b3a860af50d9e68eda563c2a2b990, type: 3}
       propertyPath: towerName

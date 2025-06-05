@@ -713,7 +713,6 @@ MonoBehaviour:
   adjustSpeed: 10
   showcaseY: 160
   defaultY: 125
-  selectY: 0
 --- !u!114 &1900067076160819096
 MonoBehaviour:
   m_ObjectHideFlags: 0
