@@ -573,7 +573,7 @@ GameObject:
   - component: {fileID: 624219582026262509}
   - component: {fileID: 1900067076160819096}
   m_Layer: 5
-  m_Name: 'Build Button - '
+  m_Name: Build Button UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -728,7 +728,7 @@ MonoBehaviour:
   towerName: 
   towerPrice: 50
   towerCenterY: 0.5
-  towerToBuild: {fileID: 0}
+  towerToBuild: {fileID: 2407414552725649156, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
   towerNameText: {fileID: 4274520288164181113}
   towerPriceText: {fileID: 418099162755804676}
   towerAttackRange: 3

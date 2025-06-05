@@ -16,11 +16,13 @@ public class LevelManager : MonoBehaviour
 
         foreach (var unlockData in towerUnlocks)
         {
-            foreach (var buildButton in ui.uiBuildButton.GetUIBuildButtons())
+            foreach (var buildButton in ui.uiBuildButton.GetBuildButtons())
             {
                 buildButton.UnlockTower(unlockData.towerName, unlockData.isUnlocked);
             }
         }
+
+        ui.uiBuildButton.UpdateUnlockedButton();
     }
 
     [ContextMenu("InitializeTowerData")]

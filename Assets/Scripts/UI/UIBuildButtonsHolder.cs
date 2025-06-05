@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UIBuildButtonsHolder : MonoBehaviour
@@ -10,6 +11,8 @@ public class UIBuildButtonsHolder : MonoBehaviour
     private UIBuildButtonHoverEffect[] buildButtonEffects;
     private UiBuildButton[] buildButtons;
 
+    private List<UiBuildButton> unlockedButtons;
+
     void Awake()
     {
         uIAnimator = GetComponentInParent<UIAnimator>();
@@ -17,7 +20,16 @@ public class UIBuildButtonsHolder : MonoBehaviour
         buildButtons = GetComponentsInChildren<UiBuildButton>();
     }
 
-    public UiBuildButton[] GetUIBuildButtons() => buildButtons;
+    public void UpdateUnlockedButton()
+    {
+        unlockedButtons = new();
+
+        foreach (var button in unlockedButtons)
+        {
+            if (button.isUnlocked)
+                unlockedButtons.Add(button);
+        }
+    }
 
     public void ShowBuildButtons(bool enable)
     {
@@ -37,4 +49,8 @@ public class UIBuildButtonsHolder : MonoBehaviour
             button.ToggleMovement(isBuildMenuActive);
         }
     }
+
+    public UiBuildButton[] GetBuildButtons() => buildButtons;
+
+    public List<UiBuildButton> GetUnlockedButtons() => unlockedButtons;
 }

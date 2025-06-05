@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UiBuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class UiBuildButton : MonoBehaviour, IPointerEnterHandler
 {
     [SerializeField] private string towerName;
     [SerializeField] private int towerPrice = 50;
@@ -21,10 +21,20 @@ public class UiBuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private CameraEffects cameraEffects;
     private GameManager gameManager;
     private TowerAttackRangeDisplay towerAttackRangeDisplay;
+    private UIBuildButtonsHolder buildButtonHolder;
+    private UIBuildButtonHoverEffect onHoverEffect;
+
+    private TowerPreview towerPreview;
+    
+    public bool isUnlocked { get; private set; }
 
     void Awake()
     {
+        onHoverEffect = GetComponent<UIBuildButtonHoverEffect>();
+
         ui = GetComponentInParent<UI>();
+        buildButtonHolder = GetComponentInParent<UIBuildButtonsHolder>();
+
         buildManager = FindFirstObjectByType<BuildManager>();
         cameraEffects = FindFirstObjectByType<CameraEffects>();
         gameManager = FindFirstObjectByType<GameManager>();
@@ -34,22 +44,53 @@ public class UiBuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             towerAttackRange = towerToBuild.GetComponent<Tower>().GetAttackRange();
     }
 
-    void OnValidate()
+    void Start()
     {
-        towerNameText.text = towerName;
-        towerPriceText.text = towerPrice + "";
-        gameObject.name = "Build Button - " + towerName;    
+        CreateTowerPreview();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        BuildSlot slotToUse = buildManager.GetSelectedBuildSlot();
-        // towerAttackRangeDisplay.ShowAttackRange(true, towerAttackRange, slotToUse.GetBuildPosition(.5f));
+        // Turn off the preview visual for other button in UIBuildButtonHolder
+        foreach (var button in buildButtonHolder.GetBuildButtons())
+        {
+            button.TogglePreviewVisual(false);
+        }
+
+        // Toggle the visual for the selected button
+        TogglePreviewVisual(true);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    private void OnValidate()
     {
-        // towerAttackRangeDisplay.ShowAttackRange(false, towerAttackRange, Vector3.zero);
+        towerNameText.text = towerName;
+        towerPriceText.text = towerPrice + "";
+        gameObject.name = "Build Button - " + towerName;
+    }
+
+    // Toggle tower visual preview during tower placement
+    public void TogglePreviewVisual(bool isSelect)
+    {
+        BuildSlot buildSlot = buildManager.GetSelectedBuildSlot();
+
+        if (buildSlot == null)
+            return;
+
+        Vector3 previewPosition = buildSlot.GetBuildPosition(1);
+
+        towerPreview.gameObject.SetActive(isSelect);
+        towerPreview.ShowPreview(isSelect, previewPosition);
+        onHoverEffect.ShowButton(isSelect);
+    }
+
+    // Create a preview game object version of a tower
+    private void CreateTowerPreview()
+    {
+        GameObject newPreview = Instantiate(towerToBuild, Vector3.zero, Quaternion.identity);
+
+        // Add TowerPreview component to newPreview and store TowerPreview in towerPreview for future use
+        towerPreview = newPreview.AddComponent<TowerPreview>();
+        towerPreview.gameObject.SetActive(false);
     }
 
     public void UnlockTower(string towerNameToCheck, bool unlockStatus)
@@ -57,6 +98,7 @@ public class UiBuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (towerNameToCheck != towerName)
             return;
 
+        isUnlocked = unlockStatus;
         gameObject.SetActive(unlockStatus);
     }
 
@@ -84,5 +126,4 @@ public class UiBuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         GameObject newTower = Instantiate(towerToBuild, slotToUse.GetBuildPosition(towerCenterY), Quaternion.identity);
     }
-
 }
