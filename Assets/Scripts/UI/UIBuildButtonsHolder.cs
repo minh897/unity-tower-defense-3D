@@ -12,6 +12,7 @@ public class UIBuildButtonsHolder : MonoBehaviour
     private UiBuildButton[] buildButtons;
 
     private List<UiBuildButton> unlockedButtons;
+    private UiBuildButton lastSelectedButton;
 
     void Awake()
     {
@@ -50,7 +51,11 @@ public class UIBuildButtonsHolder : MonoBehaviour
         }
     }
 
+    public void SetLastSelected(UiBuildButton newLastSelected) => lastSelectedButton = newLastSelected;
+
     public UiBuildButton[] GetBuildButtons() => buildButtons;
 
     public List<UiBuildButton> GetUnlockedButtons() => unlockedButtons;
+
+    public UiBuildButton GetLastSelectedButton() => lastSelectedButton;
 }

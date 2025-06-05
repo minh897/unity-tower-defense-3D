@@ -25,7 +25,7 @@ public class UiBuildButton : MonoBehaviour, IPointerEnterHandler
     private UIBuildButtonHoverEffect onHoverEffect;
 
     private TowerPreview towerPreview;
-    
+
     public bool isUnlocked { get; private set; }
 
     void Awake()
@@ -61,13 +61,6 @@ public class UiBuildButton : MonoBehaviour, IPointerEnterHandler
         TogglePreviewVisual(true);
     }
 
-    private void OnValidate()
-    {
-        towerNameText.text = towerName;
-        towerPriceText.text = towerPrice + "";
-        gameObject.name = "Build Button - " + towerName;
-    }
-
     // Toggle tower visual preview during tower placement
     public void TogglePreviewVisual(bool isSelect)
     {
@@ -81,6 +74,7 @@ public class UiBuildButton : MonoBehaviour, IPointerEnterHandler
         towerPreview.gameObject.SetActive(isSelect);
         towerPreview.ShowPreview(isSelect, previewPosition);
         onHoverEffect.ShowButton(isSelect);
+        buildButtonHolder.SetLastSelected(this);
     }
 
     // Create a preview game object version of a tower
@@ -125,5 +119,12 @@ public class UiBuildButton : MonoBehaviour, IPointerEnterHandler
         cameraEffects.ShakeScreen(.15f, .02f);
 
         GameObject newTower = Instantiate(towerToBuild, slotToUse.GetBuildPosition(towerCenterY), Quaternion.identity);
+    }
+
+    private void OnValidate()
+    {
+        towerNameText.text = towerName;
+        towerPriceText.text = towerPrice + "";
+        gameObject.name = "Build Button - " + towerName;
     }
 }

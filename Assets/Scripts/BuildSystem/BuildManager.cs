@@ -71,6 +71,8 @@ public class BuildManager : MonoBehaviour
         if (selectedBuildSlot == null)
             return;
 
+        ui.uiBuildButton.GetLastSelectedButton().TogglePreviewVisual(false);
+        
         selectedBuildSlot.UnSelectTile();
         selectedBuildSlot = null;
         DisableBuildMenu();

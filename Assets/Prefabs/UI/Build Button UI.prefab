@@ -573,7 +573,7 @@ GameObject:
   - component: {fileID: 624219582026262509}
   - component: {fileID: 1900067076160819096}
   m_Layer: 5
-  m_Name: Build Button UI
+  m_Name: 'Build Button - '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -713,6 +713,7 @@ MonoBehaviour:
   adjustSpeed: 10
   showcaseY: 160
   defaultY: 125
+  selectY: 0
 --- !u!114 &1900067076160819096
 MonoBehaviour:
   m_ObjectHideFlags: 0

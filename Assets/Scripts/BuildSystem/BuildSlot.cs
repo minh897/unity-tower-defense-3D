@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 
 public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
+    private UI ui;
     private TileAnimator tileAnimator;
     private BuildManager buildManager;
     private Vector3 defaultPosition;
@@ -14,6 +15,7 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     void Awake()
     {
+        ui = FindFirstObjectByType<UI>();
         tileAnimator = FindFirstObjectByType<TileAnimator>();
         buildManager = FindFirstObjectByType<BuildManager>();
         defaultPosition = transform.position;
@@ -46,6 +48,8 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         MoveTileUp();
 
         canMoveTile = false;
+
+        ui.uiBuildButton.GetLastSelectedButton()?.TogglePreviewVisual(true);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
