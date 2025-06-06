@@ -32,7 +32,7 @@ public class UIInGame : MonoBehaviour
         healthPointsText.text = "Threat : " + newValue + "/" + maxValue;
     }
 
-    public void ToggleWaveTimer(bool enable)
+    public void ToggleWaveTimerUI(bool enable)
     {
         Transform waveTimerTransform = waveTimerText.transform.parent;
         float yOffset = enable ? -waveTimerOffset : waveTimerOffset;
@@ -45,7 +45,7 @@ public class UIInGame : MonoBehaviour
     public void ActivateNextWave()
     {
         WaveManager waveManager = FindFirstObjectByType<WaveManager>();
-        waveManager.ForceNextWave();
+        waveManager.StartNewWave();
     }
 
     public void UpdateCurrencyText(int changeValue) => currencyText.text = "Currency : " + changeValue;

@@ -3353,6 +3353,10 @@ PrefabInstance:
       value: 256
       objectReference: {fileID: 0}
     - target: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
+      propertyPath: myWaveManager
+      value: 
+      objectReference: {fileID: 1631574964}
+    - target: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
       propertyPath: waypoints.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -15620,6 +15624,10 @@ PrefabInstance:
       value: 256
       objectReference: {fileID: 0}
     - target: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
+      propertyPath: myWaveManager
+      value: 
+      objectReference: {fileID: 1631574964}
+    - target: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
       propertyPath: waypoints.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -16150,17 +16158,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 353343165}
   m_CullTransparentMesh: 1
---- !u!114 &357473498 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
-  m_PrefabInstance: {fileID: 338604060}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 522201a3eb178280382096072e113887, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &359562419
 GameObject:
   m_ObjectHideFlags: 0
@@ -51958,6 +51955,10 @@ PrefabInstance:
       value: 256
       objectReference: {fileID: 0}
     - target: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
+      propertyPath: myWaveManager
+      value: 
+      objectReference: {fileID: 1631574964}
+    - target: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
       propertyPath: spawnCoolDown
       value: 1
       objectReference: {fileID: 0}
@@ -52037,6 +52038,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 391389089437768508, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
   m_PrefabInstance: {fileID: 1217965064}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1217965067 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
+  m_PrefabInstance: {fileID: 1217965064}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 522201a3eb178280382096072e113887, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1228514424
 GameObject:
   m_ObjectHideFlags: 0
@@ -68648,17 +68660,24 @@ MonoBehaviour:
   basicEnemyPrefab: {fileID: 3152973171064502831, guid: 65e89d1da6ffc6a47ab0b7ba99a2f0ab, type: 3}
   fastEnemyPrefab: {fileID: 8347791830468167753, guid: 5e783f239bd9e531c8bfc2467bf28a67, type: 3}
   timeBetweenWaves: 5
+  waveTimer: 0
   currentGrid: {fileID: 313291059}
   levelWaves:
-  - basicEnemyCount: 20
+  - basicEnemyCount: 0
+    fastEnemyCount: 0
+    nextWaveGrid: {fileID: 0}
+    nextWavePortals: []
+  - basicEnemyCount: 0
     fastEnemyCount: 2
-    nextGrid: {fileID: 0}
-    newPortals: []
+    nextWaveGrid: {fileID: 290169626}
+    nextWavePortals:
+    - {fileID: 1217965067}
   - basicEnemyCount: 0
     fastEnemyCount: 6
-    nextGrid: {fileID: 290169626}
-    newPortals:
-    - {fileID: 357473498}
+    nextWaveGrid: {fileID: 0}
+    nextWavePortals: []
+  waveIndex: 0
+  isGameBegun: 0
 --- !u!1 &1632037283
 GameObject:
   m_ObjectHideFlags: 0

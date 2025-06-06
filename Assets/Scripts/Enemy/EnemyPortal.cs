@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyPortal : MonoBehaviour
 {
-    [Header("Respawn Details")]
+    [SerializeField] private WaveManager myWaveManager;
     [SerializeField] private float spawnCoolDown;
 
     public List<Waypoint> waypoints;
@@ -27,6 +27,8 @@ public class EnemyPortal : MonoBehaviour
             CreateEnemy();
         }
     }
+
+    public void AssignWaveManager(WaveManager waveManager) => myWaveManager = waveManager;
 
     private bool CanMakeNewEnemy()
     {
@@ -79,5 +81,9 @@ public class EnemyPortal : MonoBehaviour
 
     public void AddEnemy(GameObject enemy) => enemiesToCreate.Add(enemy);
 
-    public void RemoveActiveEnemy(GameObject enemyToRemove) => activeEnemies.Remove(enemyToRemove);
+    public void RemoveActiveEnemy(GameObject enemyToRemove)
+    {
+        activeEnemies.Remove(enemyToRemove);
+        myWaveManager.HandleWaveCompletion();
+    } 
 }
