@@ -29,7 +29,7 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (isBuildSlotAvailable == false)
+        if (isBuildSlotAvailable == false || tileAnimator.IsGridMoving())
             return;
 
         if (eventData.button != PointerEventData.InputButton.Left)
@@ -54,7 +54,7 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (isBuildSlotAvailable == false)
+        if (isBuildSlotAvailable == false || tileAnimator.IsGridMoving())
             return;
 
         if (Input.GetKey(KeyCode.Mouse1) || Input.GetKey(KeyCode.Mouse2))
@@ -68,7 +68,7 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (isBuildSlotAvailable == false)
+        if (isBuildSlotAvailable == false || tileAnimator.IsGridMoving())
             return;
             
         if (canMoveTile == false)

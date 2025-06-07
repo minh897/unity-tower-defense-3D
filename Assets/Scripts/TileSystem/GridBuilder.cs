@@ -11,6 +11,19 @@ public class GridBuilder : MonoBehaviour
 
     private NavMeshSurface myNavMesh => GetComponent<NavMeshSurface>();
 
+    private bool hadFirstLoad;
+
+    public bool IsOnFirstLoad()
+    {
+        if (hadFirstLoad == false)
+        {
+            hadFirstLoad = true;
+            return true;
+        }
+        
+        return false;
+    }
+
     private void CreateTile(float xPosition, float zPosition)
     {
         Vector3 newPosition = new(xPosition, 0, zPosition);
