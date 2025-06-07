@@ -5423,7 +5423,7 @@ GameObject:
   - component: {fileID: 120394183}
   - component: {fileID: 120394182}
   m_Layer: 0
-  m_Name: '- Tile Manager -'
+  m_Name: '- Tile Animator -'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52038,17 +52038,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 391389089437768508, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
   m_PrefabInstance: {fileID: 1217965064}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1217965067 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
-  m_PrefabInstance: {fileID: 1217965064}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 522201a3eb178280382096072e113887, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1228514424
 GameObject:
   m_ObjectHideFlags: 0
@@ -59730,6 +59719,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1441217070 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
+  m_PrefabInstance: {fileID: 338604060}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 522201a3eb178280382096072e113887, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1443325300
 GameObject:
   m_ObjectHideFlags: 0
@@ -68664,20 +68664,21 @@ MonoBehaviour:
   currentGrid: {fileID: 313291059}
   levelWaves:
   - basicEnemyCount: 0
-    fastEnemyCount: 0
+    fastEnemyCount: 2
     nextWaveGrid: {fileID: 0}
     nextWavePortals: []
   - basicEnemyCount: 0
-    fastEnemyCount: 2
+    fastEnemyCount: 4
     nextWaveGrid: {fileID: 290169626}
     nextWavePortals:
-    - {fileID: 1217965067}
+    - {fileID: 1441217070}
   - basicEnemyCount: 0
     fastEnemyCount: 6
     nextWaveGrid: {fileID: 0}
     nextWavePortals: []
   waveIndex: 0
-  isGameBegun: 0
+  yOffset: 5
+  tileDelay: 0.1
 --- !u!1 &1632037283
 GameObject:
   m_ObjectHideFlags: 0

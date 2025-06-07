@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,18 +22,24 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private float waveTimer;
     [SerializeField] private GridBuilder currentGrid;
     [SerializeField] private WaveDetails[] levelWaves;
-    [SerializeField] private int waveIndex;
+    [SerializeField] private int waveIndex = -1;
+
+    [Header("Level Update Details")]
+    [SerializeField] private float yOffset = 5;
+    [SerializeField] private float tileDelay = .1f;
 
     private bool isGameBegun;
     private bool isWaveTimerEnabled;
     private bool isMakingNextWave;
     private List<EnemyPortal> enemyPortals;
     private UIInGame uiInGame;
+    private TileAnimator tileAnimator;
 
     void Awake()
     {
         enemyPortals = new List<EnemyPortal>(FindObjectsByType<EnemyPortal>(FindObjectsSortMode.None));
         uiInGame = FindFirstObjectByType<UIInGame>(FindObjectsInactive.Include);
+        tileAnimator = FindFirstObjectByType<TileAnimator>();
     }
 
     void Update()
@@ -50,13 +57,102 @@ public class WaveManager : MonoBehaviour
         EnableWaveTimer(true);
     }
 
+    private void AttemptToUpdateLayout() => UpdateLevelTiles(levelWaves[waveIndex]);
+
+    private void UpdateLevelTiles(WaveDetails nextWave)
+    {
+        GridBuilder nextGrid = nextWave.nextWaveGrid;
+        List<GameObject> grid = currentGrid.GetTileSetup();
+        List<GameObject> newGrid = nextGrid.GetTileSetup();
+
+        if (grid.Count != newGrid.Count)
+        {
+            Debug.LogWarning("current grid and new grid has different size");
+            return;
+        }
+
+        List<TileSlot> tilesToRemove = new();
+        List<TileSlot> tilesToAdd = new();
+
+        for (int i = 0; i < grid.Count; i++)
+        {
+            TileSlot currentTile = grid[i].GetComponent<TileSlot>();
+            TileSlot newTile = newGrid[i].GetComponent<TileSlot>();
+
+            bool shouldBeUpdated = currentTile.GetMesh() != newTile.GetMesh() ||
+                currentTile.GetMaterial() != newTile.GetMaterial() ||
+                currentTile.GetAllChildren().Count != newTile.GetAllChildren().Count ||
+                currentTile.transform.rotation != newTile.transform.rotation;
+
+            if (shouldBeUpdated)
+            {
+                tilesToRemove.Add(currentTile);
+                tilesToAdd.Add(newTile);
+                grid[i] = newTile.gameObject;
+            }
+        }
+
+        StartCoroutine(RebuildLevelCoroutine(tilesToRemove, tilesToAdd, nextWave, tileDelay));
+    }
+
+    private IEnumerator RebuildLevelCoroutine(List<TileSlot> tilesToRemove, List<TileSlot> tilesToAdd, WaveDetails waveDetails, float delay)
+    {
+        for (int i = 0; i < tilesToRemove.Count; i++)
+        {
+            yield return new WaitForSeconds(delay);
+            RemoveTile(tilesToRemove[i]);
+        }
+
+        for (int i = 0; i < tilesToAdd.Count; i++)
+        {
+            yield return new WaitForSeconds(delay);
+            AddTile(tilesToAdd[i]);
+        }
+
+        EnableNewPortals(waveDetails.nextWavePortals);
+        EnableWaveTimer(true);
+    }
+
+    private void AddTile(TileSlot newTile)
+    {
+        newTile.gameObject.SetActive(true);
+        newTile.transform.position += new Vector3(0, -5, 0);
+        newTile.transform.parent = currentGrid.transform;
+
+        Vector3 targetPosition = newTile.transform.position + new Vector3(0, yOffset, 0);
+        tileAnimator.MoveTile(newTile.transform, targetPosition);
+    }
+
+    private void RemoveTile(TileSlot tileToRemove)
+    {
+        Vector3 targetPosition = tileToRemove.transform.position + new Vector3(0, -yOffset, 0);
+        tileAnimator.MoveTile(tileToRemove.transform, targetPosition);
+        Destroy(tileToRemove.gameObject, 1);
+    }
+
+    private bool HasNewLayout() => waveIndex < levelWaves.Length && levelWaves[waveIndex].nextWaveGrid != null;
+
+    private bool HasNoMoreWave() => waveIndex >= levelWaves.Length;
+
     public void HandleWaveCompletion()
     {
         if (AreAllEnemiesDead() == false || isMakingNextWave)
             return;
 
         isMakingNextWave = true;
-        CheckForNewLayout();
+        waveIndex++;
+
+        if (HasNoMoreWave())
+        {
+            Debug.LogWarning("Level is completed");
+            return;
+        }
+
+        if (HasNewLayout())
+                AttemptToUpdateLayout();
+            else
+                EnableWaveTimer(true);
+
         EnableWaveTimer(true);
     }
 
@@ -64,7 +160,7 @@ public class WaveManager : MonoBehaviour
     {
         if (isWaveTimerEnabled == false)
             return;
-            
+
         waveTimer -= Time.deltaTime;
         uiInGame.UpdateWaveTimerText(waveTimer);
 
@@ -74,7 +170,7 @@ public class WaveManager : MonoBehaviour
 
     public void StartNewWave()
     {
-        waveIndex++;
+        currentGrid.UpdateNewNavMesh();
         GiveEnemiesToPortals();
         EnableWaveTimer(false);
         isMakingNextWave = false;
@@ -113,49 +209,6 @@ public class WaveManager : MonoBehaviour
 
             if (portalIndex >= enemyPortals.Count)
                 portalIndex = 0;
-        }
-    }
-
-    private void CheckForNewLayout()
-    {
-        if (waveIndex >= levelWaves.Length)
-            return;
-
-        WaveDetails nextWave = levelWaves[waveIndex];
-
-        if (nextWave.nextWaveGrid != null)
-        {
-            UpdateLevelTiles(nextWave.nextWaveGrid);
-            EnableNewPortals(nextWave.nextWavePortals);
-        }
-
-        currentGrid.UpdateNewNavMesh();
-    }
-
-    private void UpdateLevelTiles(GridBuilder nextGrid)
-    {
-        List<GameObject> grid = currentGrid.GetTileSetup();
-        List<GameObject> newGrid = nextGrid.GetTileSetup();
-
-        for (int i = 0; i < grid.Count; i++)
-        {
-            TileSlot currentTile = grid[i].GetComponent<TileSlot>();
-            TileSlot newTile = newGrid[i].GetComponent<TileSlot>();
-
-            bool shouldBeUpdated = currentTile.GetMesh() != newTile.GetMesh() ||
-                currentTile.GetMaterial() != newTile.GetMaterial() ||
-                currentTile.GetAllChildren().Count != newTile.GetAllChildren().Count ||
-                currentTile.transform.rotation != newTile.transform.rotation;
-
-            if (shouldBeUpdated)
-            {
-                currentTile.gameObject.SetActive(false);
-                newTile.gameObject.SetActive(true);
-                newTile.transform.parent = currentGrid.transform;
-
-                grid[i] = newTile.gameObject;
-                Destroy(currentTile.gameObject);
-            }
         }
     }
 
