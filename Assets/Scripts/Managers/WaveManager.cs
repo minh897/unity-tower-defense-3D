@@ -57,8 +57,6 @@ public class WaveManager : MonoBehaviour
         EnableWaveTimer(true);
     }
 
-    private void AttemptToUpdateLayout() => UpdateLevelTiles(levelWaves[waveIndex]);
-
     private void UpdateLevelTiles(WaveDetails nextWave)
     {
         GridBuilder nextGrid = nextWave.nextWaveGrid;
@@ -95,24 +93,6 @@ public class WaveManager : MonoBehaviour
         StartCoroutine(RebuildLevelCoroutine(tilesToRemove, tilesToAdd, nextWave, tileDelay));
     }
 
-    private IEnumerator RebuildLevelCoroutine(List<TileSlot> tilesToRemove, List<TileSlot> tilesToAdd, WaveDetails waveDetails, float delay)
-    {
-        for (int i = 0; i < tilesToRemove.Count; i++)
-        {
-            yield return new WaitForSeconds(delay);
-            RemoveTile(tilesToRemove[i]);
-        }
-
-        for (int i = 0; i < tilesToAdd.Count; i++)
-        {
-            yield return new WaitForSeconds(delay);
-            AddTile(tilesToAdd[i]);
-        }
-
-        EnableNewPortals(waveDetails.nextWavePortals);
-        EnableWaveTimer(true);
-    }
-
     private void AddTile(TileSlot newTile)
     {
         newTile.gameObject.SetActive(true);
@@ -130,10 +110,6 @@ public class WaveManager : MonoBehaviour
         Destroy(tileToRemove.gameObject, 1);
     }
 
-    private bool HasNewLayout() => waveIndex < levelWaves.Length && levelWaves[waveIndex].nextWaveGrid != null;
-
-    private bool HasNoMoreWave() => waveIndex >= levelWaves.Length;
-
     public void HandleWaveCompletion()
     {
         if (AreAllEnemiesDead() == false || isMakingNextWave)
@@ -149,9 +125,9 @@ public class WaveManager : MonoBehaviour
         }
 
         if (HasNewLayout())
-                AttemptToUpdateLayout();
-            else
-                EnableWaveTimer(true);
+            AttemptToUpdateLayout();
+        else
+            EnableWaveTimer(true);
 
         EnableWaveTimer(true);
     }
@@ -250,5 +226,30 @@ public class WaveManager : MonoBehaviour
         return enemyList;
     }
 
+    private IEnumerator RebuildLevelCoroutine(List<TileSlot> tilesToRemove, List<TileSlot> tilesToAdd, WaveDetails waveDetails, float delay)
+    {
+        for (int i = 0; i < tilesToRemove.Count; i++)
+        {
+            yield return new WaitForSeconds(delay);
+            RemoveTile(tilesToRemove[i]);
+        }
+
+        for (int i = 0; i < tilesToAdd.Count; i++)
+        {
+            yield return new WaitForSeconds(delay);
+            AddTile(tilesToAdd[i]);
+        }
+
+        EnableNewPortals(waveDetails.nextWavePortals);
+        EnableWaveTimer(true);
+    }
+
     public WaveDetails[] GetLevelWaves() => levelWaves;
+
+    private bool HasNewLayout() => waveIndex < levelWaves.Length && levelWaves[waveIndex].nextWaveGrid != null;
+
+    private bool HasNoMoreWave() => waveIndex >= levelWaves.Length;
+
+    private void AttemptToUpdateLayout() => UpdateLevelTiles(levelWaves[waveIndex]);
+
 }
