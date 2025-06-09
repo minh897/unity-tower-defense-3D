@@ -23,7 +23,7 @@ public class TileAnimator : MonoBehaviour
 
     void Start()
     {
-        ShowGrid(mainSceneGrid, true);
+        ShowCurrentGrid(mainSceneGrid, true);
         CollectMainSceneObjects();
     }
 
@@ -47,13 +47,17 @@ public class TileAnimator : MonoBehaviour
 
         while (time < duration)
         {
+            if (objToMove == null)
+                break;
+
             objToMove.position = Vector3.Lerp(startPosition, targetPosition, time / duration);
 
             time += Time.deltaTime;
             yield return null;
         }
 
-        objToMove.position = targetPosition;
+        if (objToMove != null)
+            objToMove.position = targetPosition;
     }
 
     private void ApplyOffset(List<GameObject> objectsToMove, Vector3 offset)
@@ -64,7 +68,7 @@ public class TileAnimator : MonoBehaviour
         }
     }
 
-    public void ShowGrid(GridBuilder gridToMove, bool isGridShow)
+    public void ShowCurrentGrid(GridBuilder gridToMove, bool isGridShow)
     {
         List<GameObject> objectsToMove = GetObjectsToMove(gridToMove, isGridShow);
 
@@ -84,6 +88,12 @@ public class TileAnimator : MonoBehaviour
         for (int i = 0; i < objectsToMove.Count; i++)
         {
             yield return new WaitForSeconds(tileDelay);
+
+            // Continue the loop when the all the tiles has been moved
+            // Move other game objects like Player Castle and Enemy Portal
+            if (objectsToMove[i] == null)
+                continue;
+
             Transform tile = objectsToMove[i].transform;
             Vector3 targetPosition = tile.position + new Vector3(0, yOffset, 0);
             MoveTile(tile, targetPosition, tileMoveDuration);
@@ -92,9 +102,9 @@ public class TileAnimator : MonoBehaviour
         isGridMoving = false;
     }
 
-    public void BringUpMainGrid(bool isMainGridShow)
+    public void ShowMainGrid(bool isMainGridShow)
     {
-        ShowGrid(mainSceneGrid, isMainGridShow);
+        ShowCurrentGrid(mainSceneGrid, isMainGridShow);
     }
 
     // Return a list of all extra object in the scene
@@ -150,5 +160,5 @@ public class TileAnimator : MonoBehaviour
 
     public float GetYTravelDuration() => defaultMoveDuration;
 
-    public Coroutine GetCurrentActiveCo() => currentActiveCo;
+    public Coroutine GetCurrentActiveRoutine() => currentActiveCo;
 }

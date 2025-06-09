@@ -14,6 +14,7 @@ public class LevelSetup : MonoBehaviour
 
     private UI ui;
     private TileAnimator tileAnimator;
+    private LevelManager levelManager;
 
     // Unity will automatically call this Start coroutine
     // to wait until it done with GetCurrentActiveCo
@@ -26,11 +27,13 @@ public class LevelSetup : MonoBehaviour
         {
             DeleteExtraObjects();
 
+            levelManager.UpdateCurrentGrid(mainGrid);
+
             // Get TileAnimator in the Main Scene since we delete it above
             tileAnimator = FindFirstObjectByType<TileAnimator>();
-            tileAnimator.ShowGrid(mainGrid, true);
+            tileAnimator.ShowCurrentGrid(mainGrid, true);
 
-            yield return tileAnimator.GetCurrentActiveCo();
+            yield return tileAnimator.GetCurrentActiveRoutine();
 
             myWaveManager.ActivateWaveManager();
 
@@ -41,7 +44,7 @@ public class LevelSetup : MonoBehaviour
 
     private bool CheckLevelLoadedToMainScene()
     {
-        LevelManager levelManager = FindFirstObjectByType<LevelManager>();
+        levelManager = FindFirstObjectByType<LevelManager>();
         return levelManager != null;
     }
 
