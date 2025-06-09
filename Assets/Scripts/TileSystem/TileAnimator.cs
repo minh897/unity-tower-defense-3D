@@ -38,28 +38,6 @@ public class TileAnimator : MonoBehaviour
         StartCoroutine(MoveTileRoutine(objToMove, targetPosition, duration));
     }
 
-    public IEnumerator MoveTileRoutine(Transform objToMove, Vector3 targetPosition, float? newDuration = null)
-    {
-        float time = 0;
-        float duration = newDuration ?? defaultMoveDuration;
-
-        Vector3 startPosition = objToMove.position;
-
-        while (time < duration)
-        {
-            if (objToMove == null)
-                break;
-
-            objToMove.position = Vector3.Lerp(startPosition, targetPosition, time / duration);
-
-            time += Time.deltaTime;
-            yield return null;
-        }
-
-        if (objToMove != null)
-            objToMove.position = targetPosition;
-    }
-
     private void ApplyOffset(List<GameObject> objectsToMove, Vector3 offset)
     {
         foreach (var obj in objectsToMove)
@@ -81,30 +59,23 @@ public class TileAnimator : MonoBehaviour
         currentActiveCo = StartCoroutine(MoveGridRoutine(objectsToMove, newOffset));
     }
 
-    private IEnumerator MoveGridRoutine(List<GameObject> objectsToMove, float yOffset)
-    {
-        isGridMoving = true;
-
-        for (int i = 0; i < objectsToMove.Count; i++)
-        {
-            yield return new WaitForSeconds(tileDelay);
-
-            // Continue the loop when the all the tiles has been moved
-            // Move other game objects like Player Castle and Enemy Portal
-            if (objectsToMove[i] == null)
-                continue;
-
-            Transform tile = objectsToMove[i].transform;
-            Vector3 targetPosition = tile.position + new Vector3(0, yOffset, 0);
-            MoveTile(tile, targetPosition, tileMoveDuration);
-        }
-
-        isGridMoving = false;
-    }
-
     public void ShowMainGrid(bool isMainGridShow)
     {
         ShowCurrentGrid(mainSceneGrid, isMainGridShow);
+    }
+
+    private void CollectMainSceneObjects()
+    {
+        mainMenuObjects.AddRange(mainSceneGrid.GetTileSetup());
+        mainMenuObjects.AddRange(CollectExtraObject());
+    }
+
+    public void EnableMainSceneObjects(bool isEnable)
+    {
+        foreach (var obj in mainMenuObjects)
+        {
+            obj.SetActive(isEnable);
+        }
     }
 
     // Return a list of all extra object in the scene
@@ -140,18 +111,47 @@ public class TileAnimator : MonoBehaviour
         return objectsToMove;
     }
 
-    private void CollectMainSceneObjects()
+    public IEnumerator MoveTileRoutine(Transform objToMove, Vector3 targetPosition, float? newDuration = null)
     {
-        mainMenuObjects.AddRange(mainSceneGrid.GetTileSetup());
-        mainMenuObjects.AddRange(CollectExtraObject());
+        float time = 0;
+        float duration = newDuration ?? defaultMoveDuration;
+
+        Vector3 startPosition = objToMove.position;
+
+        while (time < duration)
+        {
+            if (objToMove == null)
+                break;
+
+            objToMove.position = Vector3.Lerp(startPosition, targetPosition, time / duration);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        if (objToMove != null)
+            objToMove.position = targetPosition;
     }
 
-    public void EnableMainSceneObjects(bool isEnable)
+    private IEnumerator MoveGridRoutine(List<GameObject> objectsToMove, float yOffset)
     {
-        foreach (var obj in mainMenuObjects)
+        isGridMoving = true;
+
+        for (int i = 0; i < objectsToMove.Count; i++)
         {
-            obj.SetActive(isEnable);
+            yield return new WaitForSeconds(tileDelay);
+
+            // Continue the loop when the all the tiles has been moved
+            // Move other game objects like Player Castle and Enemy Portal
+            if (objectsToMove[i] == null)
+                continue;
+
+            Transform tile = objectsToMove[i].transform;
+            Vector3 targetPosition = tile.position + new Vector3(0, yOffset, 0);
+            MoveTile(tile, targetPosition, tileMoveDuration);
         }
+
+        isGridMoving = false;
     }
 
     public bool IsGridMoving() => isGridMoving;

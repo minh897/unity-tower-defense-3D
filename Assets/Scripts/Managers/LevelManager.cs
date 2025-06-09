@@ -23,6 +23,26 @@ public class LevelManager : MonoBehaviour
             StartCoroutine(LoadMainMenuRoutine());
     }
 
+    private void EleminateAllEnemies()
+    {
+        Enemy[] enemiesArray = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+
+        foreach (Enemy enemy in enemiesArray)
+        {
+            enemy.DestroyEnemy();
+        }
+    }
+
+    private void EleminateAllTowers()
+    {
+        Tower[] towersArray = FindObjectsByType<Tower>(FindObjectsSortMode.None);
+
+        foreach (Tower tower in towersArray)
+        {
+            Destroy(tower.gameObject);
+        }
+    }
+
     private IEnumerator LoadLevelRoutine()
     {
         tileAnimator.ShowMainGrid(false);
@@ -54,26 +74,6 @@ public class LevelManager : MonoBehaviour
         yield return tileAnimator.GetCurrentActiveRoutine();
 
         ui.EnableMainMenuUI(true);
-    }
-
-    private void EleminateAllEnemies()
-    {
-        Enemy[] enemiesArray = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
-
-        foreach (Enemy enemy in enemiesArray)
-        {
-            enemy.DestroyEnemy();
-        }
-    }
-
-    private void EleminateAllTowers()
-    {
-        Tower[] towersArray = FindObjectsByType<Tower>(FindObjectsSortMode.None);
-
-        foreach (Tower tower in towersArray)
-        {
-            Destroy(tower.gameObject);
-        }
     }
 
     public void UpdateCurrentGrid(GridBuilder newGrid) => currentActiveGrid = newGrid;
