@@ -106,7 +106,7 @@ public class UIBuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if (gameManager.HasEnoughCurrency(towerPrice) == false)
         {
-            ui.uIInGame.ShakeCurrencyUI();
+            ui.uiInGame.ShakeCurrencyUI();
             return;
         }
 

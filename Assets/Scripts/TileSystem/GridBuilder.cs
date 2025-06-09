@@ -29,6 +29,8 @@ public class GridBuilder : MonoBehaviour
         Vector3 newPosition = new(xPosition, 0, zPosition);
         GameObject newTile = Instantiate(mainPrefab, newPosition, Quaternion.identity, transform);
         createdTiles.Add(newTile);
+
+        newTile.GetComponent<TileSlot>().TurnIntoBuildSlot(mainPrefab);
     }
 
     [ContextMenu("Build Grid")]

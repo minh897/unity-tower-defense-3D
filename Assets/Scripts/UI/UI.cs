@@ -7,26 +7,42 @@ public class UI : MonoBehaviour
     [SerializeField] private GameObject[] uiElement;
     [SerializeField] private Image fadeImageUI;
 
-    private UISetting uISetting;
-    private UIMainMenu uIMainMenu;
+    private UISetting uiSetting;
+    private UIMainMenu uiMainMenu;
 
-    public UIInGame uIInGame { get; private set; }
-    public UIAnimator uIAnimator { get; private set; }
+    public UIInGame uiInGame { get; private set; }
+    public UIAnimator uiAnimator { get; private set; }
     public UIBuildButtonsHolder uiBuildButton { get; private set; }
 
     void Awake()
     {
         uiBuildButton = GetComponentInChildren<UIBuildButtonsHolder>(true);
-        uISetting = GetComponentInChildren<UISetting>(true);
-        uIMainMenu = GetComponentInChildren<UIMainMenu>(true);
-        uIInGame = GetComponentInChildren<UIInGame>(true);
-        uIAnimator = GetComponent<UIAnimator>();
+        uiSetting = GetComponentInChildren<UISetting>(true);
+        uiMainMenu = GetComponentInChildren<UIMainMenu>(true);
+        uiInGame = GetComponentInChildren<UIInGame>(true);
+        uiAnimator = GetComponent<UIAnimator>();
 
-        SwitchUIElemnt(uISetting.gameObject);
-        // SwitchUIElemnt(uIMainMenu.gameObject);
-        SwitchUIElemnt(uIInGame.gameObject);
+        SwitchUIElemnt(uiSetting.gameObject);
+        SwitchUIElemnt(uiMainMenu.gameObject);
+        // SwitchUIElemnt(uiInGame.gameObject);
 
         // ActivateFadeEffect(true);
+    }
+
+    public void EnableMainMenuUI(bool isEnable)
+    {
+        if (isEnable)
+            SwitchUIElemnt(uiMainMenu.gameObject);
+        else
+            SwitchUIElemnt(null);
+    }
+
+    public void EnableInGameUI(bool isEnable)
+    {
+        if (isEnable)
+            SwitchUIElemnt(uiInGame.gameObject);
+        else
+            SwitchUIElemnt(null);
     }
 
     public void SwitchUIElemnt(GameObject uiToEnable)
@@ -36,7 +52,8 @@ public class UI : MonoBehaviour
             element.SetActive(false);
         }
 
-        uiToEnable.SetActive(true);
+        if (uiToEnable != null)
+            uiToEnable.SetActive(true);
     }
 
     public void QuitToDesktop()
@@ -50,8 +67,8 @@ public class UI : MonoBehaviour
     public void ActivateFadeEffect(bool fadeIn)
     {
         if (fadeIn)
-            uIAnimator.ChangeColor(fadeImageUI, 0, 2);
+            uiAnimator.ChangeColor(fadeImageUI, 0, 2);
         else
-            uIAnimator.ChangeColor(fadeImageUI, 1, 2);
+            uiAnimator.ChangeColor(fadeImageUI, 1, 2);
     }
 }

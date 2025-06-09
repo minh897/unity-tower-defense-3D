@@ -19,6 +19,7 @@ public class TileAnimator : MonoBehaviour
     [SerializeField] private List<GameObject> mainMenuObjects = new();
 
     private bool isGridMoving;
+    private Coroutine currentActiveCo;
 
     void Start()
     {
@@ -28,11 +29,7 @@ public class TileAnimator : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J))
-            BringUpMainGrid(true);
-
-        if (Input.GetKeyDown(KeyCode.K))
-            BringUpMainGrid(false);
+        // Do something here
     }
 
     public void MoveTile(Transform objToMove, Vector3 targetPosition, float? newDuration = null)
@@ -77,7 +74,7 @@ public class TileAnimator : MonoBehaviour
             ApplyOffset(objectsToMove, new Vector3(0, -moveYOffset, 0));
 
         float newOffset = isGridShow ? moveYOffset : -moveYOffset;
-        StartCoroutine(MoveGridRoutine(objectsToMove, newOffset));
+        currentActiveCo = StartCoroutine(MoveGridRoutine(objectsToMove, newOffset));
     }
 
     private IEnumerator MoveGridRoutine(List<GameObject> objectsToMove, float yOffset)
@@ -143,7 +140,7 @@ public class TileAnimator : MonoBehaviour
     {
         foreach (var obj in mainMenuObjects)
         {
-            obj.SetActive(true);
+            obj.SetActive(isEnable);
         }
     }
 
@@ -152,4 +149,6 @@ public class TileAnimator : MonoBehaviour
     public float GetBuildOffset() => buildSlotYOffset;
 
     public float GetYTravelDuration() => defaultMoveDuration;
+
+    public Coroutine GetCurrentActiveCo() => currentActiveCo;
 }

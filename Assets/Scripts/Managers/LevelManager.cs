@@ -1,54 +1,36 @@
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public List<TowerUnlockData> towerUnlocks;
+    private UI ui;
+    private TileAnimator tileAnimator;
 
-    void Start()
+    void Awake()
     {
-        UnlockAvailableTowers();
+        ui = FindFirstObjectByType<UI>();
+        tileAnimator = FindFirstObjectByType<TileAnimator>();
     }
 
-    private void UnlockAvailableTowers()
+    void Update()
     {
-        UI ui = FindFirstObjectByType<UI>();
-
-        foreach (var unlockData in towerUnlocks)
-        {
-            foreach (var buildButton in ui.uiBuildButton.GetBuildButtons())
-            {
-                buildButton.UnlockTower(unlockData.towerName, unlockData.isUnlocked);
-            }
-        }
-
-        ui.uiBuildButton.UpdateUnlockedButton();
+        if (Input.GetKeyDown(KeyCode.L))
+            StartCoroutine(LoadLevelRoutine());
     }
 
-    [ContextMenu("InitializeTowerData")]
-    private void InitializeTowerData()
+    // Load a scene in the background as the current scene run asynchronously
+    private void LoadScene(string sceneName) => SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+
+    private IEnumerator LoadLevelRoutine()
     {
-        towerUnlocks.Clear();
+        tileAnimator.BringUpMainGrid(false);
+        ui.EnableMainMenuUI(false);
 
-        towerUnlocks.Add(new TowerUnlockData("Crossbow", false));
-        towerUnlocks.Add(new TowerUnlockData("Cannon", false));
-        towerUnlocks.Add(new TowerUnlockData("Minigun", false));
-        towerUnlocks.Add(new TowerUnlockData("Spider Nest", false));
-        towerUnlocks.Add(new TowerUnlockData("Harpoon", false));
-        towerUnlocks.Add(new TowerUnlockData("Hammer", false));
-        towerUnlocks.Add(new TowerUnlockData("Just Fan", false));
-    }
-}
+        yield return tileAnimator.GetCurrentActiveCo();
 
-[System.Serializable]
-public class TowerUnlockData
-{
-    public string towerName;
-    public bool isUnlocked;
+        tileAnimator.EnableMainSceneObjects(false);
 
-    public TowerUnlockData(string towerNamePara, bool isUnlockedPara)
-    {
-        towerName = towerNamePara;
-        isUnlocked = isUnlockedPara;
+        LoadScene("Level_1");
     }
 }

@@ -52,8 +52,8 @@ public class UIInGame : MonoBehaviour
 
     public void UpdateWaveTimerText(float changeValue) => waveTimerText.text = "Next Wave : " + changeValue.ToString("00") + " secs";
 
-    public void ShakeCurrencyUI() => ui.uIAnimator.Shake(currencyText.transform.parent);
+    public void ShakeCurrencyUI() => ui.uiAnimator.Shake(currencyText.transform.parent);
 
-    public void ShakeHealthUI() => ui.uIAnimator.Shake(healthPointsText.transform.parent);
+    public void ShakeHealthUI() => ui.uiAnimator.Shake(healthPointsText.transform.parent);
 
 }

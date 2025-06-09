@@ -25,7 +25,7 @@ public class TileSlot : MonoBehaviour
         UpdateLayer(referenceTile);
         UpdateNavMesh();
 
-        CheckForBuildSlot(referenceTile);
+        TurnIntoBuildSlot(referenceTile);
     }
 
     public List<GameObject> GetAllChildren()
@@ -80,7 +80,7 @@ public class TileSlot : MonoBehaviour
         }
     }
 
-    private void CheckForBuildSlot(GameObject refTile)
+    public void TurnIntoBuildSlot(GameObject refTile)
     {
         BuildSlot buildSlot = GetComponent<BuildSlot>();
 
