@@ -5443,7 +5443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultMoveDuration: 0.1
   buildSlotYOffset: 0.25
-  tileMoveDuration: 0.1
+  tileMoveDuration: 0
   tileDelay: 0
   moveYOffset: 5
   mainSceneGrid: {fileID: 313291059}
@@ -32643,7 +32643,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2056761541}
         m_TargetAssemblyTypeName: UI, Assembly-CSharp
-        m_MethodName: SwitchUIElemnt
+        m_MethodName: SwitchUIElement
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1786150015}
@@ -44064,6 +44064,8 @@ MonoBehaviour:
     isUnlocked: 0
   - towerName: Just Fan
     isUnlocked: 0
+  mainGrid: {fileID: 0}
+  myWaveManager: {fileID: 0}
 --- !u!4 &1018586896
 Transform:
   m_ObjectHideFlags: 0
@@ -50078,7 +50080,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2056761541}
         m_TargetAssemblyTypeName: UI, Assembly-CSharp
-        m_MethodName: SwitchUIElemnt
+        m_MethodName: SwitchUIElement
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 6831916}
@@ -75368,6 +75370,7 @@ MonoBehaviour:
   waveTimerText: {fileID: 154498758}
   waveTimerTextBlinkEffect: {fileID: 1416221387}
   waveTimerOffset: 240
+  waveTimerTrans: {fileID: 1131418963}
 --- !u!1 &1788633682
 GameObject:
   m_ObjectHideFlags: 0

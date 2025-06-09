@@ -35,10 +35,10 @@ public class LevelSetup : MonoBehaviour
 
             yield return tileAnimator.GetCurrentActiveRoutine();
 
-            myWaveManager.ActivateWaveManager();
-
             ui = FindFirstObjectByType<UI>();
             ui.EnableInGameUI(true);
+
+            myWaveManager.ActivateWaveManager();
         }
     }
 

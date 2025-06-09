@@ -76,7 +76,7 @@ public class UIBuildButtonsHolder : MonoBehaviour
         float changeYOffset = isBuildMenuActive ? yPosOffset : -yPosOffset;
         float methodDelay = isBuildMenuActive ? openAnimDuration : 0;
 
-        uIAnimator.ChangePosition(transform, new(0, changeYOffset), openAnimDuration);
+        uIAnimator.StartChangePosition(transform, new(0, changeYOffset), openAnimDuration);
         Invoke(nameof(ToggleButtonMovement), methodDelay);
     }
 

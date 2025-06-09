@@ -13,30 +13,30 @@ public class UIAnimator : MonoBehaviour
     [SerializeField] private bool scaleChangeAvailable;
     
 
-    public void ChangePosition(Transform transform, Vector3 offset, float duration = .1f)
+    public void StartChangePosition(Transform transform, Vector3 offset, float duration = .1f)
     {
         RectTransform rectTransform = transform.GetComponent<RectTransform>();
-        StartCoroutine(ChangePositionRoutine(rectTransform, offset, duration));
+        StartCoroutine(ChangePositionCo(rectTransform, offset, duration));
     }
 
-    public void ChangeScale(Transform transform, float targetScale, float duration = .25f)
+    public void StartChangeScale(Transform transform, float targetScale, float duration = .25f)
     {
         RectTransform rectTransform = transform.GetComponent<RectTransform>();
-        StartCoroutine(ChangeScaleRoutine(rectTransform, targetScale, duration));
+        StartCoroutine(ChangeScaleCo(rectTransform, targetScale, duration));
     }
 
-    public void ChangeColor(Image image, float targetAlpha, float duration)
+    public void StartChangeColor(Image image, float targetAlpha, float duration)
     {
-        StartCoroutine(ChangeColorRoutine(image, targetAlpha, duration));
+        StartCoroutine(ChangeColorCo(image, targetAlpha, duration));
     }
 
-    public void Shake(Transform transformToShake)
+    public void StartShake(Transform transformToShake)
     {
         RectTransform rectTransform = transformToShake.GetComponent<RectTransform>();
-        StartCoroutine(ShakeRoutine(rectTransform));
+        StartCoroutine(ShakeCo(rectTransform));
     }
 
-    private IEnumerator ChangePositionRoutine(RectTransform rectTransform, Vector3 offset, float duration)
+    public IEnumerator ChangePositionCo(RectTransform rectTransform, Vector3 offset, float duration = .1f)
     {
         float time = 0;
 
@@ -53,7 +53,7 @@ public class UIAnimator : MonoBehaviour
         rectTransform.anchoredPosition = targetPos;
     }
 
-    public IEnumerator ChangeScaleRoutine(RectTransform rectTransform, float newScale, float duration = .25f)
+    public IEnumerator ChangeScaleCo(RectTransform rectTransform, float newScale, float duration = .25f)
     {
         float time = 0;
         Vector3 initialScale = rectTransform.localScale;
@@ -69,7 +69,7 @@ public class UIAnimator : MonoBehaviour
         rectTransform.localScale = targetScale;
     }
 
-    private IEnumerator ChangeColorRoutine(Image image, float targetAlpha, float duration)
+    private IEnumerator ChangeColorCo(Image image, float targetAlpha, float duration)
     {
         float time = 0;
         Color currentcolor = image.color;
@@ -86,7 +86,7 @@ public class UIAnimator : MonoBehaviour
         image.color = new(currentcolor.r, currentcolor.g, currentcolor.b, targetAlpha);
     }
 
-    private IEnumerator ShakeRoutine(RectTransform rectTransform)
+    private IEnumerator ShakeCo(RectTransform rectTransform)
     {
         float time = 0;
         Vector3 originalPosition = rectTransform.anchoredPosition;
@@ -94,7 +94,7 @@ public class UIAnimator : MonoBehaviour
         float currentScale = rectTransform.localScale.x;
 
         if (scaleChangeAvailable)
-            StartCoroutine(ChangeScaleRoutine(rectTransform, currentScale * 1.1f, shakeDuration / 2));
+            StartCoroutine(ChangeScaleCo(rectTransform, currentScale * 1.1f, shakeDuration / 2));
 
         while (time < shakeDuration)
         {
@@ -114,6 +114,6 @@ public class UIAnimator : MonoBehaviour
         
 
         if (scaleChangeAvailable)
-            StartCoroutine(ChangeScaleRoutine(rectTransform, defaultUIScale, shakeDuration / 2));
+            StartCoroutine(ChangeScaleCo(rectTransform, defaultUIScale, shakeDuration / 2));
     }
 }

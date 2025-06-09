@@ -22,8 +22,8 @@ public class UI : MonoBehaviour
         uiInGame = GetComponentInChildren<UIInGame>(true);
         uiAnimator = GetComponent<UIAnimator>();
 
-        SwitchUIElemnt(uiSetting.gameObject);
-        SwitchUIElemnt(uiMainMenu.gameObject);
+        SwitchUIElement(uiSetting.gameObject);
+        SwitchUIElement(uiMainMenu.gameObject);
         // SwitchUIElemnt(uiInGame.gameObject);
 
         // ActivateFadeEffect(true);
@@ -32,20 +32,23 @@ public class UI : MonoBehaviour
     public void EnableMainMenuUI(bool isEnable)
     {
         if (isEnable)
-            SwitchUIElemnt(uiMainMenu.gameObject);
+            SwitchUIElement(uiMainMenu.gameObject);
         else
-            SwitchUIElemnt(null);
+            SwitchUIElement(null);
     }
 
     public void EnableInGameUI(bool isEnable)
     {
         if (isEnable)
-            SwitchUIElemnt(uiInGame.gameObject);
+            SwitchUIElement(uiInGame.gameObject);
         else
-            SwitchUIElemnt(null);
+        {
+            uiInGame.DefaultWaveTimerPos();
+            SwitchUIElement(null);
+        }
     }
 
-    public void SwitchUIElemnt(GameObject uiToEnable)
+    public void SwitchUIElement(GameObject uiToEnable)
     {
         foreach (GameObject element in uiElement)
         {
@@ -67,8 +70,8 @@ public class UI : MonoBehaviour
     public void ActivateFadeEffect(bool fadeIn)
     {
         if (fadeIn)
-            uiAnimator.ChangeColor(fadeImageUI, 0, 2);
+            uiAnimator.StartChangeColor(fadeImageUI, 0, 2);
         else
-            uiAnimator.ChangeColor(fadeImageUI, 1, 2);
+            uiAnimator.StartChangeColor(fadeImageUI, 1, 2);
     }
 }
