@@ -18,9 +18,13 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.L))
-            StartCoroutine(LoadLevelFromMenuCo("Level_1"));
+            LoadLevelFromMenu("Level_1");
+
         if (Input.GetKeyDown(KeyCode.K))
-            StartCoroutine(LoadMainMenuCo());
+            LoadMainMenu();
+
+        if (Input.GetKeyDown(KeyCode.R))
+            RestartLevel();
     }
 
     private void EleminateAllEnemies()
@@ -43,7 +47,16 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private IEnumerator LoadLevelFromMenuCo(string levelName)
+    private void CleanUpScene()
+    {
+        EleminateAllEnemies();
+        EleminateAllTowers();
+
+        if (currentActiveGrid != null)
+            tileAnimator.ShowCurrentGrid(currentActiveGrid, false);
+    }
+
+    private IEnumerator LoadLevelFromMenuCo(string levelSceneName)
     {
         tileAnimator.ShowMainGrid(false);
         ui.EnableMainMenuUI(false);
@@ -52,11 +65,14 @@ public class LevelManager : MonoBehaviour
 
         tileAnimator.EnableMainSceneObjects(false);
 
-        LoadScene(levelName);
+        LoadScene(levelSceneName);
     }
 
     private IEnumerator LoadMainMenuCo()
     {
+        CleanUpScene();
+        ui.EnableInGameUI(false);
+
         // Delay until this GetCurrentActiveRoutine coroutine is finished
         yield return tileAnimator.GetCurrentActiveRoutine();
 
@@ -69,6 +85,25 @@ public class LevelManager : MonoBehaviour
         ui.EnableMainMenuUI(true);
     }
 
+    private IEnumerator LoadLevelCo(string levelName)
+    {
+        CleanUpScene();
+        ui.EnableInGameUI(false);
+
+        yield return tileAnimator.GetCurrentActiveRoutine();
+
+        UnloadCurrentScene();
+        LoadScene(levelName);
+    }
+
+    public void LoadMainMenu() => StartCoroutine(LoadMainMenuCo());
+
+    public void LoadLevelFromMenu(string levelName) => StartCoroutine(LoadLevelFromMenuCo(levelName));
+
+    public void LoadLevel(string levelName) => StartCoroutine(LoadLevelCo(levelName));
+
+    public void RestartLevel() => StartCoroutine(LoadLevelCo(currentSceneName));
+
     public void UpdateCurrentGrid(GridBuilder newGrid) => currentActiveGrid = newGrid;
 
     // Unload a scene in the background as the current scene run asynchronously
@@ -80,6 +115,5 @@ public class LevelManager : MonoBehaviour
         currentSceneName = sceneNameLoad;
         SceneManager.LoadSceneAsync(sceneNameLoad, LoadSceneMode.Additive);
     }
-
 }
  

@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class LevelSetup : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> objectsToDelete = new();
-    [Space]
-    public List<TowerUnlockData> towerUnlocks;
-
     [Header("Level Details")]
+    [SerializeField] private int levelCurrency = 1000;
+    [SerializeField] private List<TowerUnlockData> towerUnlocks;
+
+    [Header("Level Setup")]
     [SerializeField] private GridBuilder mainGrid;
     [SerializeField] private WaveManager myWaveManager;
+    [SerializeField] private List<GameObject> objectsToDelete = new();
 
     private UI ui;
     private TileAnimator tileAnimator;
     private LevelManager levelManager;
+    private GameManager gameManager;
 
     // Unity will automatically call this Start coroutine
     // to wait until it done with GetCurrentActiveCo
@@ -37,6 +39,9 @@ public class LevelSetup : MonoBehaviour
 
             ui = FindFirstObjectByType<UI>();
             ui.EnableInGameUI(true);
+
+            gameManager = FindFirstObjectByType<GameManager>();
+            gameManager.UpdateGameManager(levelCurrency, myWaveManager);
 
             myWaveManager.ActivateWaveManager();
         }

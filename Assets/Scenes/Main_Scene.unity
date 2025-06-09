@@ -44064,8 +44064,8 @@ MonoBehaviour:
     isUnlocked: 0
   - towerName: Just Fan
     isUnlocked: 0
-  mainGrid: {fileID: 0}
-  myWaveManager: {fileID: 0}
+  mainGrid: {fileID: 313291059}
+  myWaveManager: {fileID: 1631574964}
 --- !u!4 &1018586896
 Transform:
   m_ObjectHideFlags: 0
