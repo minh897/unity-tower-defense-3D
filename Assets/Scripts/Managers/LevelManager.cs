@@ -18,9 +18,9 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.L))
-            StartCoroutine(LoadLevelRoutine());
+            StartCoroutine(LoadLevelFromMenuCo("Level_1"));
         if (Input.GetKeyDown(KeyCode.K))
-            StartCoroutine(LoadMainMenuRoutine());
+            StartCoroutine(LoadMainMenuCo());
     }
 
     private void EleminateAllEnemies()
@@ -43,7 +43,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private IEnumerator LoadLevelRoutine()
+    private IEnumerator LoadLevelFromMenuCo(string levelName)
     {
         tileAnimator.ShowMainGrid(false);
         ui.EnableMainMenuUI(false);
@@ -52,18 +52,11 @@ public class LevelManager : MonoBehaviour
 
         tileAnimator.EnableMainSceneObjects(false);
 
-        currentSceneName = "Level_1";
-        LoadScene(currentSceneName);
+        LoadScene(levelName);
     }
 
-    private IEnumerator LoadMainMenuRoutine()
+    private IEnumerator LoadMainMenuCo()
     {
-        EleminateAllEnemies();
-        EleminateAllTowers();
-
-        tileAnimator.ShowCurrentGrid(currentActiveGrid, false);
-        ui.EnableInGameUI(false);
-
         // Delay until this GetCurrentActiveRoutine coroutine is finished
         yield return tileAnimator.GetCurrentActiveRoutine();
 
@@ -82,7 +75,11 @@ public class LevelManager : MonoBehaviour
     public void UnloadCurrentScene() => SceneManager.UnloadSceneAsync(currentSceneName);
 
     // Load a scene in the background as the current scene run asynchronously
-    private void LoadScene(string sceneName) => SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+    private void LoadScene(string sceneNameLoad)
+    {
+        currentSceneName = sceneNameLoad;
+        SceneManager.LoadSceneAsync(sceneNameLoad, LoadSceneMode.Additive);
+    }
 
 }
  
