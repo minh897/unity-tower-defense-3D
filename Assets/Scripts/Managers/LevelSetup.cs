@@ -16,7 +16,6 @@ public class LevelSetup : MonoBehaviour
     private UI ui;
     private TileAnimator tileAnimator;
     private LevelManager levelManager;
-    private GameManager gameManager;
 
     // Unity will automatically call this Start coroutine
     // to wait until it done with GetCurrentActiveCo
@@ -39,9 +38,6 @@ public class LevelSetup : MonoBehaviour
 
             ui = FindFirstObjectByType<UI>();
             ui.EnableInGameUI(true);
-
-            gameManager = FindFirstObjectByType<GameManager>();
-            gameManager.UpdateGameManager(levelCurrency, myWaveManager);
 
             myWaveManager.ActivateWaveManager();
         }
