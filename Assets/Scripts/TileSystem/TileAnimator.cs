@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TileAnimator : MonoBehaviour
@@ -15,11 +16,14 @@ public class TileAnimator : MonoBehaviour
     [SerializeField] private float moveYOffset = 5;
     [Space]
     [SerializeField] private GridBuilder mainSceneGrid;
+    [SerializeField] private List<GameObject> mainMenuObjects = new();
+
     private bool isGridMoving;
 
     void Start()
     {
         ShowGrid(mainSceneGrid, true);
+        CollectMainSceneObjects();
     }
 
     void Update()
@@ -65,7 +69,7 @@ public class TileAnimator : MonoBehaviour
 
     public void ShowGrid(GridBuilder gridToMove, bool isGridShow)
     {
-        List<GameObject> objectsToMove = gridToMove.GetTileSetup();
+        List<GameObject> objectsToMove = GetObjectsToMove(gridToMove, isGridShow);
 
         // Only apply offset on the first time the grid was loaded
         // Subsequence times will be ignored
@@ -94,6 +98,53 @@ public class TileAnimator : MonoBehaviour
     public void BringUpMainGrid(bool isMainGridShow)
     {
         ShowGrid(mainSceneGrid, isMainGridShow);
+    }
+
+    // Return a list of all extra object in the scene
+    private List<GameObject> CollectExtraObject()
+    {
+        List<GameObject> extraObjects = new();
+
+        // Find all objects in a scene, get their game object then add them to extraObjects list
+        extraObjects.AddRange(FindObjectsByType<EnemyPortal>(FindObjectsSortMode.None).Select(component => component.gameObject));
+        extraObjects.AddRange(FindObjectsByType<PlayerCastle>(FindObjectsSortMode.None).Select(component => component.gameObject));
+
+        return extraObjects;
+    }
+
+    private List<GameObject> GetObjectsToMove(GridBuilder gridToMove, bool isStartWithTiles)
+    {
+        List<GameObject> objectsToMove = new();
+        List<GameObject> extraObjects = CollectExtraObject();
+
+        // If BringUpMainGrid is true, then add all the tiles to move them first
+        // else, add extra objects in order to move them first
+        if (isStartWithTiles)
+        {
+            objectsToMove.AddRange(gridToMove.GetTileSetup());
+            objectsToMove.AddRange(extraObjects);
+        }
+        else
+        {
+            objectsToMove.AddRange(extraObjects);
+            objectsToMove.AddRange(gridToMove.GetTileSetup());
+        }
+
+        return objectsToMove;
+    }
+
+    private void CollectMainSceneObjects()
+    {
+        mainMenuObjects.AddRange(mainSceneGrid.GetTileSetup());
+        mainMenuObjects.AddRange(CollectExtraObject());
+    }
+
+    public void EnableMainSceneObjects(bool isEnable)
+    {
+        foreach (var obj in mainMenuObjects)
+        {
+            obj.SetActive(true);
+        }
     }
 
     public bool IsGridMoving() => isGridMoving;
