@@ -56556,6 +56556,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e68743f33a188f029a7bd23541d10aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelCurrency: 1000
+  towerUnlocks:
+  - towerName: Crossbow
+    isUnlocked: 1
+  mainGrid: {fileID: 313291059}
+  myWaveManager: {fileID: 1631574964}
   objectsToDelete:
   - {fileID: 1989921493}
   - {fileID: 81195848}
@@ -56567,11 +56573,6 @@ MonoBehaviour:
   - {fileID: 2056761536}
   - {fileID: 1216226830}
   - {fileID: 120394181}
-  towerUnlocks:
-  - towerName: Crossbow
-    isUnlocked: 1
-  mainGrid: {fileID: 313291059}
-  myWaveManager: {fileID: 1631574964}
 --- !u!1 &1158327300
 GameObject:
   m_ObjectHideFlags: 0
@@ -79155,8 +79156,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicEnemyPrefab: {fileID: 3152973171064502831, guid: 65e89d1da6ffc6a47ab0b7ba99a2f0ab, type: 3}
   fastEnemyPrefab: {fileID: 8347791830468167753, guid: 5e783f239bd9e531c8bfc2467bf28a67, type: 3}
+  yOffset: 5
+  tileDelay: 0.05
   timeBetweenWaves: 20
   waveTimer: 0
+  waveIndex: 0
   currentGrid: {fileID: 313291059}
   levelWaves:
   - basicEnemyCount: 0
@@ -79165,17 +79169,9 @@ MonoBehaviour:
     nextWavePortals: []
   - basicEnemyCount: 0
     fastEnemyCount: 4
-    nextWaveGrid: {fileID: 0}
-    nextWavePortals:
-    - {fileID: 0}
-  - basicEnemyCount: 0
-    fastEnemyCount: 8
     nextWaveGrid: {fileID: 2012204514}
     nextWavePortals:
     - {fileID: 1217965067}
-  waveIndex: 0
-  yOffset: 5
-  tileDelay: 0.1
 --- !u!1 &1634903682
 GameObject:
   m_ObjectHideFlags: 0
@@ -85058,6 +85054,8 @@ MonoBehaviour:
   waveTimerText: {fileID: 154498758}
   waveTimerTextBlinkEffect: {fileID: 1416221387}
   waveTimerOffset: 240
+  waveTimerTrans: {fileID: 0}
+  victoryUI: {fileID: 0}
 --- !u!1 &1786427535
 GameObject:
   m_ObjectHideFlags: 0

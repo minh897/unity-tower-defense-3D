@@ -17,16 +17,16 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private GameObject basicEnemyPrefab;
     [SerializeField] private GameObject fastEnemyPrefab;
 
-    [Header("Wave Settings")]
-    [SerializeField] private float timeBetweenWaves = 10f;
-    [SerializeField] private float waveTimer;
-    [SerializeField] private GridBuilder currentGrid;
-    [SerializeField] private WaveDetails[] levelWaves;
-    [SerializeField] private int waveIndex = -1;
-
     [Header("Level Update Details")]
     [SerializeField] private float yOffset = 5;
     [SerializeField] private float tileDelay = .1f;
+
+    [Header("Wave Settings")]
+    [SerializeField] private float timeBetweenWaves = 10f;
+    [SerializeField] private float waveTimer;
+    [SerializeField] private int waveIndex;
+    [SerializeField] private GridBuilder currentGrid;
+    [SerializeField] private WaveDetails[] levelWaves;
 
     private bool isGameBegun;
     private bool isWaveTimerEnabled;
@@ -34,12 +34,14 @@ public class WaveManager : MonoBehaviour
     private List<EnemyPortal> enemyPortals;
     private UIInGame uiInGame;
     private TileAnimator tileAnimator;
+    private GameManager gameManager;
 
     void Awake()
     {
         enemyPortals = new List<EnemyPortal>(FindObjectsByType<EnemyPortal>(FindObjectsSortMode.None));
         uiInGame = FindFirstObjectByType<UIInGame>(FindObjectsInactive.Include);
         tileAnimator = FindFirstObjectByType<TileAnimator>();
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     void Update()
@@ -120,7 +122,8 @@ public class WaveManager : MonoBehaviour
 
         if (HasNoMoreWave())
         {
-            Debug.LogWarning("Level is completed");
+            gameManager.CompleteLevel();
+            Debug.LogWarning("No more wave");
             return;
         }
 

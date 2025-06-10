@@ -7,7 +7,8 @@ public class LevelManager : MonoBehaviour
     private UI ui;
     private TileAnimator tileAnimator;
     private GridBuilder currentActiveGrid;
-    private string currentSceneName;
+
+    public string currentLevelName { get; private set; }
 
     void Awake()
     {
@@ -102,17 +103,17 @@ public class LevelManager : MonoBehaviour
 
     public void LoadLevel(string levelName) => StartCoroutine(LoadLevelCo(levelName));
 
-    public void RestartLevel() => StartCoroutine(LoadLevelCo(currentSceneName));
+    public void RestartLevel() => StartCoroutine(LoadLevelCo(currentLevelName));
 
     public void UpdateCurrentGrid(GridBuilder newGrid) => currentActiveGrid = newGrid;
 
     // Unload a scene in the background as the current scene run asynchronously
-    public void UnloadCurrentScene() => SceneManager.UnloadSceneAsync(currentSceneName);
+    public void UnloadCurrentScene() => SceneManager.UnloadSceneAsync(currentLevelName);
 
     // Load a scene in the background as the current scene run asynchronously
     private void LoadScene(string sceneNameLoad)
     {
-        currentSceneName = sceneNameLoad;
+        currentLevelName = sceneNameLoad;
         SceneManager.LoadSceneAsync(sceneNameLoad, LoadSceneMode.Additive);
     }
 }

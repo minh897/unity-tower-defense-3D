@@ -12,10 +12,13 @@ public class UIInGame : MonoBehaviour
     [SerializeField] private Transform waveTimerTrans;
     [SerializeField] private Coroutine waveTimerMoveRoutine;
 
+    [Header("Victory & Defeat")]
+    [SerializeField] private GameObject victoryUI;
+
     private UI ui;
     private UIAnimator uIAnimator;
     private UIPauseMenu uiPauseMenu;
-    private Vector3 waveTimerDefaultPos;
+    private Vector3 waveTimerDefaultPos; 
 
     void Awake()
     {
@@ -31,6 +34,12 @@ public class UIInGame : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Backspace))
             ui.SwitchUIElement(uiPauseMenu.gameObject);
+    }
+
+    public void EnableVictoryUI(bool isEnable)
+    {
+        if (victoryUI != null)
+            victoryUI.SetActive(isEnable);
     }
 
     public void UpdateHealthPointUIText(int changeValue, int maxValue)
