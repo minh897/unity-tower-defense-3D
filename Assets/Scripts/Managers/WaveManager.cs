@@ -52,6 +52,8 @@ public class WaveManager : MonoBehaviour
         HandleWaveTiming();
     }
 
+    public void DeactivateWaveManager() => isGameBegun = false;
+
     [ContextMenu("Activate Wave Manager")]
     public void ActivateWaveManager()
     {
@@ -114,8 +116,12 @@ public class WaveManager : MonoBehaviour
 
     public void HandleWaveCompletion()
     {
-        if (AreAllEnemiesDead() == false || isMakingNextWave)
+        // Stop next wave when WaveManager is disabled
+        if (isGameBegun == false)
             return;
+
+        if (AreAllEnemiesDead() == false || isMakingNextWave)
+                return;
 
         isMakingNextWave = true;
         waveIndex++;

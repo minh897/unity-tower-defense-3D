@@ -14,6 +14,7 @@ public class UIInGame : MonoBehaviour
 
     [Header("Victory & Defeat")]
     [SerializeField] private GameObject victoryUI;
+    [SerializeField] private GameObject defeatUI;
 
     private UI ui;
     private UIAnimator uIAnimator;
@@ -40,6 +41,12 @@ public class UIInGame : MonoBehaviour
     {
         if (victoryUI != null)
             victoryUI.SetActive(isEnable);
+    }
+
+    public void EnableDefeatUI(bool isEnable)
+    {
+        if (defeatUI != null)
+            defeatUI.SetActive(isEnable);
     }
 
     public void UpdateHealthPointUIText(int changeValue, int maxValue)

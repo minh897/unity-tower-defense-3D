@@ -5,12 +5,12 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private int maxHP;
     [SerializeField] private int currentHP;
-
     [SerializeField] private int currency;
 
     private UIInGame uiInGame;
     private WaveManager currentActiveWaveManager;
     private LevelManager levelManager;
+    private bool isGameLost;
 
     void Awake()
     {
@@ -22,6 +22,18 @@ public class GameManager : MonoBehaviour
     {
         currentHP = maxHP;
         uiInGame.UpdateHealthPointUIText(currentHP, maxHP);
+    }
+
+    public void FailLevel()
+    {
+        // Only trigger once
+        // Prevent keep failing when multiple enemy enter the castle
+        if (isGameLost)
+            return;
+
+        isGameLost = true;
+        currentActiveWaveManager.DeactivateWaveManager();
+        uiInGame.EnableDefeatUI(true);
     }
 
     public void CompleteLevel()
@@ -42,6 +54,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateGameManager(int levelCurrency, WaveManager newWaveManager)
     {
+        isGameLost = false;
         currency = levelCurrency;
         currentHP = maxHP;
         currentActiveWaveManager = newWaveManager;
@@ -55,6 +68,9 @@ public class GameManager : MonoBehaviour
         currentHP += changeValue;
         uiInGame.UpdateHealthPointUIText(currentHP, maxHP);
         uiInGame.ShakeHealthUI();
+
+        if (currentHP <= 0)
+            FailLevel();
     }
 
     public void UpdateCurrency(int changeValue)
