@@ -88,7 +88,6 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator CompleteLevelCo()
     {
-        PlayerPrefs.SetInt(levelManager.GetNextLevelName() + "unlocked", 1);
         cameraEffects.FocusOnCastle();
 
         yield return cameraEffects.GetActiveCameraCo();
@@ -96,7 +95,10 @@ public class GameManager : MonoBehaviour
         if (levelManager.HasNoMoreLevels())
             uiInGame.EnableVictoryUI(true);
         else
+        {
             uiInGame.EnableLevelCompletionUI(true);
+            PlayerPrefs.SetInt(levelManager.GetNextLevelName() + "unlocked", 1);
+        }
     }
 
 }
