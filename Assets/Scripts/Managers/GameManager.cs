@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     private LevelManager levelManager;
     private CameraEffects cameraEffects;
 
+    public int enemiesKilled { get; private set; }
+
     void Awake()
     {
         uiInGame = FindFirstObjectByType<UIInGame>(FindObjectsInactive.Include);
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour
     public void UpdateGameManager(int levelCurrency, WaveManager newWaveManager)
     {
         isGameLost = false;
+        enemiesKilled = 0;
         currency = levelCurrency;
         currentHP = maxHP;
         currentActiveWaveManager = newWaveManager;
@@ -55,6 +58,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateCurrency(int changeValue)
     {
+        enemiesKilled++;
         currency += changeValue;
         uiInGame.UpdateCurrencyText(currency);
     }
