@@ -35,7 +35,7 @@ public class TileAnimator : MonoBehaviour
     public void MoveTile(Transform objToMove, Vector3 targetPosition, float? newDuration = null)
     {
         float duration = newDuration ?? defaultMoveDuration;
-        StartCoroutine(MoveTileRoutine(objToMove, targetPosition, duration));
+        StartCoroutine(MoveTileCo(objToMove, targetPosition, duration));
     }
 
     private void ApplyOffset(List<GameObject> objectsToMove, Vector3 offset)
@@ -111,7 +111,7 @@ public class TileAnimator : MonoBehaviour
         return objectsToMove;
     }
 
-    public IEnumerator MoveTileRoutine(Transform objToMove, Vector3 targetPosition, float? newDuration = null)
+    public IEnumerator MoveTileCo(Transform objToMove, Vector3 targetPosition, float? newDuration = null)
     {
         float time = 0;
         float duration = newDuration ?? defaultMoveDuration;

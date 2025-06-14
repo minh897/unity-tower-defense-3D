@@ -54,6 +54,11 @@ public class TileSlotEditor : Editor
         MakeButtonSwitchTile("Small Outer Corner", tileHolder.tileCornerOuterSmall, twoButtonWidth);
         GUILayout.EndHorizontal();
 
+        GUILayout.BeginHorizontal();
+        MakeButtonSwitchTile("Level Tile", tileHolder.tileLevel, oneButtonWidth);
+        GUILayout.EndHorizontal();
+
+
         GUILayout.Label("Rotate Options", centeredStyle);
         GUILayout.BeginHorizontal();
         MakeButtonRotateTile("Rotate Left", -1, twoButtonWidth);

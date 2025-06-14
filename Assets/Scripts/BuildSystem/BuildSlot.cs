@@ -91,12 +91,12 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private void MoveTileUp()
     {
         Vector3 targetPosition = transform.position + new Vector3(0, tileAnimator.GetBuildOffset(), 0);
-        currentMovementUpCo = StartCoroutine(tileAnimator.MoveTileRoutine(transform, targetPosition));
+        currentMovementUpCo = StartCoroutine(tileAnimator.MoveTileCo(transform, targetPosition));
     }
 
     private void MoveTileDefault()
     {
-        moveToDefaultCo = StartCoroutine(tileAnimator.MoveTileRoutine(transform, defaultPosition));
+        moveToDefaultCo = StartCoroutine(tileAnimator.MoveTileCo(transform, defaultPosition));
     }
 
     public void SnapToDefaultPosition()

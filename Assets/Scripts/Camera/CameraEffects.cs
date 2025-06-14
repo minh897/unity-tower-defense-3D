@@ -9,6 +9,9 @@ public class CameraEffects : MonoBehaviour
     [Space]
     [SerializeField] private Vector3 inGamePosition;
     [SerializeField] private Quaternion inGameRotation;
+    [Space]
+    [SerializeField] private Vector3 levelSelectPosition;
+    [SerializeField] private Quaternion levelSelectRotation;
 
     [Header("Camera Shake")]
     [Range(0.01f, 0.5f)]
@@ -16,6 +19,7 @@ public class CameraEffects : MonoBehaviour
     [Range(0.1f, 3f)]
     [SerializeField] private float shakeDuration;
 
+    private Coroutine cameraCo;
     private CameraController cameraController;
 
     void Awake()
@@ -34,21 +38,36 @@ public class CameraEffects : MonoBehaviour
             ShakeScreen(shakeDuration, shakeMagnitude);
     }
 
-    public void ShakeScreen(float refDuration, float refMagnitude)
+    public void SwitchToLevelSelectView()
     {
-        StartCoroutine(ScreenShakeFX(refDuration, refMagnitude));
+        if (cameraCo != null)
+            StopCoroutine(cameraCo);
+
+        cameraCo = StartCoroutine(ChangePositionAndRotation(levelSelectPosition, levelSelectRotation));
+        cameraController.AdjustPicthValue(levelSelectRotation.eulerAngles.x);
     }
 
-    private void SwitchToMenuView()
+    public void SwitchToMenuView()
     {
-        StartCoroutine(ChangePositionAndRotation(inMenuPosition, inMenuRotation));
+        if (cameraCo != null)
+            StopCoroutine(cameraCo);
+
+        cameraCo = StartCoroutine(ChangePositionAndRotation(inMenuPosition, inMenuRotation));
         cameraController.AdjustPicthValue(inMenuRotation.eulerAngles.x);
     }
 
-    private void SwitchToGameView()
+    public void SwitchToGameView()
     {
-        StartCoroutine(ChangePositionAndRotation(inGamePosition, inGameRotation));
+        if (cameraCo != null)
+            StopCoroutine(cameraCo);
+
+        cameraCo = StartCoroutine(ChangePositionAndRotation(inGamePosition, inGameRotation));
         cameraController.AdjustPicthValue(inGameRotation.eulerAngles.x);
+    }
+
+    public void ShakeScreen(float refDuration, float refMagnitude)
+    {
+        StartCoroutine(ScreenShakeFX(refDuration, refMagnitude));
     }
 
     private IEnumerator ChangePositionAndRotation(Vector3 targetPosition, Quaternion targetRotation, float duration = 3, float delay = 0)

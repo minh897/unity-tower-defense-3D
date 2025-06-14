@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class TileSetHolder : MonoBehaviour
 {
+    [Header("Level Tile")]
+    public GameObject tileLevel;
+
+    [Header("Common Tiles")]
     public GameObject tileField;
     public GameObject tileRoad;
     public GameObject tileSideway;
