@@ -4,6 +4,8 @@ using UnityEngine;
 public class CameraEffects : MonoBehaviour
 {
     [Header("Camera Transition")]
+    [SerializeField] private float transitionDuration = 3;
+    [Space]
     [SerializeField] private Vector3 inMenuPosition;
     [SerializeField] private Quaternion inMenuRotation;
     [Space]
@@ -43,7 +45,7 @@ public class CameraEffects : MonoBehaviour
         if (cameraCo != null)
             StopCoroutine(cameraCo);
 
-        cameraCo = StartCoroutine(ChangePositionAndRotation(levelSelectPosition, levelSelectRotation));
+        cameraCo = StartCoroutine(ChangePositionAndRotation(levelSelectPosition, levelSelectRotation, transitionDuration));
         cameraController.AdjustPicthValue(levelSelectRotation.eulerAngles.x);
     }
 
@@ -52,7 +54,7 @@ public class CameraEffects : MonoBehaviour
         if (cameraCo != null)
             StopCoroutine(cameraCo);
 
-        cameraCo = StartCoroutine(ChangePositionAndRotation(inMenuPosition, inMenuRotation));
+        cameraCo = StartCoroutine(ChangePositionAndRotation(inMenuPosition, inMenuRotation, transitionDuration));
         cameraController.AdjustPicthValue(inMenuRotation.eulerAngles.x);
     }
 
@@ -61,8 +63,9 @@ public class CameraEffects : MonoBehaviour
         if (cameraCo != null)
             StopCoroutine(cameraCo);
 
-        cameraCo = StartCoroutine(ChangePositionAndRotation(inGamePosition, inGameRotation));
+        cameraCo = StartCoroutine(ChangePositionAndRotation(inGamePosition, inGameRotation, transitionDuration));
         cameraController.AdjustPicthValue(inGameRotation.eulerAngles.x);
+        EnableCameraControlAfter(transitionDuration + .1f);
     }
 
     public void ShakeScreen(float refDuration, float refMagnitude)
@@ -90,8 +93,6 @@ public class CameraEffects : MonoBehaviour
 
         transform.position = targetPosition;
         transform.rotation = targetRotation;
-
-        cameraController.EnableCamControl(true);
     }
 
     private IEnumerator ScreenShakeFX(float duration, float magnitude)
@@ -111,5 +112,11 @@ public class CameraEffects : MonoBehaviour
         }
 
         cameraController.transform.position = originalPosition;
+    }
+
+    private IEnumerator EnableCameraControlAfter(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        cameraController.EnableCamControl(true);
     }
 }
