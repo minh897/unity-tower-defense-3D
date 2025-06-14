@@ -7,7 +7,6 @@ public class TileLevelButton : MonoBehaviour, IPointerDownHandler, IPointerEnter
     [SerializeField] private int levelIndex;
 
     private bool canClick;
-    private bool canMove;
     private bool unlocked;
 
     private Vector3 defaultPosition;
@@ -56,14 +55,13 @@ public class TileLevelButton : MonoBehaviour, IPointerDownHandler, IPointerEnter
             return;
         }
 
-        canMove = true;
         transform.position = defaultPosition;
         levelManager.LoadLevelFromMenu("Level_" + levelIndex);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (canMove == false)
+        if (tileAnimator.IsGridMoving())
             return;
 
         MoveTileUp();
@@ -71,18 +69,13 @@ public class TileLevelButton : MonoBehaviour, IPointerDownHandler, IPointerEnter
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (canMove == false)
+        if (tileAnimator.IsGridMoving())
             return;
 
         if (currentMoveCo != null)
             Invoke(nameof(MoveTileDefault), tileAnimator.GetYTravelDuration());
         else
             MoveTileDefault();
-    }
-
-    void OnEnable()
-    {
-        canMove = true;
     }
 
     void OnValidate()
