@@ -146,4 +146,6 @@ public class CameraEffects : MonoBehaviour
         yield return new WaitForSeconds(delay);
         cameraController.EnableCamControl(true);
     }
+
+    public Coroutine GetActiveCameraCo() => cameraCo;
 }

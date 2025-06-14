@@ -129,7 +129,6 @@ public class WaveManager : MonoBehaviour
         if (HasNoMoreWave())
         {
             gameManager.CompleteLevel();
-            Debug.LogWarning("No more wave");
             return;
         }
 

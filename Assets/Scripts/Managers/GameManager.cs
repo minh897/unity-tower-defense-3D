@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,15 +8,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int currentHP;
     [SerializeField] private int currency;
 
+    private bool isGameLost;
     private UIInGame uiInGame;
     private WaveManager currentActiveWaveManager;
     private LevelManager levelManager;
-    private bool isGameLost;
+    private CameraEffects cameraEffects;
 
     void Awake()
     {
         uiInGame = FindFirstObjectByType<UIInGame>(FindObjectsInactive.Include);
         levelManager = FindFirstObjectByType<LevelManager>();
+        cameraEffects = FindFirstObjectByType<CameraEffects>();
     }
 
     void Start()
@@ -24,35 +27,9 @@ public class GameManager : MonoBehaviour
         uiInGame.UpdateHealthPointUIText(currentHP, maxHP);
     }
 
-    public void FailLevel()
-    {
-        // Only trigger once
-        // Prevent keep failing when multiple enemy enter the castle
-        if (isGameLost)
-            return;
-
-        isGameLost = true;
-        currentActiveWaveManager.DeactivateWaveManager();
-        uiInGame.EnableDefeatUI(true);
-    }
-
     public void CompleteLevel()
     {
-        string currentLevelName = levelManager.currentLevelName;
-
-        // Get the next scene (level) index by that scene name.
-        int nextLevelIndex = SceneUtility.GetBuildIndexByScenePath(currentLevelName) + 1;
-
-        string nextLevelName = "Level_" + nextLevelIndex;
-        PlayerPrefs.SetInt(nextLevelName + "unlocked", 1);
-
-        if (nextLevelIndex >= SceneManager.sceneCountInBuildSettings)
-        {
-            uiInGame.EnableVictoryUI(true);
-            Debug.LogWarning("You beat the game");
-        }
-        else
-            levelManager.LoadLevel("Level_" + nextLevelIndex);
+        StartCoroutine(CompleteLevelCo());
     }
 
     public void UpdateGameManager(int levelCurrency, WaveManager newWaveManager)
@@ -72,8 +49,8 @@ public class GameManager : MonoBehaviour
         uiInGame.UpdateHealthPointUIText(currentHP, maxHP);
         uiInGame.ShakeHealthUI();
 
-        if (currentHP <= 0)
-            FailLevel();
+        if (currentHP <= 0 && isGameLost == false)
+            StartCoroutine(FailLevel());
     }
 
     public void UpdateCurrency(int changeValue)
@@ -93,4 +70,29 @@ public class GameManager : MonoBehaviour
 
         return false;
     }
+
+    public IEnumerator FailLevel()
+    {
+        isGameLost = true;
+        currentActiveWaveManager.DeactivateWaveManager();
+        cameraEffects.FocusOnCastle();
+
+        yield return cameraEffects.GetActiveCameraCo();
+
+        uiInGame.EnableGameOverUI(true);
+    }
+
+    public IEnumerator CompleteLevelCo()
+    {
+        PlayerPrefs.SetInt(levelManager.GetNextLevelName() + "unlocked", 1);
+        cameraEffects.FocusOnCastle();
+
+        yield return cameraEffects.GetActiveCameraCo();
+
+        if (levelManager.HasNoMoreLevels())
+            uiInGame.EnableVictoryUI(true);
+        else
+            uiInGame.EnableLevelCompletionUI(true);
+    }
+
 }

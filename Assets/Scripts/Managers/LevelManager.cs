@@ -96,12 +96,21 @@ public class LevelManager : MonoBehaviour
     {
         CleanUpScene();
         ui.EnableInGameUI(false);
+        cameraEffects.SwitchToGameView();
 
         yield return tileAnimator.GetCurrentActiveRoutine();
 
         UnloadCurrentScene();
         LoadScene(levelName);
     }
+
+    public int GetNextLevelIndex() => SceneUtility.GetBuildIndexByScenePath(currentLevelName) + 1;
+
+    public string GetNextLevelName() => "Level_" + GetNextLevelIndex();
+
+    public bool HasNoMoreLevels() => GetNextLevelIndex() >= SceneManager.sceneCountInBuildSettings;
+
+    public void LoadNextLevel() => LoadLevel(GetNextLevelName());
 
     public void LoadMainMenu() => StartCoroutine(LoadMainMenuCo());
 
