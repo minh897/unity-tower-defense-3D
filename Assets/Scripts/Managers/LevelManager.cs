@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
     private UI ui;
     private TileAnimator tileAnimator;
     private GridBuilder currentActiveGrid;
+    private CameraEffects cameraEffects;
 
     public string currentLevelName { get; private set; }
 
@@ -14,6 +15,7 @@ public class LevelManager : MonoBehaviour
     {
         ui = FindFirstObjectByType<UI>();
         tileAnimator = FindFirstObjectByType<TileAnimator>();
+        cameraEffects = FindFirstObjectByType<CameraEffects>();
     }
 
     void Update()
@@ -62,6 +64,8 @@ public class LevelManager : MonoBehaviour
         tileAnimator.ShowMainGrid(false);
         ui.EnableMainMenuUI(false);
 
+        cameraEffects.SwitchToGameView();
+
         yield return tileAnimator.GetCurrentActiveRoutine();
 
         tileAnimator.EnableMainSceneObjects(false);
@@ -73,6 +77,8 @@ public class LevelManager : MonoBehaviour
     {
         CleanUpScene();
         ui.EnableInGameUI(false);
+
+        cameraEffects.SwitchToMenuView();
 
         // Delay until this GetCurrentActiveRoutine coroutine is finished
         yield return tileAnimator.GetCurrentActiveRoutine();

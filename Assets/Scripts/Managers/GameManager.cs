@@ -40,8 +40,11 @@ public class GameManager : MonoBehaviour
     {
         string currentLevelName = levelManager.currentLevelName;
 
-        // Get a scene (level) index by that scene name. Plus 1 to get the next level
+        // Get the next scene (level) index by that scene name.
         int nextLevelIndex = SceneUtility.GetBuildIndexByScenePath(currentLevelName) + 1;
+
+        string nextLevelName = "Level_" + nextLevelIndex;
+        PlayerPrefs.SetInt(nextLevelName + "unlocked", 1);
 
         if (nextLevelIndex >= SceneManager.sceneCountInBuildSettings)
         {

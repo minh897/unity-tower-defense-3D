@@ -8,8 +8,8 @@ public class UILevelSelection : MonoBehaviour
 
         foreach (var button in levelButtons)
         {
+            button.CheckIfLevelUnlocked();
             button.EnableClick(canClick);
-            Debug.Log("Canclick is: " + canClick);
         }
     }
 
