@@ -21,6 +21,11 @@ public class CameraEffects : MonoBehaviour
     [Range(0.1f, 3f)]
     [SerializeField] private float shakeDuration;
 
+    [Header("Castle Focus")]
+    [SerializeField] private float focusOnCastleDuration = 2;
+    [SerializeField] private float yOffset = 3;
+    [SerializeField] private float distanceToCastle = 7;
+
     private Coroutine cameraCo;
     private CameraController cameraController;
 
@@ -38,6 +43,28 @@ public class CameraEffects : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.V))
             ShakeScreen(shakeDuration, shakeMagnitude);
+
+        if (Input.GetKeyDown(KeyCode.B))
+            FocusOnCastle();
+    }
+
+    public void FocusOnCastle()
+    {
+        Transform castle = FindFirstObjectByType<PlayerCastle>().transform;
+
+        if (castle == null)
+            return;
+
+        Vector3 directionToCastle = (castle.position - transform.position).normalized;
+        Vector3 targetPosition = castle.position - (directionToCastle * distanceToCastle);
+        targetPosition.y = castle.position.y + yOffset;
+
+        Quaternion targetRotation = Quaternion.LookRotation(castle.position - targetPosition);
+
+        if (cameraCo != null)
+            StopCoroutine(cameraCo);
+
+        cameraCo = StartCoroutine(ChangePositionAndRotation(targetPosition, targetRotation, focusOnCastleDuration));
     }
 
     public void SwitchToLevelSelectView()
@@ -65,7 +92,7 @@ public class CameraEffects : MonoBehaviour
 
         cameraCo = StartCoroutine(ChangePositionAndRotation(inGamePosition, inGameRotation, transitionDuration));
         cameraController.AdjustPicthValue(inGameRotation.eulerAngles.x);
-        EnableCameraControlAfter(transitionDuration + .1f);
+        StartCoroutine(EnableCameraControlAfter(transitionDuration + .1f));
     }
 
     public void ShakeScreen(float refDuration, float refMagnitude)
