@@ -10,11 +10,13 @@ public class UIButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private UIAnimator uIAnim;
     private RectTransform myRect;
     private Coroutine scaleRoutine;
+    private UI ui;
 
     void Awake()
     {
         uIAnim = GetComponent<UIAnimator>();
         myRect = GetComponent<RectTransform>();
+        ui = GetComponentInParent<UI>();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -23,6 +25,8 @@ public class UIButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         // Avoid same coroutine stacking on top of each other
         if (scaleRoutine != null)
             StopCoroutine(scaleRoutine);
+
+        AudioManager.instance?.PlaySFX(ui.onHoverSFX);
 
         if (uITextBlinkEffect != null)
             uITextBlinkEffect.ToggleBlinkEffect(false);
@@ -43,6 +47,7 @@ public class UIButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        AudioManager.instance?.PlaySFX(ui.onClickSFX);
         myRect.localScale = new(1, 1, 1);
     }
 }

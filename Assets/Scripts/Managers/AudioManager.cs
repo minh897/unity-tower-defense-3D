@@ -19,6 +19,21 @@ public class AudioManager : MonoBehaviour
         InvokeRepeating(nameof(PlayMusicIfNeeded), 0, 2);
     }
 
+    public void PlaySFX(AudioSource audioToPlay)
+    {
+        if (audioToPlay == null)
+        {
+            Debug.Log("Could not play " + audioToPlay.gameObject.name + ". There is no audio clip assigned");
+            return;
+        }
+        
+        // Safety check to prevent the audio from playing on top of each other
+        if (audioToPlay.isPlaying)
+            audioToPlay.Stop();
+
+        audioToPlay.Play();
+    }
+
     private void PlayMusicIfNeeded()
     {
         if (bgms.Length <= 0)
@@ -63,8 +78,4 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySFX()
-    {
-        Debug.Log("Sound was played");
-    }
 }

@@ -7,6 +7,10 @@ public class UI : MonoBehaviour
     [SerializeField] private GameObject[] uiElement;
     [SerializeField] private Image fadeImageUI;
 
+    [Header("UI SFX")]
+    public AudioSource onHoverSFX;
+    public AudioSource onClickSFX;
+
     private UISetting uiSetting;
     private UIMainMenu uiMainMenu;
 
