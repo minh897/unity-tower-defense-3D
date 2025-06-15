@@ -14,6 +14,9 @@ public class Tower : MonoBehaviour
     [SerializeField] protected LayerMask enemyLayer;
     [SerializeField] protected EnemyType enemyPriorityType;
 
+    [Header("SFX Details")]
+    [SerializeField] protected AudioSource attackSFX;
+
     protected int maxEnemyOverlap = 10;
     protected float lastTimeAttacked;
     protected Collider[] enemyOverlapList;

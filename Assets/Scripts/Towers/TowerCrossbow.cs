@@ -25,10 +25,6 @@ public class TowerCrossbow : Tower
         {
             towerHead.forward = directionToEnemy;
 
-            // Play both attack visual and reload crossbow visual
-            visual.PlayAttackFX(gunPoint.position, hitInfo.point);
-            visual.PlayReloadFX(attackCoolDown);
-
             // Search for IDamagable interface from the hit enemy
             IDamagable damgableInterface = hitInfo.transform.gameObject.GetComponent<IDamagable>();
 
@@ -36,6 +32,12 @@ public class TowerCrossbow : Tower
             {
                 damgableInterface.TakeDamage(towerDamage);
             }
+
+            // Play both attack visual and reload crossbow visual
+            visual.PlayAttackFX(gunPoint.position, hitInfo.point);
+            visual.PlayReloadFX(attackCoolDown);
+
+            AudioManager.instance?.PlaySFX(attackSFX, true);
         }
     }
 }
