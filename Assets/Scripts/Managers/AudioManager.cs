@@ -4,7 +4,6 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
-    [Header("BGM Details")]
     [SerializeField] private bool isBGMPlay;
     [SerializeField] private AudioSource[] bgms;
     private int currentBGMIndex;
@@ -23,7 +22,7 @@ public class AudioManager : MonoBehaviour
     {
         if (audioToPlay == null)
         {
-            Debug.Log("Could not play " + audioToPlay.gameObject.name + ". There is no audio clip assigned");
+            Debug.LogWarning("Could not play " + audioToPlay.gameObject.name + ". There is no audio clip assigned");
             return;
         }
         

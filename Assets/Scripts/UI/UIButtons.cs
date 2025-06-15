@@ -14,9 +14,9 @@ public class UIButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     void Awake()
     {
+        ui = GetComponentInParent<UI>();
         uIAnim = GetComponent<UIAnimator>();
         myRect = GetComponent<RectTransform>();
-        ui = GetComponentInParent<UI>();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
