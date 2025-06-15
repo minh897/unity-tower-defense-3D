@@ -26,11 +26,14 @@ public class UI : MonoBehaviour
         uiInGame = GetComponentInChildren<UIInGame>(true);
         uiAnimator = GetComponent<UIAnimator>();
 
+        // ActivateFadeEffect(true);
+    }
+
+    void Start()
+    {
         SwitchUIElement(uiSetting.gameObject);
         SwitchUIElement(uiMainMenu.gameObject);
         // SwitchUIElemnt(uiInGame.gameObject);
-
-        // ActivateFadeEffect(true);
     }
 
     public void EnableMainMenuUI(bool isEnable)

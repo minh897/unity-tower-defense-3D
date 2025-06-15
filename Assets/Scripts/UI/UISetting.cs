@@ -1,5 +1,7 @@
+using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class UISetting : MonoBehaviour
@@ -18,11 +20,40 @@ public class UISetting : MonoBehaviour
     [SerializeField] private Slider mouseSenseSlider;
     [SerializeField] private TextMeshProUGUI mouseSenseText;
 
-    CameraController cameraController;
+    [Space]
+    [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private float mixerMultiplier = 25;
+
+    [Header("SFX Settings")]
+    [SerializeField] private string sfxParameter;
+    [SerializeField] private Slider sfxSlider;
+    [SerializeField] private TextMeshProUGUI sfxSliderText;
+
+    [Header("BGM Settings")]
+    [SerializeField] private string bgmParameter;
+    [SerializeField] private Slider bgmSlider;
+    [SerializeField] private TextMeshProUGUI bgmSliderText;
+
+
+    private CameraController cameraController;
 
     void Awake()
     {
         cameraController = FindFirstObjectByType<CameraController>();
+    }
+
+    public void SFXSliderValue(float changeValue)
+    {
+        float newValue = MathF.Log10(changeValue) * mixerMultiplier;
+        audioMixer.SetFloat(sfxParameter, newValue);
+        sfxSliderText.text = Mathf.RoundToInt(changeValue * 100) + "%";
+    }
+
+    public void BGMSliderValue(float changeValue)
+    {
+        float newValue = MathF.Log10(changeValue) * mixerMultiplier;
+        audioMixer.SetFloat(bgmParameter, newValue);
+        bgmSliderText.text = Mathf.RoundToInt(changeValue * 100) + "%";
     }
 
     public void AdjustKeyboardSense(float changeValue)
@@ -43,11 +74,15 @@ public class UISetting : MonoBehaviour
     {
         PlayerPrefs.SetFloat(keyboardSenseParameter, keyboardSenseSlider.value);
         PlayerPrefs.SetFloat(mouseSenseParameter, mouseSenseSlider.value);
+        PlayerPrefs.SetFloat(sfxParameter, sfxSlider.value);
+        PlayerPrefs.SetFloat(bgmParameter, bgmSlider.value);
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
-        keyboardSenseSlider.value = PlayerPrefs.GetFloat(keyboardSenseParameter, .5f);
-        mouseSenseSlider.value = PlayerPrefs.GetFloat(mouseSenseParameter, .5f);
+        keyboardSenseSlider.value = PlayerPrefs.GetFloat(keyboardSenseParameter, .6f);
+        mouseSenseSlider.value = PlayerPrefs.GetFloat(mouseSenseParameter, .6f);
+        sfxSlider.value = PlayerPrefs.GetFloat(sfxParameter, .6f);
+        bgmSlider.value = PlayerPrefs.GetFloat(bgmParameter, .6f);
     }
 }
