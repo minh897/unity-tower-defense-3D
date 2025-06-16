@@ -23,13 +23,11 @@ public class TileAnimator : MonoBehaviour
 
     void Start()
     {
-        ShowCurrentGrid(mainSceneGrid, true);
-        CollectMainSceneObjects();
-    }
+        if (GameManager.instance.IsTestingLevel())
+            return;
 
-    void Update()
-    {
-        // Do something here
+        CollectMainSceneObjects();
+        ShowCurrentGrid(mainSceneGrid, true);
     }
 
     public void MoveTile(Transform objToMove, Vector3 targetPosition, float? newDuration = null)

@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
     [SerializeField] private int maxHP;
     [SerializeField] private int currentHP;
     [SerializeField] private int currency;
@@ -18,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        instance = this;
+        
         uiInGame = FindFirstObjectByType<UIInGame>(FindObjectsInactive.Include);
         levelManager = FindFirstObjectByType<LevelManager>();
         cameraEffects = FindFirstObjectByType<CameraEffects>();
@@ -26,7 +30,15 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         currentHP = maxHP;
+
+        if (IsTestingLevel())
+        {
+            currency += 9999;
+            currentHP += 9999;
+        }
+
         uiInGame.UpdateHealthPointUIText(currentHP, maxHP);
+        uiInGame.UpdateCurrencyText(currency);
     }
 
     public void CompleteLevel()
@@ -100,5 +112,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt(levelManager.GetNextLevelName() + "unlocked", 1);
         }
     }
+
+    public bool IsTestingLevel() => levelManager == null;
 
 }
