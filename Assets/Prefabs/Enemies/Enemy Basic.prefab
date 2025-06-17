@@ -4760,7 +4760,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7104675368191282976}
   m_Layer: 8
-  m_Name: basic_enemy_center_point
+  m_Name: center_point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4831,11 +4831,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d2c72d18c7772c498fa94797d8ed5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSpeed: 10
-  enemyType: 1
-  centerPoint: {fileID: 7104675368191282976}
-  enemyWaypoints: []
   healthPoints: 12
+  turnSpeed: 10
+  centerPoint: {fileID: 7104675368191282976}
+  enemyType: 1
+  enemyWaypoints: []
 --- !u!114 &275143457406804007
 MonoBehaviour:
   m_ObjectHideFlags: 0

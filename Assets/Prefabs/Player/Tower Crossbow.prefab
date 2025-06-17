@@ -496,6 +496,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca03122baba3f8c14852f51bba8fa081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackVisualDur: 0.1
+  attackLineVisual: {fileID: 5864418176272268874}
+  onHitFX: {fileID: 8074230637034743071, guid: a1ed2b126dc9b3c9fb3260b72e01593d, type: 3}
   maxIntensity: 150
   startColor: {r: 0, g: 0, b: 0, a: 0}
   endColor: {r: 1, g: 1, b: 0.22520936, a: 1}
@@ -520,8 +523,6 @@ MonoBehaviour:
   rotor: {fileID: 2907943520245457205}
   rotorUnloadPoint: {fileID: 389275627807487759}
   rotorLoadPoint: {fileID: 3046091012630707520}
-  attackVisualDur: 0.1
-  attackLineVisual: {fileID: 5864418176272268874}
 --- !u!1 &2689691096766452125
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum EnemyType {None, Basic, Fast, Swarm}
+public enum EnemyType {None, Basic, Fast, Swarm, Heavy}
 
 public class Enemy : MonoBehaviour, IDamagable
 {
@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour, IDamagable
     private EnemyPortal enemyPortal;
     private GameManager gameManager;
 
-    void Awake()
+    protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         gameManager = FindFirstObjectByType<GameManager>();

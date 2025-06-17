@@ -26,14 +26,22 @@ public class TowerCrossbow : Tower
             towerHead.forward = directionToEnemy;
 
             // Search for IDamagable interface from the hit enemy
-            IDamagable damgableInterface = hitInfo.transform.gameObject.GetComponent<IDamagable>();
+            IDamagable damagableIn = hitInfo.transform.gameObject.GetComponent<IDamagable>();
+            EnemyShield enemyShield = hitInfo.collider.gameObject.GetComponent<EnemyShield>();
 
-            if (damgableInterface != null)
+            if (damagableIn != null && enemyShield == null)
             {
-                damgableInterface.TakeDamage(towerDamage);
+                damagableIn.TakeDamage(towerDamage);
             }
 
-            // Play both attack visual and reload crossbow visual
+            // Damage the shield instead if the enemy has EnemyShield component
+            if (enemyShield != null)
+            {
+                damagableIn = enemyShield.GetComponent<IDamagable>();
+                damagableIn.TakeDamage(towerDamage);
+            }
+
+            visual.CreateOnHitFX(hitInfo.point);
             visual.PlayAttackFX(gunPoint.position, hitInfo.point);
             visual.PlayReloadFX(attackCoolDown);
 

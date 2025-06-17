@@ -3,13 +3,18 @@ using UnityEngine;
 
 public class CrossbowVisual : MonoBehaviour
 {
+    [Header("Attack Visuals")]
+    [SerializeField] private float attackVisualDur = .1f;
+    [SerializeField] private LineRenderer attackLineVisual;
+    [SerializeField] private GameObject onHitFX;
+    [Space]
+
     [Header("Tower Head Emission Visual")]
     [SerializeField] private float maxIntensity = 150f;
     [SerializeField] private Color startColor;
     [SerializeField] private Color endColor;
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private LineRenderer[] lineRenderers;
-
     [Space]
 
     [Header("Front String Visual")]
@@ -19,7 +24,6 @@ public class CrossbowVisual : MonoBehaviour
     [SerializeField] private Transform frontStartPoint_R;
     [SerializeField] private Transform frontEndPoint_L;
     [SerializeField] private Transform frontEndPoint_R;
-
     [Space]
 
     [Header("Back String Visual")]
@@ -29,18 +33,14 @@ public class CrossbowVisual : MonoBehaviour
     [SerializeField] private Transform backStartPoint_R;
     [SerializeField] private Transform backEndPoint_L;
     [SerializeField] private Transform backEndPoint_R;
-
     [Space]
 
     [Header("Rotor Visual")]
     [SerializeField] private Transform rotor;
     [SerializeField] private Transform rotorUnloadPoint;
     [SerializeField] private Transform rotorLoadPoint;
-
     [Space]
 
-    [SerializeField] private float attackVisualDur = .1f;
-    [SerializeField] private LineRenderer attackLineVisual;
 
     private float currentIntensity;
     private Enemy enemyHit;
@@ -74,6 +74,12 @@ public class CrossbowVisual : MonoBehaviour
         {
             attackLineVisual.SetPosition(1, enemyHit.GetCenterPoint());
         }
+    }
+
+    public void CreateOnHitFX(Vector3 hitPoint)
+    {
+        GameObject newFX = Instantiate(onHitFX, hitPoint, Random.rotation);
+        Destroy(newFX, 1);
     }
 
     public void PlayAttackFX(Vector3 startPoint, Vector3 endPoint)
