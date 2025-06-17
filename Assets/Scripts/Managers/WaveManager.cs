@@ -46,12 +46,12 @@ public class WaveManager : MonoBehaviour
 
     void Update()
     {
-        if (isGameBegun == false)
-            return;
-
         if (Input.GetKeyDown(KeyCode.T))
             ActivateWaveManager();
-
+        
+        if (isGameBegun == false)
+            return;
+            
         HandleWaveTiming();
     }
 
