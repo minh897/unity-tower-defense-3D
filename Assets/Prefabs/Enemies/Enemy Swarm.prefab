@@ -190,6 +190,7 @@ MonoBehaviour:
   roadLayer:
     serializedVersion: 2
     m_Bits: 64
+  transparentMat: {fileID: 2100000, guid: ee9eccd1afc373017b6909ba01efe213, type: 2}
   variants:
   - {fileID: 742964963443086901}
   - {fileID: 4560585782001207916}

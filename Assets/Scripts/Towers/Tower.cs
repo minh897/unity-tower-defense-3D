@@ -5,14 +5,18 @@ public class Tower : MonoBehaviour
 {
     public Enemy currentEnemy;
 
-    [Header("Tower Setup")]
-    [SerializeField] protected float rotationSpeed = 10f;
-    [SerializeField] protected float attackRange = 2.5f;
     [SerializeField] protected float attackCoolDown = 1f;
     [Space]
+
+    [Header("Tower Setup")]
+    [SerializeField] protected float rotationSpeed = 10f;
     [SerializeField] protected Transform towerHead;
-    [SerializeField] protected LayerMask enemyLayer;
     [SerializeField] protected EnemyType enemyPriorityType;
+    [Space]
+
+    [SerializeField] protected float attackRange = 2.5f;
+    [SerializeField] protected LayerMask whatIsEnemy;
+    [SerializeField] protected LayerMask whatIsTargetable;
 
     [Header("SFX Details")]
     [SerializeField] protected AudioSource attackSFX;
@@ -41,24 +45,9 @@ public class Tower : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
-    protected bool IsEnemyOutOfRange(Transform enemy)
-    {
-        return Vector3.Distance(enemy.position, transform.position) > attackRange;
-    }
-
     protected virtual void Attack()
     {
         Debug.Log("Attack start at " + Time.time);
-    }
-
-    protected Vector3 DirectionToEnemyFrom(Transform startPoint)
-    {
-        return (currentEnemy.GetCenterPoint() - startPoint.position).normalized;
-    }
-
-    public void EnableRotation(bool isEnable)
-    {
-        canRotate = isEnable;
     }
 
     protected bool CanAttack()
@@ -127,7 +116,7 @@ public class Tower : MonoBehaviour
         List<Enemy> priorityEnemies = new();
 
         // Check for all enemies within attack radius using layer mask, and store them in pre-allocated array
-        int enemycount = Physics.OverlapSphereNonAlloc(transform.position, attackRange, enemyOverlapList, enemyLayer);
+        int enemycount = Physics.OverlapSphereNonAlloc(transform.position, attackRange, enemyOverlapList, whatIsEnemy);
 
         for (int i = 0; i < enemycount; i++)
         {
@@ -168,6 +157,12 @@ public class Tower : MonoBehaviour
 
         return closestEnemy;
     }
+
+    protected bool IsEnemyOutOfRange(Transform enemy) => Vector3.Distance(enemy.position, transform.position) > attackRange;
+
+    protected Vector3 DirectionToEnemyFrom(Transform startPoint) => (currentEnemy.GetCenterPoint() - startPoint.position).normalized;
+
+    public void EnableRotation(bool isEnable) => canRotate = isEnable;
 
     public float GetAttackRange() => attackRange;
 }

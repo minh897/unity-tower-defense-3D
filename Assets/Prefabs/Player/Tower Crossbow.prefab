@@ -473,14 +473,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentEnemy: {fileID: 0}
-  rotationSpeed: 10
-  attackRange: 4
   attackCoolDown: 3
+  rotationSpeed: 10
   towerHead: {fileID: 7057486507410325546}
-  enemyLayer:
+  enemyPriorityType: 2
+  attackRange: 4
+  whatIsEnemy:
     serializedVersion: 2
     m_Bits: 256
-  enemyPriorityType: 2
+  whatIsTargetable:
+    serializedVersion: 2
+    m_Bits: 257
   attackSFX: {fileID: 8156632223536569669}
   towerDamage: 10
   gunPoint: {fileID: 4884208571705384344}

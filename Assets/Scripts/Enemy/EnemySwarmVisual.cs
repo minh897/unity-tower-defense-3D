@@ -13,10 +13,10 @@ public class EnemySwarmVisual : EnemyVisual
     private float bounceTimer;
 
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
         ChooseVisualVariant();
+        base.Awake();
     }
 
     protected override void Update()

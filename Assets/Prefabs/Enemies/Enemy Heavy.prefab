@@ -31,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.06, y: 0.409, z: 7.77}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1102096671821580191}
   - {fileID: 1813633557988162194}
@@ -75,6 +75,7 @@ MonoBehaviour:
   roadLayer:
     serializedVersion: 2
     m_Bits: 64
+  transparentMat: {fileID: 2100000, guid: ee9eccd1afc373017b6909ba01efe213, type: 2}
 --- !u!195 &4062217144206838367
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -164,7 +165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1102096671821580191
 Transform:
   m_ObjectHideFlags: 0

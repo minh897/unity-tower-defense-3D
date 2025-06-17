@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyVisual : MonoBehaviour
@@ -6,14 +7,49 @@ public class EnemyVisual : MonoBehaviour
     [SerializeField] protected Transform visuals;
     [SerializeField] private LayerMask roadLayer;
 
+    [Header("Transparency Details")]
+    [SerializeField] private Material transparentMat;
+    private List<Material> originalMats;
+    private MeshRenderer[] myMeshes;
+
+    protected virtual void Awake()
+    {
+        CollectDefaultMat();
+    }
+
     protected virtual void Start()
     {
-        
+        // Do something
     }
 
     protected virtual void Update()
     {
         AlignWithSlope();
+
+        if (Input.GetKeyDown(KeyCode.X))
+            MakeTransparent(true);
+
+        if (Input.GetKeyDown(KeyCode.C))
+            MakeTransparent(false);
+    }
+
+    public void MakeTransparent(bool isTransparent)
+    {
+        for (int i = 0; i < myMeshes.Length; i++)
+        {
+            myMeshes[i].material = isTransparent ? transparentMat : originalMats[i];
+        }
+    }
+
+    protected void CollectDefaultMat()
+    {
+        myMeshes = GetComponentsInChildren<MeshRenderer>();
+        originalMats = new();
+
+        foreach (var renderer in myMeshes)
+        {
+            originalMats.Add(renderer.material);
+        }
     }
 
     private void AlignWithSlope()

@@ -1,43 +1,65 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum EnemyType {None, Basic, Fast, Swarm, Heavy}
+public enum EnemyType {None, Basic, Fast, Swarm, Heavy, Stealth}
 
 public class Enemy : MonoBehaviour, IDamagable
 {
     public int healthPoints = 4;
+
+    public EnemyVisual visual { get; private set; }
 
     [SerializeField] private float turnSpeed = 10f;
     [SerializeField] private Transform centerPoint;
     [SerializeField] private EnemyType enemyType;
     [SerializeField] private List<Transform> enemyWaypoints;
 
+    private int originalLayerIndex;
     private int nextWaypointIndex;
     private int currentWavepointIndex;
     private float totalDistance;
     private NavMeshAgent agent;
     private EnemyPortal enemyPortal;
     private GameManager gameManager;
+    private Coroutine hideCo;
+
+    protected bool canBeHidden = true;
+    protected bool isHidden = true;
 
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
         gameManager = FindFirstObjectByType<GameManager>();
 
-        agent.updateRotation = false;
+        visual = GetComponent<EnemyVisual>();
+        originalLayerIndex = gameObject.layer;
+
         agent.avoidancePriority = Mathf.RoundToInt(agent.speed * 10);
     }
 
-    void Start()
+    protected virtual void Start()
     {
-        CalculateTotalDistance();
+        
     }
 
     void Update()
     {
         FaceTarget(agent.steeringTarget);
         SetNextDestination();
+    }
+
+    public void HideEnemy(float duration)
+    {
+        if (canBeHidden == false)
+            return;
+
+        if (hideCo != null)
+            StopCoroutine(hideCo);
+
+        hideCo = StartCoroutine(HideEnemyCo(duration));
     }
 
     public void SetupEnemyWaypoint(List<Waypoint> newEnemyWaypoints, EnemyPortal referencePortal)
@@ -67,14 +89,10 @@ public class Enemy : MonoBehaviour, IDamagable
     private bool ShouldChangeWaypoint()
     {
         if (nextWaypointIndex >= enemyWaypoints.Count)
-        {
             return false;
-        }
 
-        if (agent.remainingDistance <= 0.1f)
-        {
+        if (agent.remainingDistance <= 0.2f)
             return true;
-        }
         
         Vector3 currentWaypoint = enemyWaypoints[currentWavepointIndex].position;
         Vector3 nextWaypoint = enemyWaypoints[nextWaypointIndex].position;
@@ -90,9 +108,7 @@ public class Enemy : MonoBehaviour, IDamagable
     private Vector3 GetNextWayPoint()
     {
         if (nextWaypointIndex >= enemyWaypoints.Count)
-        {
             return transform.position;
-        }
 
         Vector3 targetPosition = enemyWaypoints[nextWaypointIndex].position;
 
@@ -115,9 +131,7 @@ public class Enemy : MonoBehaviour, IDamagable
     private void SetNextDestination()
     {
         if (ShouldChangeWaypoint())
-        {
             agent.SetDestination(GetNextWayPoint());
-        }
     }
 
     // Smoothly rotate the enemy game object to face the given target position
@@ -157,6 +171,19 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         enemyPortal.RemoveActiveEnemy(gameObject);
         Destroy(gameObject);
+    }
+
+    private IEnumerator HideEnemyCo(float duration)
+    {
+        gameObject.layer = LayerMask.NameToLayer("Untargetable");
+        visual.MakeTransparent(true);
+        isHidden = true;
+
+        yield return new WaitForSeconds(duration);
+
+        gameObject.layer = originalLayerIndex;
+        visual.MakeTransparent(false);
+        isHidden = false;
     }
 
     public float CalculateDistanceToGoal() => totalDistance + agent.remainingDistance;
