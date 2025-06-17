@@ -316,7 +316,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cb7b67661138e734d84f264c74994a56, type: 2}
+  - {fileID: 2100000, guid: 0e8cc16657f813374ad661cb003f6308, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 7718533712985847204}
   - component: {fileID: 6189110777742708153}
   m_Layer: 8
-  m_Name: Enemy Fast Updated
+  m_Name: Enemy Fast
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
