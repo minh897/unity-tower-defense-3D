@@ -3,10 +3,15 @@ using UnityEngine;
 public class EnemyVisual : MonoBehaviour
 {
     [SerializeField] private float verticalRotationSpeed;
-    [SerializeField] private Transform visuals;
+    [SerializeField] protected Transform visuals;
     [SerializeField] private LayerMask roadLayer;
 
-    void Update()
+    protected virtual void Start()
+    {
+        
+    }
+
+    protected virtual void Update()
     {
         AlignWithSlope();
     }

@@ -2,16 +2,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum EnemyType {None, Basic, Fast}
+public enum EnemyType {None, Basic, Fast, Swarm}
 
 public class Enemy : MonoBehaviour, IDamagable
 {
-    [SerializeField] private float turnSpeed = 10f;
-    [SerializeField] private EnemyType enemyType;
-    [SerializeField] private Transform centerPoint;
-    [SerializeField] private List<Transform> enemyWaypoints;
-
     public int healthPoints = 4;
+
+    [SerializeField] private float turnSpeed = 10f;
+    [SerializeField] private Transform centerPoint;
+    [SerializeField] private EnemyType enemyType;
+    [SerializeField] private List<Transform> enemyWaypoints;
 
     private int nextWaypointIndex;
     private int currentWavepointIndex;
