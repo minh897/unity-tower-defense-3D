@@ -20,25 +20,28 @@ public class Enemy : MonoBehaviour, IDamagable
     private int nextWaypointIndex;
     private int currentWavepointIndex;
     private float totalDistance;
-    private EnemyPortal enemyPortal;
     private GameManager gameManager;
     private Coroutine hideCo;
 
     protected bool canBeHidden = true;
     protected bool isHidden = true;
 
+    protected EnemyPortal enemyPortal;
     protected NavMeshAgent agent;
+    protected Rigidbody rb;
 
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        rb = GetComponent<Rigidbody>();
+
         agent.updateRotation = false;
-        gameManager = FindFirstObjectByType<GameManager>();
+        agent.avoidancePriority = Mathf.RoundToInt(agent.speed * 10);
 
         visual = GetComponent<EnemyVisual>();
         originalLayerIndex = gameObject.layer;
 
-        agent.avoidancePriority = Mathf.RoundToInt(agent.speed * 10);
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     protected virtual void Start()
@@ -46,7 +49,7 @@ public class Enemy : MonoBehaviour, IDamagable
         
     }
 
-    void Update()
+    protected virtual void Update()
     {
         FaceTarget(agent.steeringTarget);
         SetNextDestination();
@@ -169,7 +172,7 @@ public class Enemy : MonoBehaviour, IDamagable
             Die();
     }
 
-    private void Die()
+    public virtual void Die()
     {
         enemyPortal.RemoveActiveEnemy(gameObject);
         gameManager.UpdateCurrency(1);

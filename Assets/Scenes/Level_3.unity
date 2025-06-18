@@ -223,7 +223,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.1830124, y: -0.6830128, z: -0.18301237, w: 0.68301284}
   m_LocalPosition: {x: 7.98, y: 1.6189, z: 12.6224}
-  m_LocalScale: {x: 0.25545946, y: 1, z: 0.13113198}
+  m_LocalScale: {x: 0.25545946, y: 1, z: 0.15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1631574963}
@@ -486,6 +486,10 @@ PrefabInstance:
       propertyPath: myWaveManager
       value: 
       objectReference: {fileID: 1631574964}
+    - target: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
+      propertyPath: spawnCoolDown
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
       propertyPath: 'waypoints.Array.data[1]'
       value: 
@@ -1232,13 +1236,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 265972633}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.9659257, z: -0, w: 0.2588196}
-  m_LocalPosition: {x: 11.2801, y: 2.25, z: 5.0312}
-  m_LocalScale: {x: 0.75000864, y: 1, z: 0.13113198}
+  m_LocalRotation: {x: -0, y: -0.92387944, z: -0, w: 0.38268372}
+  m_LocalPosition: {x: 11.09, y: 2.25, z: 6.03}
+  m_LocalScale: {x: 0.87116784, y: 1, z: 0.15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1631574963}
-  m_LocalEulerAnglesHint: {x: 0, y: -150, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -135, z: 0}
 --- !u!1 &285962077
 GameObject:
   m_ObjectHideFlags: 0
@@ -2407,7 +2411,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 3.9818, y: 2.25, z: 4.97}
-  m_LocalScale: {x: 0.8883438, y: 1, z: 0.13113198}
+  m_LocalScale: {x: 0.8883438, y: 1, z: 0.15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1631574963}
@@ -2936,8 +2940,8 @@ Transform:
   m_GameObject: {fileID: 1018579664}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.70710677, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 14.2, y: 2.25, z: 1.8971}
-  m_LocalScale: {x: 0.36280456, y: 1, z: 0.13113198}
+  m_LocalPosition: {x: 13.99, y: 2.25, z: 1.64}
+  m_LocalScale: {x: 0.36280456, y: 1, z: 0.15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1631574963}
@@ -3006,6 +3010,10 @@ PrefabInstance:
       propertyPath: myWaveManager
       value: 
       objectReference: {fileID: 1631574964}
+    - target: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
+      propertyPath: spawnCoolDown
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
       propertyPath: 'waypoints.Array.data[1]'
       value: 
@@ -4034,6 +4042,7 @@ MonoBehaviour:
   heavyEnemyPrefab: {fileID: 2334554849314254760, guid: 4ae647d41fbf2af34a59c0b0d12b5531, type: 3}
   stealthEnemyPrefab: {fileID: 5193090797057504146, guid: 10c5a5a1aeaf89836bbdd46bfafa63c9, type: 3}
   flyingEnemyPrefab: {fileID: 8802225364200957580, guid: 88511ee1fd6f384548cf7e34437382c6, type: 3}
+  flyingBossEnemyPrefab: {fileID: 2306773834372514187, guid: a2ba909449c3ef915884bfa348d11f70, type: 3}
   yOffset: 5
   tileDelay: 0.05
   timeBetweenWaves: 20
@@ -4044,8 +4053,9 @@ MonoBehaviour:
     fastEnemyCount: 0
     swarmEnemyCount: 0
     heavyEnemyCount: 0
-    stealthEnemyCount: 2
+    stealthEnemyCount: 0
     flyingEnemyCount: 0
+    flyingBossEnemyCount: 2
     nextWaveGrid: {fileID: 0}
     nextWavePortals: []
 --- !u!114 &1631574965
@@ -4076,7 +4086,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.033333335
+  m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 5b1412bb657bfbeadb21b58d4a32666d, type: 2}
   m_BuildHeightMesh: 0
@@ -4913,7 +4923,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.70710677, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 7.98, y: 2.25, z: 7.919}
-  m_LocalScale: {x: 0.7195941, y: 1, z: 0.13113198}
+  m_LocalScale: {x: 0.7195941, y: 1, z: 0.15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1631574963}
