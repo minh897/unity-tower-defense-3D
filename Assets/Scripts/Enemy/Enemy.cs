@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum EnemyType {None, Basic, Fast, Swarm, Heavy, Stealth}
+public enum EnemyType {None, Basic, Fast, Swarm, Heavy, Stealth, Flying}
 
 public class Enemy : MonoBehaviour, IDamagable
 {
@@ -20,13 +20,14 @@ public class Enemy : MonoBehaviour, IDamagable
     private int nextWaypointIndex;
     private int currentWavepointIndex;
     private float totalDistance;
-    private NavMeshAgent agent;
     private EnemyPortal enemyPortal;
     private GameManager gameManager;
     private Coroutine hideCo;
 
     protected bool canBeHidden = true;
     protected bool isHidden = true;
+
+    protected NavMeshAgent agent;
 
     protected virtual void Awake()
     {
@@ -101,6 +102,14 @@ public class Enemy : MonoBehaviour, IDamagable
         float distanceBetweenWaypoints = Vector3.Distance(currentWaypoint, nextWaypoint);
 
         return distanceToNextWaypoint < distanceBetweenWaypoints;
+    }
+
+    protected Vector3 GetFinalWayPoint()
+    {
+        if (enemyWaypoints.Count == 0)
+            return transform.position;
+
+        return enemyWaypoints[enemyWaypoints.Count - 1].position;
     }
 
     // Returns the position of the next waypoint in the sequence.

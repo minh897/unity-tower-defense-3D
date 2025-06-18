@@ -16,11 +16,6 @@ public class EnemyStealth : Enemy
         InvokeRepeating(nameof(HideEnemies), .1f, hideDuration);
     }
 
-    void Update()
-    {
-        
-    }
-
     public void EnableSmokeScreen(bool isEnable)
     {
         if (isEnable)

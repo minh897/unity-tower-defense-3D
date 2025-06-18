@@ -1,14 +1,18 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyPortal : MonoBehaviour
 {
-    [SerializeField] private WaveManager myWaveManager;
     [SerializeField] private float spawnCoolDown;
+    [SerializeField] private WaveManager myWaveManager;
+    [SerializeField] private List<Waypoint> waypoints;
+    [Space]
 
-    public List<Waypoint> waypoints;
+    [SerializeField] private ParticleSystem flyPortalFX;
 
     private float spawnTimer;
+    private Coroutine flyPortalFXCo;
     private List<GameObject> enemiesToCreate;
     private List<GameObject> activeEnemies;
 
@@ -28,7 +32,17 @@ public class EnemyPortal : MonoBehaviour
         }
     }
 
-    public void AssignWaveManager(WaveManager waveManager) => myWaveManager = waveManager;
+    private void PlaceEnemyAyFlyPortalIfNeeded(GameObject newEnemy, EnemyType enemyType)
+    {
+        if (enemyType != EnemyType.Flying)
+            return;
+
+        if (flyPortalFXCo != null)
+            StopCoroutine(flyPortalFXCo);
+
+        flyPortalFXCo = StartCoroutine(PlayFlyPortalFXCo());
+        newEnemy.transform.position = flyPortalFX.transform.position;
+    }
 
     private bool CanMakeNewEnemy()
     {
@@ -59,10 +73,10 @@ public class EnemyPortal : MonoBehaviour
         Enemy enemy = newEnemy.GetComponent<Enemy>();
         enemy.SetupEnemyWaypoint(waypoints, this);
 
+        PlaceEnemyAyFlyPortalIfNeeded(newEnemy, enemy.GetEnemyType());
         activeEnemies.Add(newEnemy);
     }
 
-    [ContextMenu("Collect waypoints")]
     private void CollectWaypoints()
     {
         // Make a new waypoint list each time
@@ -77,13 +91,25 @@ public class EnemyPortal : MonoBehaviour
         }
     }
 
-    public List<GameObject> GetActiveEnemies() => activeEnemies;
-
-    public void AddEnemy(GameObject enemy) => enemiesToCreate.Add(enemy);
-
     public void RemoveActiveEnemy(GameObject enemyToRemove)
     {
         activeEnemies.Remove(enemyToRemove);
         myWaveManager.HandleWaveCompletion();
-    } 
+    }
+
+    private IEnumerator PlayFlyPortalFXCo()
+    {
+        flyPortalFX.Play();
+
+        yield return new WaitForSeconds(2);
+
+        flyPortalFX.Stop();
+    }
+
+    public void AssignWaveManager(WaveManager waveManager) => myWaveManager = waveManager;
+
+    public List<GameObject> GetActiveEnemies() => activeEnemies;
+
+    public void AddEnemy(GameObject enemy) => enemiesToCreate.Add(enemy);
+
 }

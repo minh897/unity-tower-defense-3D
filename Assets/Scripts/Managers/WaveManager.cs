@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 [System.Serializable]
@@ -10,18 +11,25 @@ public class WaveDetails
     public int swarmEnemyCount;
     public int heavyEnemyCount;
     public int stealthEnemyCount;
+    public int flyingEnemyCount;
     public GridBuilder nextWaveGrid;
     public EnemyPortal[] nextWavePortals;
 }
 
 public class WaveManager : MonoBehaviour
 {
+    [SerializeField] private GridBuilder currentGrid;
+    [SerializeField] private NavMeshSurface flyingNavSurface;
+    [SerializeField] private MeshCollider[] flyingNavColliders;
+    [Space]
+
     [Header("Enemy Prefabs")]
     [SerializeField] private GameObject basicEnemyPrefab;
     [SerializeField] private GameObject fastEnemyPrefab;
     [SerializeField] private GameObject swarmEnemyPrefab;
     [SerializeField] private GameObject heavyEnemyPrefab;
     [SerializeField] private GameObject stealthEnemyPrefab;
+    [SerializeField] private GameObject flyingEnemyPrefab;
 
     [Header("Level Update Details")]
     [SerializeField] private float yOffset = 5;
@@ -31,7 +39,6 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private float timeBetweenWaves = 10f;
     [SerializeField] private float waveTimer;
     [SerializeField] private int waveIndex;
-    [SerializeField] private GridBuilder currentGrid;
     [SerializeField] private WaveDetails[] levelWaves;
 
     private bool isGameBegun;
@@ -45,9 +52,12 @@ public class WaveManager : MonoBehaviour
     void Awake()
     {
         enemyPortals = new List<EnemyPortal>(FindObjectsByType<EnemyPortal>(FindObjectsSortMode.None));
+
         uiInGame = FindFirstObjectByType<UIInGame>(FindObjectsInactive.Include);
         tileAnimator = FindFirstObjectByType<TileAnimator>();
         gameManager = FindFirstObjectByType<GameManager>();
+
+        flyingNavColliders = GetComponentsInChildren<MeshCollider>();
     }
 
     void Update()
@@ -61,13 +71,28 @@ public class WaveManager : MonoBehaviour
         HandleWaveTiming();
     }
 
-    public void DeactivateWaveManager() => isGameBegun = false;
-
     [ContextMenu("Activate Wave Manager")]
     public void ActivateWaveManager()
     {
         isGameBegun = true;
         EnableWaveTimer(true);
+    }
+
+    private void UpdateNavMeshes()
+    {
+        foreach (var collider in flyingNavColliders)
+        {
+            collider.enabled = true;
+        }
+
+        flyingNavSurface.BuildNavMesh();
+
+        foreach (var collider in flyingNavColliders)
+        {
+            collider.enabled = false;
+        }
+
+        currentGrid.UpdateNewNavMesh();
     }
 
     private void UpdateLevelTiles(WaveDetails nextWave)
@@ -163,7 +188,7 @@ public class WaveManager : MonoBehaviour
 
     public void StartNewWave()
     {
-        currentGrid.UpdateNewNavMesh();
+        UpdateNavMeshes();
         GiveEnemiesToPortals();
         EnableWaveTimer(false);
         isMakingNextWave = false;
@@ -249,6 +274,9 @@ public class WaveManager : MonoBehaviour
         for (int i = 0; i < levelWaves[waveIndex].stealthEnemyCount; i++)
             enemyList.Add(stealthEnemyPrefab);
 
+        for (int i = 0; i < levelWaves[waveIndex].flyingEnemyCount; i++)
+            enemyList.Add(flyingEnemyPrefab);
+
         return enemyList;
     }
 
@@ -277,5 +305,7 @@ public class WaveManager : MonoBehaviour
     private bool HasNoMoreWave() => waveIndex >= levelWaves.Length;
 
     private void AttemptToUpdateLayout() => UpdateLevelTiles(levelWaves[waveIndex]);
+
+    public void DeactivateWaveManager() => isGameBegun = false;
 
 }
