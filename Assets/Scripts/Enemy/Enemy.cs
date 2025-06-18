@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum EnemyType {None, Basic, Fast, Swarm, Heavy, Stealth, Flying}
+public enum EnemyType {None, Basic, Fast, Swarm, Heavy, Stealth, Flying, SpiderBoss}
 
 public class Enemy : MonoBehaviour, IDamagable
 {
