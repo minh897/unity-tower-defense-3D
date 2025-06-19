@@ -14523,10 +14523,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verticalRotationSpeed: 6
-  visuals: {fileID: 3874701956577153993}
   roadLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathVFXScale: 0.5
+  visuals: {fileID: 3874701956577153993}
+  deathVFX: {fileID: 3923574980689421297, guid: 01f3384f8e615b1799896a43b6b9c03f, type: 3}
   transparentMat: {fileID: 2100000, guid: ee9eccd1afc373017b6909ba01efe213, type: 2}
 --- !u!195 &2333326865591349291
 NavMeshAgent:

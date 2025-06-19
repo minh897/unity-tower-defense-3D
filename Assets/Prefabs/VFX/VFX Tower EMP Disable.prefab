@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3670142508550698219}
   - component: {fileID: 2023978817732815629}
   m_Layer: 0
-  m_Name: Tower Inactive FX
+  m_Name: VFX Tower EMP Disable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 53095469514489192}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 6.31195, y: 1.323, z: 1.691}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:

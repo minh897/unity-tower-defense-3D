@@ -23,9 +23,9 @@ public class Enemy : MonoBehaviour, IDamagable
 
     protected bool canBeHidden = true;
     protected bool isHidden = true;
+    protected bool isDead; // set to false later
     protected int nextWaypointIndex;
     protected int currentWavepointIndex;
-
     protected EnemyPortal enemyPortal;
     protected NavMeshAgent agent;
     protected Rigidbody rb;
@@ -173,21 +173,27 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         healthPoints -= damage;
 
-        if (healthPoints <= 0)
+        if (healthPoints <= 0 && isDead == false)
+        {
+            // Use flag isDead in case Die() is called twice
+            isDead = true;
             Die();
+        }
     }
 
     public virtual void Die()
     {
-        enemyPortal.RemoveActiveEnemy(gameObject);
         gameManager.UpdateCurrency(1);
-        Destroy(gameObject);
+        DestroyEnemy();
     }
 
     public void DestroyEnemy()
     {
-        enemyPortal.RemoveActiveEnemy(gameObject);
+        visual.CreateDeathVFX();
         Destroy(gameObject);
+
+        if (enemyPortal != null)
+            enemyPortal.RemoveActiveEnemy(gameObject);
     }
 
     private IEnumerator HideEnemyCo(float duration)

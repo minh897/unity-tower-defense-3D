@@ -3,9 +3,16 @@ using UnityEngine;
 
 public class EnemyVisual : MonoBehaviour
 {
+    [Header("Movement Details")]
     [SerializeField] private float verticalRotationSpeed;
-    [SerializeField] protected Transform visuals;
     [SerializeField] private LayerMask roadLayer;
+    [Space]
+
+    [Header("Visual Details")]
+    [SerializeField] private float deathVFXScale = .5f;
+    [SerializeField] protected Transform visuals;
+    [SerializeField] private GameObject deathVFX;
+    [Space]
 
     [Header("Transparency Details")]
     [SerializeField] private Material transparentMat;
@@ -33,6 +40,12 @@ public class EnemyVisual : MonoBehaviour
             MakeTransparent(false);
     }
 
+    public void CreateDeathVFX()
+    {
+        GameObject createdDeathVFX = Instantiate(deathVFX, transform.position + new Vector3(0, .15f, 0), Quaternion.identity);
+        createdDeathVFX.transform.localScale = new Vector3(deathVFXScale, deathVFXScale, deathVFXScale);
+    }
+
     public void MakeTransparent(bool isTransparent)
     {
         for (int i = 0; i < myMeshes.Length; i++)
@@ -55,9 +68,7 @@ public class EnemyVisual : MonoBehaviour
     private void AlignWithSlope()
     {
         if (visuals == null)
-        {
             return;
-        }
 
         // Check if a ray cast from visual position hit road layer and store the infos in RaycastHit hit
         if (Physics.Raycast(visuals.position, Vector3.down, out RaycastHit hit, Mathf.Infinity, roadLayer))

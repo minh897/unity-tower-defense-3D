@@ -7197,10 +7197,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verticalRotationSpeed: 5
-  visuals: {fileID: 6564605561856608250}
   roadLayer:
     serializedVersion: 2
     m_Bits: 64
+  visuals: {fileID: 6564605561856608250}
+  deathVFX: {fileID: 5112674644463389434, guid: 4146c4aef6e82a7c4883b74f8e6330f5, type: 3}
   transparentMat: {fileID: 2100000, guid: ee9eccd1afc373017b6909ba01efe213, type: 2}
   legSpeed: 3
   increaseLegSpeed: 10
