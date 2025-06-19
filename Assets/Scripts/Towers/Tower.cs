@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,11 +22,14 @@ public class Tower : MonoBehaviour
     [Header("SFX Details")]
     [SerializeField] protected AudioSource attackSFX;
 
+    protected bool isTowerActive = true;
     protected int maxEnemyOverlap = 10;
     protected float lastTimeAttacked;
     protected Collider[] enemyOverlapList;
+    protected Coroutine deactiveTowerCo;
 
     private bool canRotate;
+    private GameObject currentEMPFX;
 
 
     protected virtual void Awake()
@@ -40,32 +44,23 @@ public class Tower : MonoBehaviour
         RotateTowardsEnemy();
     }
 
-    protected virtual void OnDrawGizmos()
+    public void DeactivateTower(float duration, GameObject empFX)
     {
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
+        if (deactiveTowerCo != null)
+            StopCoroutine(deactiveTowerCo);
 
-    protected virtual void Attack()
-    {
-        Debug.Log("Attack start at " + Time.time);
-    }
+        if (currentEMPFX != null)
+            Destroy(currentEMPFX);
 
-    protected bool CanAttack()
-    {
-        if (currentEnemy == null)
-            return false;
-
-        if (Time.time > lastTimeAttacked + attackCoolDown)
-        {
-            lastTimeAttacked = Time.time;
-            return true;
-        }
-
-        return false;
+        currentEMPFX = Instantiate(empFX, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+        deactiveTowerCo = StartCoroutine(DisableTowerCo(duration));
     }
 
     protected void CheckForEnemies()
     {
+        if (isTowerActive == false)
+            return;
+
         if (currentEnemy == null)
         {
             currentEnemy = FindEnemiesWithinRange();
@@ -78,7 +73,7 @@ public class Tower : MonoBehaviour
         // Clear the current enemy if they're out of range
         if (IsEnemyOutOfRange(currentEnemy.transform))
             currentEnemy = null;
-            return;
+        return;
     }
 
     protected virtual void RotateTowardsEnemy()
@@ -156,6 +151,42 @@ public class Tower : MonoBehaviour
         }
 
         return closestEnemy;
+    }
+
+    protected virtual void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+    protected virtual void Attack()
+    {
+        Debug.Log("Attack start at " + Time.time);
+    }
+
+    protected bool CanAttack()
+    {
+        if (currentEnemy == null)
+            return false;
+
+        if (Time.time > lastTimeAttacked + attackCoolDown)
+        {
+            lastTimeAttacked = Time.time;
+            return true;
+        }
+
+        return false;
+    }
+
+    private IEnumerator DisableTowerCo(float duration)
+    {
+        isTowerActive = false;
+        yield return new WaitForSeconds(duration);
+        isTowerActive = true;
+
+        // Prevent the tower from attacking immediately when enable
+        // Let the tower has time to adjust their head position before attacking
+        lastTimeAttacked = Time.time;
+        Destroy(currentEMPFX);
     }
 
     protected bool IsEnemyOutOfRange(Transform enemy) => Vector3.Distance(enemy.position, transform.position) > attackRange;

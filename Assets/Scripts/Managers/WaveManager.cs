@@ -13,6 +13,7 @@ public class WaveDetails
     public int stealthEnemyCount;
     public int flyingEnemyCount;
     public int flyingBossEnemyCount;
+    public int spiderBossEnemyCount;
     public GridBuilder nextWaveGrid;
     public EnemyPortal[] nextWavePortals;
 }
@@ -32,6 +33,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private GameObject stealthEnemyPrefab;
     [SerializeField] private GameObject flyingEnemyPrefab;
     [SerializeField] private GameObject flyingBossEnemyPrefab;
+    [SerializeField] private GameObject spiderBossEnemyPrefab;
 
     [Header("Level Update Details")]
     [SerializeField] private float yOffset = 5;
@@ -281,6 +283,9 @@ public class WaveManager : MonoBehaviour
 
         for (int i = 0; i < levelWaves[waveIndex].flyingBossEnemyCount; i++)
             enemyList.Add(flyingBossEnemyPrefab);
+
+        for (int i = 0; i < levelWaves[waveIndex].spiderBossEnemyCount; i++)
+            enemyList.Add(spiderBossEnemyPrefab);
 
         return enemyList;
     }
