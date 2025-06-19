@@ -530,6 +530,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Portal
       objectReference: {fileID: 0}
+    - target: {fileID: 7220825264302251090, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7991754769741276521, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
@@ -3084,7 +3088,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7220825264302251090, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7727139397022234392, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
       propertyPath: m_LocalPosition.x

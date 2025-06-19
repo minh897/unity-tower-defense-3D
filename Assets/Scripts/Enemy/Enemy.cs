@@ -14,17 +14,17 @@ public class Enemy : MonoBehaviour, IDamagable
     [SerializeField] private float turnSpeed = 10f;
     [SerializeField] private Transform centerPoint;
     [SerializeField] private EnemyType enemyType;
-    [SerializeField] private List<Transform> enemyWaypoints;
+    [SerializeField] protected List<Transform> enemyWaypoints;
 
     private int originalLayerIndex;
-    private int nextWaypointIndex;
-    private int currentWavepointIndex;
     private float totalDistance;
     private GameManager gameManager;
     private Coroutine hideCo;
 
     protected bool canBeHidden = true;
     protected bool isHidden = true;
+    protected int nextWaypointIndex;
+    protected int currentWavepointIndex;
 
     protected EnemyPortal enemyPortal;
     protected NavMeshAgent agent;
@@ -53,6 +53,11 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         FaceTarget(agent.steeringTarget);
         SetNextDestination();
+    }
+
+    protected virtual void ChangeWayPoint()
+    {
+        agent.SetDestination(GetNextWayPoint());
     }
 
     public void HideEnemy(float duration)
@@ -90,7 +95,7 @@ public class Enemy : MonoBehaviour, IDamagable
         }
     }
 
-    private bool ShouldChangeWaypoint()
+    protected virtual bool ShouldChangeWaypoint()
     {
         if (nextWaypointIndex >= enemyWaypoints.Count)
             return false;
@@ -143,7 +148,7 @@ public class Enemy : MonoBehaviour, IDamagable
     private void SetNextDestination()
     {
         if (ShouldChangeWaypoint())
-            agent.SetDestination(GetNextWayPoint());
+            ChangeWayPoint();
     }
 
     // Smoothly rotate the enemy game object to face the given target position

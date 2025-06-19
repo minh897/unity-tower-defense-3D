@@ -10,11 +10,20 @@ public class EnemySpider : Enemy
     [SerializeField] private LayerMask whatIsTower;
     private float empAttackTimer;
 
+    private EnemySpiderVisual spiderVisual;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        spiderVisual = GetComponent<EnemySpiderVisual>();
+    }
+
     protected override void Start()
     {
         base.Start();
 
         empAttackTimer = empCooldown;
+        spiderVisual.BrieflySpeedUpLegs();
     }
 
     protected override void Update()
@@ -25,6 +34,23 @@ public class EnemySpider : Enemy
 
         if (empAttackTimer < 0)
             AttemptToEMP();
+    }
+
+    protected override bool ShouldChangeWaypoint()
+    {
+        if (nextWaypointIndex >= enemyWaypoints.Count)
+            return false;
+
+        if (agent.remainingDistance <= 0.2f)
+            return true;
+
+        return false;
+    }
+
+    protected override void ChangeWayPoint()
+    {
+        spiderVisual.BrieflySpeedUpLegs();
+        base.ChangeWayPoint();
     }
 
     private void AttemptToEMP()
