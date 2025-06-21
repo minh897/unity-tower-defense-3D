@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2334554849314254760}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.593, y: 0, z: 0.192}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -146,7 +146,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 34
   m_CollisionDetection: 0
 --- !u!1 &3665937538284956762
 GameObject:
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 5303241907244825849}
   - component: {fileID: 6671693276053260435}
   - component: {fileID: 4008558260187356486}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,6 +12,7 @@ public class Tower : MonoBehaviour
     [Header("Tower Setup")]
     [SerializeField] protected float rotationSpeed = 10f;
     [SerializeField] protected Transform towerHead;
+    [SerializeField] protected Transform towerBody;
     [SerializeField] protected Transform gunPoint;
     [SerializeField] protected EnemyType enemyPriorityType;
     [Space]
@@ -43,6 +44,11 @@ public class Tower : MonoBehaviour
         CheckForEnemies();
     }
 
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
     public void DeactivateTower(float duration, GameObject empFX)
     {
         if (deactiveTowerCo != null)
@@ -66,8 +72,6 @@ public class Tower : MonoBehaviour
 
         if (CanAttack())
             Attack();
-
-        RotateTowardsEnemy();
     }
 
     private void UpdateTargetIfNeeded()
@@ -80,7 +84,7 @@ public class Tower : MonoBehaviour
     }
 
     protected virtual void HandleRotation()
-    {
+    {   
         RotateTowardsEnemy();
     }
 

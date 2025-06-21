@@ -75,7 +75,7 @@ public class UIBuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (buildSlot == null)
             return;
 
-        Vector3 previewPosition = buildSlot.GetBuildPosition(1);
+        Vector3 previewPosition = buildSlot.GetBuildPosition(.5f);
 
         towerPreview.gameObject.SetActive(isSelect);
         towerPreview.ShowPreview(isSelect, previewPosition);

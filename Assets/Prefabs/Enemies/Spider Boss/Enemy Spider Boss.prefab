@@ -7200,6 +7200,7 @@ MonoBehaviour:
   roadLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathVFXScale: 0.5
   visuals: {fileID: 6564605561856608250}
   deathVFX: {fileID: 5112674644463389434, guid: 4146c4aef6e82a7c4883b74f8e6330f5, type: 3}
   transparentMat: {fileID: 2100000, guid: ee9eccd1afc373017b6909ba01efe213, type: 2}
@@ -7282,7 +7283,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 34
   m_CollisionDetection: 0
 --- !u!1 &4083375543178412647
 GameObject:
