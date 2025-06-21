@@ -7,6 +7,7 @@ public class CrossbowVisual : MonoBehaviour
     [SerializeField] private float attackVisualDur = .1f;
     [SerializeField] private LineRenderer attackLineVisual;
     [SerializeField] private GameObject onHitFX;
+    private Vector3 hitPoint;
     [Space]
 
     [Header("Tower Head Emission Visual")]
@@ -15,6 +16,7 @@ public class CrossbowVisual : MonoBehaviour
     [SerializeField] private Color endColor;
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private LineRenderer[] lineRenderers;
+    private float currentIntensity;
     [Space]
 
     [Header("Front String Visual")]
@@ -41,9 +43,6 @@ public class CrossbowVisual : MonoBehaviour
     [SerializeField] private Transform rotorLoadPoint;
     [Space]
 
-
-    private float currentIntensity;
-    private Enemy enemyHit;
     private TowerCrossbow mainTower;
     private Material materialInstance;
 
@@ -70,24 +69,22 @@ public class CrossbowVisual : MonoBehaviour
 
         // Update the attack visual everyframe until it's disabled and enemy can't be found
         // Make the attack line follow the enemy instead of staying in place
-        if (attackLineVisual.enabled && enemyHit != null)
-        {
-            attackLineVisual.SetPosition(1, enemyHit.GetCenterPoint());
-        }
+        if (attackLineVisual.enabled && hitPoint != Vector3.zero)
+            attackLineVisual.SetPosition(1, hitPoint);
     }
 
-    public void CreateOnHitFX(Vector3 hitPoint)
+    public void CreateOnHitVFX(Vector3 hitPoint)
     {
         GameObject newFX = Instantiate(onHitFX, hitPoint, Random.rotation);
         Destroy(newFX, 1);
     }
 
-    public void PlayAttackFX(Vector3 startPoint, Vector3 endPoint)
+    public void PlayAttackVFX(Vector3 startPoint, Vector3 endPoint)
     {
         StartCoroutine(AttackVFXCoroutine(startPoint, endPoint));
     }
 
-    public void PlayReloadFX(float duration)
+    public void PlayReloadVFX(float duration)
     {
         float newDuration = duration / 2;
 
@@ -122,18 +119,14 @@ public class CrossbowVisual : MonoBehaviour
 
     private IEnumerator AttackVFXCoroutine(Vector3 startPoint, Vector3 endPoint)
     {
-        // mainTower.EnableRotation(false);
-
-        enemyHit = mainTower.currentEnemy;
+        hitPoint = endPoint;
 
         attackLineVisual.enabled = true;
-
         attackLineVisual.SetPosition(0, startPoint);
         attackLineVisual.SetPosition(1, endPoint);
 
         yield return new WaitForSeconds(attackVisualDur);
 
-        // mainTower.EnableRotation(true);
         attackLineVisual.enabled = false;
     }
 

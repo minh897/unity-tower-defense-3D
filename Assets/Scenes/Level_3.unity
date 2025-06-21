@@ -4065,11 +4065,11 @@ MonoBehaviour:
   - basicEnemyCount: 0
     fastEnemyCount: 0
     swarmEnemyCount: 0
-    heavyEnemyCount: 0
+    heavyEnemyCount: 2
     stealthEnemyCount: 0
     flyingEnemyCount: 0
     flyingBossEnemyCount: 0
-    spiderBossEnemyCount: 1
+    spiderBossEnemyCount: 0
     nextWaveGrid: {fileID: 0}
     nextWavePortals: []
 --- !u!114 &1631574965

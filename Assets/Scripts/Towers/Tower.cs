@@ -12,12 +12,14 @@ public class Tower : MonoBehaviour
     [Header("Tower Setup")]
     [SerializeField] protected float rotationSpeed = 10f;
     [SerializeField] protected Transform towerHead;
+    [SerializeField] protected Transform gunPoint;
     [SerializeField] protected EnemyType enemyPriorityType;
     [Space]
 
     [SerializeField] protected float attackRange = 2.5f;
     [SerializeField] protected LayerMask whatIsEnemy;
     [SerializeField] protected LayerMask whatIsTargetable;
+    [Space]
 
     [Header("SFX Details")]
     [SerializeField] protected AudioSource attackSFX;
@@ -28,9 +30,7 @@ public class Tower : MonoBehaviour
     protected Collider[] enemyOverlapList;
     protected Coroutine deactiveTowerCo;
 
-    private bool canRotate;
     private GameObject currentEMPFX;
-
 
     protected virtual void Awake()
     {
@@ -41,7 +41,6 @@ public class Tower : MonoBehaviour
     protected virtual void Update()
     {
         CheckForEnemies();
-        RotateTowardsEnemy();
     }
 
     public void DeactivateTower(float duration, GameObject empFX)
@@ -53,7 +52,7 @@ public class Tower : MonoBehaviour
             Destroy(currentEMPFX);
 
         currentEMPFX = Instantiate(empFX, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
-        deactiveTowerCo = StartCoroutine(DisableTowerCo(duration));
+        deactiveTowerCo = StartCoroutine(DeactivateTowerCo(duration));
     }
 
     protected void CheckForEnemies()
@@ -61,32 +60,34 @@ public class Tower : MonoBehaviour
         if (isTowerActive == false)
             return;
 
+        LoseTargetIfNeeded();
+        UpdateTargetIfNeeded();
+        HandleRotation();
+
+        if (CanAttack())
+            Attack();
+
+        RotateTowardsEnemy();
+    }
+
+    private void UpdateTargetIfNeeded()
+    {
         if (currentEnemy == null)
         {
             currentEnemy = FindEnemiesWithinRange();
             return;
         }
+    }
 
-        if (CanAttack())
-            Attack();
-
-        // Clear the current enemy if they're out of range
-        if (IsEnemyOutOfRange(currentEnemy.transform))
-            currentEnemy = null;
-        return;
+    protected virtual void HandleRotation()
+    {
+        RotateTowardsEnemy();
     }
 
     protected virtual void RotateTowardsEnemy()
     {
-        if (canRotate == false)
-        {
+        if (currentEnemy == null || towerHead == null)
             return;
-        }
-
-        if (currentEnemy == null)
-        {
-            return;
-        }
 
         // Calculate the vector direction from the tower head to the current enemy's position
         Vector3 directionToTarget = DirectionToEnemyFrom(towerHead);
@@ -105,7 +106,7 @@ public class Tower : MonoBehaviour
     // Returns the transform of the closest enemy within the tower's attack radius.
     // Uses Physics.OverlapSphereNonAlloc to detect nearby enemies and FindTheClosestEnemy()
     // to determine which one is closest to the finish line.
-    protected Enemy FindEnemiesWithinRange()
+    protected virtual Enemy FindEnemiesWithinRange()
     {
         List<Enemy> allEnemy = new();
         List<Enemy> priorityEnemies = new();
@@ -133,7 +134,7 @@ public class Tower : MonoBehaviour
         return null;
     }
 
-    protected Enemy GetTheClosestEnemy(List<Enemy> enemyList)
+    private Enemy GetTheClosestEnemy(List<Enemy> enemyList)
     {
         Enemy closestEnemy = null;
         float closestDistance = Mathf.Infinity;
@@ -153,31 +154,7 @@ public class Tower : MonoBehaviour
         return closestEnemy;
     }
 
-    protected virtual void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
-
-    protected virtual void Attack()
-    {
-        Debug.Log("Attack start at " + Time.time);
-    }
-
-    protected bool CanAttack()
-    {
-        if (currentEnemy == null)
-            return false;
-
-        if (Time.time > lastTimeAttacked + attackCoolDown)
-        {
-            lastTimeAttacked = Time.time;
-            return true;
-        }
-
-        return false;
-    }
-
-    private IEnumerator DisableTowerCo(float duration)
+    private IEnumerator DeactivateTowerCo(float duration)
     {
         isTowerActive = false;
         yield return new WaitForSeconds(duration);
@@ -189,11 +166,21 @@ public class Tower : MonoBehaviour
         Destroy(currentEMPFX);
     }
 
-    protected bool IsEnemyOutOfRange(Transform enemy) => Vector3.Distance(enemy.position, transform.position) > attackRange;
+    protected void LoseTargetIfNeeded()
+    {
+        if (currentEnemy == null)
+            return;
 
-    protected Vector3 DirectionToEnemyFrom(Transform startPoint) => (currentEnemy.GetCenterPoint() - startPoint.position).normalized;
-
-    public void EnableRotation(bool isEnable) => canRotate = isEnable;
+        if (Vector3.Distance(currentEnemy.transform.position, transform.position) > attackRange)
+            currentEnemy = null;
+    }
 
     public float GetAttackRange() => attackRange;
+
+    protected virtual void Attack() => lastTimeAttacked = Time.time;
+
+    protected virtual bool CanAttack() => Time.time > lastTimeAttacked + attackCoolDown && currentEnemy != null;
+
+    protected virtual Vector3 DirectionToEnemyFrom(Transform startPoint) => (currentEnemy.GetCenterPoint() - startPoint.position).normalized;
+
 }

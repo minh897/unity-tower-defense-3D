@@ -1,10 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyShield : MonoBehaviour, IDamagable
+public class EnemyShield : MonoBehaviour
 {
-    [SerializeField] private float currentShieldAmount;
-
     [Header("Impact Details")]
     [SerializeField] private float defaultShieldGlow = 1;
     [SerializeField] private float impactShieldGlow = 3;
@@ -22,21 +20,7 @@ public class EnemyShield : MonoBehaviour, IDamagable
         defaultScale = transform.localScale.x;
     }
 
-    public void SetupShield(int shieldAmount)
-    {
-        currentShieldAmount = shieldAmount;
-    }
-
-    public void TakeDamage(int damage)
-    {
-        currentShieldAmount -= damage;
-        ActivateShieldImpact();
-
-        if (currentShieldAmount <= 0)
-            gameObject.SetActive(false);
-    }
-
-    private void ActivateShieldImpact()
+    public void ActivateShieldImpact()
     {
         if (currentCo != null)
             StopCoroutine(currentCo);
@@ -55,7 +39,7 @@ public class EnemyShield : MonoBehaviour, IDamagable
         float time = 0;
         float startGlow = shieldMat.GetFloat(fresnelPara);
         Vector3 initialScale = transform.localScale;
-        Vector3 newScale = new Vector3(targetScale, targetScale, targetScale);
+        Vector3 newScale = new(targetScale, targetScale, targetScale);
 
         while (time < glowDuration)
         {

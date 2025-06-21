@@ -100,7 +100,7 @@ public class Enemy : MonoBehaviour, IDamagable
         if (nextWaypointIndex >= enemyWaypoints.Count)
             return false;
 
-        if (agent.remainingDistance <= 0.2f)
+        if (agent.remainingDistance <= 0.5f)
             return true;
         
         Vector3 currentWaypoint = enemyWaypoints[currentWavepointIndex].position;
@@ -169,7 +169,7 @@ public class Enemy : MonoBehaviour, IDamagable
         transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, turnSpeed * Time.deltaTime);
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         healthPoints -= damage;
 
