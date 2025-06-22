@@ -181,6 +181,8 @@ public class Tower : MonoBehaviour
 
     public float GetAttackRange() => attackRange;
 
+    public float GetAttackCooldown() => attackCoolDown;
+
     protected virtual void Attack() => lastTimeAttacked = Time.time;
 
     protected virtual bool CanAttack() => Time.time > lastTimeAttacked + attackCoolDown && currentEnemy != null;

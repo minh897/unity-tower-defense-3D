@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour, IDamagable
     protected bool isDead; // set to false later
     protected int nextWaypointIndex;
     protected int currentWavepointIndex;
+    protected float originalSpeed;
     protected EnemyPortal enemyPortal;
     protected NavMeshAgent agent;
     protected Rigidbody rb;
@@ -42,11 +43,12 @@ public class Enemy : MonoBehaviour, IDamagable
         originalLayerIndex = gameObject.layer;
 
         gameManager = FindFirstObjectByType<GameManager>();
+        originalSpeed = agent.speed;
     }
 
     protected virtual void Start()
     {
-        
+        // This is just for override
     }
 
     protected virtual void Update()
@@ -55,9 +57,19 @@ public class Enemy : MonoBehaviour, IDamagable
         SetNextDestination();
     }
 
-    protected virtual void ChangeWayPoint()
+    public void SlowEnemy(float slowMultiplier, float duration)
     {
-        agent.SetDestination(GetNextWayPoint());
+        StartCoroutine(SlowEnemyCo(slowMultiplier, duration));
+    }
+
+    private IEnumerator SlowEnemyCo(float slowMultiplier, float duration)
+    {
+        agent.speed = originalSpeed;
+        agent.speed *= slowMultiplier;
+
+        yield return new WaitForSeconds(duration);
+
+        agent.speed = originalSpeed;
     }
 
     public void HideEnemy(float duration)
@@ -69,6 +81,19 @@ public class Enemy : MonoBehaviour, IDamagable
             StopCoroutine(hideCo);
 
         hideCo = StartCoroutine(HideEnemyCo(duration));
+    }
+
+    private IEnumerator HideEnemyCo(float duration)
+    {
+        gameObject.layer = LayerMask.NameToLayer("Untargetable");
+        visual.MakeTransparent(true);
+        isHidden = true;
+
+        yield return new WaitForSeconds(duration);
+
+        gameObject.layer = originalLayerIndex;
+        visual.MakeTransparent(false);
+        isHidden = false;
     }
 
     public void SetupEnemyWaypoint(List<Waypoint> newEnemyWaypoints, EnemyPortal referencePortal)
@@ -110,6 +135,11 @@ public class Enemy : MonoBehaviour, IDamagable
         float distanceBetweenWaypoints = Vector3.Distance(currentWaypoint, nextWaypoint);
 
         return distanceToNextWaypoint < distanceBetweenWaypoints;
+    }
+
+    protected virtual void ChangeWayPoint()
+    {
+        agent.SetDestination(GetNextWayPoint());
     }
 
     protected Vector3 GetFinalWayPoint()
@@ -194,19 +224,6 @@ public class Enemy : MonoBehaviour, IDamagable
 
         if (enemyPortal != null)
             enemyPortal.RemoveActiveEnemy(gameObject);
-    }
-
-    private IEnumerator HideEnemyCo(float duration)
-    {
-        gameObject.layer = LayerMask.NameToLayer("Untargetable");
-        visual.MakeTransparent(true);
-        isHidden = true;
-
-        yield return new WaitForSeconds(duration);
-
-        gameObject.layer = originalLayerIndex;
-        visual.MakeTransparent(false);
-        isHidden = false;
     }
 
     public float CalculateDistanceToGoal() => totalDistance + agent.remainingDistance;
