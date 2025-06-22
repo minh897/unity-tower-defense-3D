@@ -1004,9 +1004,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   attackSFX: {fileID: 0}
+  damage: 15
   attackTimeMultiplier: 0.4
   reloadTimeMultiplier: 0.6
-  spiderPrefab: {fileID: 6413236115777138201, guid: 700df666732450a588013fae1af558a9, type: 3}
+  spiderPrefab: {fileID: 7946068040904475185, guid: 700df666732450a588013fae1af558a9, type: 3}
   webSet:
   - {fileID: 7947983301652870097}
   - {fileID: 3671442773636169632}

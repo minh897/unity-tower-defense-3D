@@ -12,11 +12,11 @@ public class GameManager : MonoBehaviour
 
     private bool isGameLost;
     private UIInGame uiInGame;
-    private WaveManager currentActiveWaveManager;
     private LevelManager levelManager;
     private CameraEffects cameraEffects;
 
     public int enemiesKilled { get; private set; }
+    public WaveManager currentActiveWaveManager;
 
     void Awake()
     {

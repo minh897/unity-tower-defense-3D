@@ -35,8 +35,12 @@ public class Tower : MonoBehaviour
 
     protected virtual void Awake()
     {
-        // enemyOverlapList = new Collider[maxEnemyOverlap];
-        // enemyPriorityType = EnemyType.None;
+        // For override
+    }
+
+    protected virtual void Start()
+    {
+        GameManager.instance.currentActiveWaveManager.UpdateDroneNavMesh();
     }
 
     protected virtual void Update()

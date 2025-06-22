@@ -4,6 +4,7 @@ using UnityEngine;
 public class TowerSpider : Tower
 {
     [Header("Tower Spider Details")]
+    [SerializeField] private float damage;
     [SerializeField] private float attackTimeMultiplier = .4f; // The percentage of the time used for attacking (40%)
     [SerializeField] private float reloadTimeMultiplier = .6f; // The percentage of the time used for reloading (60%)
     [SerializeField] private GameObject spiderPrefab;
@@ -74,7 +75,7 @@ public class TowerSpider : Tower
 
         // Attacking phase
         yield return ChangeScaleCo(currentWeb, 1, attackTime);
-        activeSpiders[spiderIndex].GetComponent<ProjectileSpider>().SetupSpider();
+        activeSpiders[spiderIndex].GetComponent<ProjectileSpider>().SetupSpider(damage);
 
         // Reloading phase
         yield return ChangeScaleCo(currentWeb, .1f, reloadTime);

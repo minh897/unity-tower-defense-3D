@@ -22,6 +22,7 @@ public class WaveManager : MonoBehaviour
 {
     [SerializeField] private GridBuilder currentGrid;
     [SerializeField] private NavMeshSurface flyingNavSurface;
+    [SerializeField] private NavMeshSurface droneNavSurface;
     [SerializeField] private MeshCollider[] flyingNavColliders;
     [Space]
 
@@ -97,6 +98,12 @@ public class WaveManager : MonoBehaviour
         }
 
         currentGrid.UpdateNewNavMesh();
+        droneNavSurface.BuildNavMesh();
+    }
+
+    public void UpdateDroneNavMesh()
+    {
+        droneNavSurface.BuildNavMesh();
     }
 
     private void UpdateLevelTiles(WaveDetails nextWave)
