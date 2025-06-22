@@ -35,8 +35,8 @@ public class Tower : MonoBehaviour
 
     protected virtual void Awake()
     {
-        enemyOverlapList = new Collider[maxEnemyOverlap];
-        enemyPriorityType = EnemyType.None;
+        // enemyOverlapList = new Collider[maxEnemyOverlap];
+        // enemyPriorityType = EnemyType.None;
     }
 
     protected virtual void Update()
