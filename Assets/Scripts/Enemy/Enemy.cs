@@ -226,7 +226,7 @@ public class Enemy : MonoBehaviour, IDamagable
             enemyPortal.RemoveActiveEnemy(gameObject);
     }
 
-    public float CalculateDistanceToGoal() => totalDistance + agent.remainingDistance;
+    public virtual float CalculateDistanceToGoal() => totalDistance + agent.remainingDistance;
 
     public Vector3 GetCenterPoint() => centerPoint.position;
 
