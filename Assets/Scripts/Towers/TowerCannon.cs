@@ -61,18 +61,6 @@ public class TowerCannon : Tower
         return enemiesAround.Length;
     }
 
-    private void RotateBodyTowardsEnemy()
-    {
-        if (towerBody == null)
-            return;
-
-        Vector3 directionToEnemy = DirectionToEnemyFrom(towerBody);
-        directionToEnemy.y = 0;
-
-        Quaternion lookRotation = Quaternion.LookRotation(directionToEnemy);
-        towerBody.rotation = Quaternion.Slerp(towerBody.rotation, lookRotation, rotationSpeed * Time.deltaTime);
-    }
-
     // Rotate tower head towards the calculated launch velocity
     private void FaceLaunchDirection()
     {

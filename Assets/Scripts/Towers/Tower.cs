@@ -39,7 +39,7 @@ public class Tower : MonoBehaviour
 
     protected virtual void Start()
     {
-        // GameManager.instance.currentActiveWaveManager.UpdateDroneNavMesh();
+        GameManager.instance.currentActiveWaveManager.UpdateDroneNavMesh();
     }
 
     protected virtual void Update()
@@ -87,8 +87,9 @@ public class Tower : MonoBehaviour
     }
 
     protected virtual void HandleRotation()
-    {   
+    {
         RotateTowardsEnemy();
+        RotateBodyTowardsEnemy();
     }
 
     protected virtual void RotateTowardsEnemy()
@@ -108,6 +109,18 @@ public class Tower : MonoBehaviour
 
         // Convert the Euler angle rotation to Quaternion and apply it to the tower head rotation 
         towerHead.rotation = Quaternion.Euler(rotation);
+    }
+
+    protected virtual void RotateBodyTowardsEnemy()
+    {
+        if (towerBody == null|| currentEnemy == null)
+            return;
+
+        Vector3 directionToEnemy = DirectionToEnemyFrom(towerBody);
+        directionToEnemy.y = 0;
+
+        Quaternion lookRotation = Quaternion.LookRotation(directionToEnemy);
+        towerBody.rotation = Quaternion.Slerp(towerBody.rotation, lookRotation, rotationSpeed * Time.deltaTime);
     }
 
     // Returns the transform of the closest enemy within the tower's attack radius.
