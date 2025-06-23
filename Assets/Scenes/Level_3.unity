@@ -5112,6 +5112,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2042032300
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 257737807414589102, guid: 276cae6643b59b87d8974ec55e5ac7d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.944516
+      objectReference: {fileID: 0}
+    - target: {fileID: 257737807414589102, guid: 276cae6643b59b87d8974ec55e5ac7d4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.39999962
+      objectReference: {fileID: 0}
+    - target: {fileID: 257737807414589102, guid: 276cae6643b59b87d8974ec55e5ac7d4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.819233
+      objectReference: {fileID: 0}
+    - target: {fileID: 257737807414589102, guid: 276cae6643b59b87d8974ec55e5ac7d4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 257737807414589102, guid: 276cae6643b59b87d8974ec55e5ac7d4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 257737807414589102, guid: 276cae6643b59b87d8974ec55e5ac7d4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 257737807414589102, guid: 276cae6643b59b87d8974ec55e5ac7d4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 257737807414589102, guid: 276cae6643b59b87d8974ec55e5ac7d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 257737807414589102, guid: 276cae6643b59b87d8974ec55e5ac7d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 257737807414589102, guid: 276cae6643b59b87d8974ec55e5ac7d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3108382978581964053, guid: 276cae6643b59b87d8974ec55e5ac7d4, type: 3}
+      propertyPath: whatIsTargetable.m_Bits
+      value: 257
+      objectReference: {fileID: 0}
+    - target: {fileID: 3122061222310990994, guid: 276cae6643b59b87d8974ec55e5ac7d4, type: 3}
+      propertyPath: m_Name
+      value: Tower Minigun
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 276cae6643b59b87d8974ec55e5ac7d4, type: 3}
 --- !u!33 &3538984368224423
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -22386,7 +22447,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4549856956019861467
 Transform:
   m_ObjectHideFlags: 0
@@ -40003,3 +40064,4 @@ SceneRoots:
   - {fileID: 51631118}
   - {fileID: 1216226833}
   - {fileID: 1412027689369308398}
+  - {fileID: 2042032300}

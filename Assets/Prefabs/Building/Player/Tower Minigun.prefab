@@ -1092,7 +1092,7 @@ MonoBehaviour:
   attackCoolDown: 0.15
   rotationSpeed: 10
   towerHead: {fileID: 5421195189831284274}
-  towerBody: {fileID: 0}
+  towerBody: {fileID: 585721342884683399}
   gunPoint: {fileID: 0}
   enemyPriorityType: 0
   attackRange: 5
@@ -1101,7 +1101,7 @@ MonoBehaviour:
     m_Bits: 256
   whatIsTargetable:
     serializedVersion: 2
-    m_Bits: 4353
+    m_Bits: 257
   attackSFX: {fileID: 0}
   damage: 6
   projectileSpeed: 15

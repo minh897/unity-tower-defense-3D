@@ -26,9 +26,8 @@ public class Tower : MonoBehaviour
     [SerializeField] protected AudioSource attackSFX;
 
     protected bool isTowerActive = true;
-    protected int maxEnemyOverlap = 10;
     protected float lastTimeAttacked;
-    protected Collider[] enemyOverlapList;
+    protected Collider[] enemyHitColliders = new Collider[20];
     protected Coroutine deactiveTowerCo;
 
     private GameObject currentEMPFX;
@@ -40,7 +39,7 @@ public class Tower : MonoBehaviour
 
     protected virtual void Start()
     {
-        GameManager.instance.currentActiveWaveManager.UpdateDroneNavMesh();
+        // GameManager.instance.currentActiveWaveManager.UpdateDroneNavMesh();
     }
 
     protected virtual void Update()
@@ -120,11 +119,11 @@ public class Tower : MonoBehaviour
         List<Enemy> priorityEnemies = new();
 
         // Check for all enemies within attack radius using layer mask, and store them in pre-allocated array
-        int enemycount = Physics.OverlapSphereNonAlloc(transform.position, attackRange, enemyOverlapList, whatIsEnemy);
+        int enemycount = Physics.OverlapSphereNonAlloc(transform.position, attackRange, enemyHitColliders, whatIsEnemy);
 
         for (int i = 0; i < enemycount; i++)
         {
-            if (!enemyOverlapList[i].TryGetComponent<Enemy>(out var enemy))
+            if (!enemyHitColliders[i].TryGetComponent<Enemy>(out var enemy))
                 continue;
 
             if (enemy.GetEnemyType() == enemyPriorityType)
