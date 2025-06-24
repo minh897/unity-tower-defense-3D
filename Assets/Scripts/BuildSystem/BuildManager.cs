@@ -3,17 +3,18 @@ using UnityEngine;
 
 public class BuildManager : MonoBehaviour
 {
-    private UI ui;
-    private BuildSlot selectedBuildSlot;
-
     public WaveManager waveManager;
     public GridBuilder currentGrid;
+
+    [SerializeField] private LayerMask whatToIgnore;
 
     [Header("Build Material")]
     [SerializeField] private Material attackRangeMat;
     [SerializeField] private Material buildPreviewMat;
 
     private bool isMouseOverUI;
+    private UI ui;
+    private BuildSlot selectedBuildSlot;
 
     void Awake()
     {
@@ -32,7 +33,7 @@ public class BuildManager : MonoBehaviour
                 return;
 
             // Collect hit collider info by using Raycast from the camera to the clicked mouse position
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, ~whatToIgnore))
             {
                 // Return true or false whether BuildSlot component was found on the hit object
                 bool isBuildSlotClicked = hit.collider.GetComponent<BuildSlot>() == null;
