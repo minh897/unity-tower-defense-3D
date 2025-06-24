@@ -7,6 +7,8 @@ public class ProjectileHarpoon : MonoBehaviour
     private Enemy enemy;
     private TowerHarpoon tower;
 
+    [SerializeField] private Transform connectionPoint;
+
     void Update()
     {
         if (enemy == null || isAttached)
@@ -38,4 +40,11 @@ public class ProjectileHarpoon : MonoBehaviour
         transform.forward = enemy.transform.position - transform.position;
     }
 
+    public Transform GetConnectionPoint()
+    {
+        if (connectionPoint == null)
+            return transform;
+
+        return connectionPoint;
+    }
 }
