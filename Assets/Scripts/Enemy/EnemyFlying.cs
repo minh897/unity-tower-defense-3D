@@ -1,7 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyFlying : Enemy
 {
+    private List<TowerHarpoon> observingTowers = new();
+
     protected override void Start()
     {
         base.Start();
@@ -13,4 +16,16 @@ public class EnemyFlying : Enemy
     {
         return Vector3.Distance(transform.position, GetFinalWayPoint());
     }
+
+    public override void DestroyEnemy()
+    {
+        foreach (var tower in observingTowers)
+        {
+            tower.ResetAttack();    
+        }
+
+        base.DestroyEnemy();
+    }
+
+    public void AddObservingTower(TowerHarpoon newTower) => observingTowers.Add(newTower);
 }

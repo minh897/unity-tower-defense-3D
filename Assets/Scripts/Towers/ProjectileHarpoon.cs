@@ -5,6 +5,7 @@ public class ProjectileHarpoon : MonoBehaviour
     private bool isAttached;
     private float speed;
     private Enemy enemy;
+    private TowerHarpoon tower;
 
     void Update()
     {
@@ -17,17 +18,18 @@ public class ProjectileHarpoon : MonoBehaviour
             AttachToEnemy();
     }
 
-    public void SetupProjectile(Enemy newEnemy, float newSpeed)
+    public void SetupProjectile(Enemy newEnemy, float newSpeed, TowerHarpoon newTower)
     {
         enemy = newEnemy;
         speed = newSpeed;
+        tower = newTower;
     }
 
     private void AttachToEnemy()
     {
         isAttached = true;
         transform.parent = enemy.transform;
-        //tower active damage
+        tower.ActivateAttack();
     }
 
     private void MoveTowardsEnemy()

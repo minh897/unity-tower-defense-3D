@@ -186,7 +186,7 @@ public class Tower : MonoBehaviour
         Destroy(currentEMPFX);
     }
 
-    protected void LoseTargetIfNeeded()
+    protected virtual void LoseTargetIfNeeded()
     {
         if (currentEnemy == null)
             return;

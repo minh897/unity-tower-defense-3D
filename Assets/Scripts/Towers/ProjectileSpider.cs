@@ -51,7 +51,7 @@ public class ProjectileSpider : MonoBehaviour
             IDamagable damagableIn = enemy.GetComponent<IDamagable>();
 
             if (damagableIn != null)
-                damagableIn.TakeDamage(Mathf.RoundToInt(damage));
+                damagableIn.TakeDamage(damage);
         }
     }
 

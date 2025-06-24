@@ -7,7 +7,7 @@ public enum EnemyType {None, Basic, Fast, Swarm, Heavy, Stealth, Flying, SpiderB
 
 public class Enemy : MonoBehaviour, IDamagable
 {
-    public int healthPoints = 4;
+    public float healthPoints = 4;
 
     public EnemyVisual visual { get; private set; }
 
@@ -199,7 +199,7 @@ public class Enemy : MonoBehaviour, IDamagable
         transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, turnSpeed * Time.deltaTime);
     }
 
-    public virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(float damage)
     {
         healthPoints -= damage;
 
@@ -217,7 +217,7 @@ public class Enemy : MonoBehaviour, IDamagable
         DestroyEnemy();
     }
 
-    public void DestroyEnemy()
+    public virtual void DestroyEnemy()
     {
         visual.CreateDeathVFX();
         Destroy(gameObject);

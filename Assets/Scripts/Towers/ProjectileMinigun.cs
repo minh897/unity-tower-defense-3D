@@ -22,7 +22,7 @@ public class ProjectileMinigun : MonoBehaviour
             // Set flag here so it can only activate once
             isActive = false;
             
-            damagable.TakeDamage(Mathf.RoundToInt(damage));
+            damagable.TakeDamage(damage);
             onHitVFX.SetActive(true);
 
             // Wait for the vfx to finish

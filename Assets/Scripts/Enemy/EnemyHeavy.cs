@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyHeavy : Enemy
 {
     [Header("Enemy Details")]
-    [SerializeField] private int shieldAmount = 50;
+    [SerializeField] private float shieldAmount = 50;
     [SerializeField] private EnemyShield shieldObject;
 
     protected override void Start()
@@ -18,7 +18,7 @@ public class EnemyHeavy : Enemy
             shieldObject.gameObject.SetActive(true);
     }
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(float damage)
     {
         if (shieldAmount <= 0)
             base.TakeDamage(damage);

@@ -34,7 +34,7 @@ public class ProjectileCannon : MonoBehaviour
             IDamagable damagableIn = enemy.GetComponent<IDamagable>();
 
             if (damagableIn != null)
-                damagableIn.TakeDamage(Mathf.RoundToInt(projectileDamage));
+                damagableIn.TakeDamage(projectileDamage);
         }
     }
 

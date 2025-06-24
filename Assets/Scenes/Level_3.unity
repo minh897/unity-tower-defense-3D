@@ -38541,6 +38541,10 @@ MonoBehaviour:
   projectileSpeed: 10
   projectilePrefab: {fileID: 2957319482185558834, guid: 406a1ebdeeaffd81fbdfc6b69c0b9b92, type: 3}
   projectileTransform: {fileID: 1674027608708410322}
+  initialDamage: 5
+  damageOvertime: 10
+  overtimeEffectDuration: 4
+  slowEffect: 0.7
 --- !u!114 &8922852742909082056
 MonoBehaviour:
   m_ObjectHideFlags: 0
