@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationVector: {x: 0, y: -1, z: 0}
-  rotateSpeed: 400
+  rotateSpeed: 4
 --- !u!1 &846460029566020320
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,7 +704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationVector: {x: 0, y: 1, z: 0}
-  rotateSpeed: 400
+  rotateSpeed: 4
 --- !u!1 &2858905780979652641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,8 +1141,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.957597, y: 0.50348175, z: 1.9618397}
-  m_Center: {x: -0.016136527, y: 0.24825913, z: -0.0035734177}
+  m_Size: {x: 1.6986461, y: 2.0866601, z: 1.6793776}
+  m_Center: {x: -0.008747816, y: 1.0398484, z: -0.0073981285}
 --- !u!114 &8097899536145068068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1806,7 +1806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationVector: {x: 0, y: -1, z: 0}
-  rotateSpeed: 400
+  rotateSpeed: 4
 --- !u!1 &8713943109731949025
 GameObject:
   m_ObjectHideFlags: 0
@@ -2286,4 +2286,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationVector: {x: 0, y: 1, z: 0}
-  rotateSpeed: 400
+  rotateSpeed: 4

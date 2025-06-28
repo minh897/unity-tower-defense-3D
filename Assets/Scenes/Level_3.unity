@@ -488,7 +488,7 @@ PrefabInstance:
       objectReference: {fileID: 1631574964}
     - target: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
       propertyPath: spawnCoolDown
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
       propertyPath: waypoints.Array.size
@@ -532,7 +532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7220825264302251090, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -980,6 +980,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &168212948
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1159598410309100220, guid: 0098359cb2159f3678b72ef64fc6858b, type: 3}
+      propertyPath: m_Name
+      value: Enemy Swarm
+      objectReference: {fileID: 0}
+    - target: {fileID: 1159598410309100220, guid: 0098359cb2159f3678b72ef64fc6858b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5634857841778145251, guid: 0098359cb2159f3678b72ef64fc6858b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 13.85208
+      objectReference: {fileID: 0}
+    - target: {fileID: 5634857841778145251, guid: 0098359cb2159f3678b72ef64fc6858b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5634857841778145251, guid: 0098359cb2159f3678b72ef64fc6858b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.69249
+      objectReference: {fileID: 0}
+    - target: {fileID: 5634857841778145251, guid: 0098359cb2159f3678b72ef64fc6858b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5634857841778145251, guid: 0098359cb2159f3678b72ef64fc6858b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5634857841778145251, guid: 0098359cb2159f3678b72ef64fc6858b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5634857841778145251, guid: 0098359cb2159f3678b72ef64fc6858b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5634857841778145251, guid: 0098359cb2159f3678b72ef64fc6858b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5634857841778145251, guid: 0098359cb2159f3678b72ef64fc6858b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5634857841778145251, guid: 0098359cb2159f3678b72ef64fc6858b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0098359cb2159f3678b72ef64fc6858b, type: 3}
 --- !u!1 &196657303
 GameObject:
   m_ObjectHideFlags: 0
@@ -3065,7 +3126,7 @@ PrefabInstance:
       objectReference: {fileID: 1631574964}
     - target: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
       propertyPath: spawnCoolDown
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2618622690087899506, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
       propertyPath: 'waypoints.Array.data[1]'
@@ -3199,37 +3260,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1755358989078187673, guid: 591c629b6622c7067a680a51f2d2843c, type: 3}
-      propertyPath: m_Size.x
-      value: 1.6986461
-      objectReference: {fileID: 0}
-    - target: {fileID: 1755358989078187673, guid: 591c629b6622c7067a680a51f2d2843c, type: 3}
-      propertyPath: m_Size.y
-      value: 2.0866601
-      objectReference: {fileID: 0}
-    - target: {fileID: 1755358989078187673, guid: 591c629b6622c7067a680a51f2d2843c, type: 3}
-      propertyPath: m_Size.z
-      value: 1.6793776
-      objectReference: {fileID: 0}
-    - target: {fileID: 1755358989078187673, guid: 591c629b6622c7067a680a51f2d2843c, type: 3}
-      propertyPath: m_Center.x
-      value: -0.008747816
-      objectReference: {fileID: 0}
-    - target: {fileID: 1755358989078187673, guid: 591c629b6622c7067a680a51f2d2843c, type: 3}
-      propertyPath: m_Center.y
-      value: 1.0398484
-      objectReference: {fileID: 0}
-    - target: {fileID: 1755358989078187673, guid: 591c629b6622c7067a680a51f2d2843c, type: 3}
-      propertyPath: m_Center.z
-      value: -0.0073981285
-      objectReference: {fileID: 0}
     - target: {fileID: 4690008287559229862, guid: 591c629b6622c7067a680a51f2d2843c, type: 3}
       propertyPath: m_Name
       value: Player Castle
-      objectReference: {fileID: 0}
-    - target: {fileID: 4690008287559229862, guid: 591c629b6622c7067a680a51f2d2843c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7483135895019411533, guid: 591c629b6622c7067a680a51f2d2843c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4127,11 +4160,11 @@ MonoBehaviour:
   waveTimer: 0
   waveIndex: 0
   levelWaves:
-  - basicEnemyCount: 10
+  - basicEnemyCount: 20
     fastEnemyCount: 0
     swarmEnemyCount: 0
     heavyEnemyCount: 0
-    stealthEnemyCount: 2
+    stealthEnemyCount: 0
     flyingEnemyCount: 0
     flyingBossEnemyCount: 0
     spiderBossEnemyCount: 0
@@ -38949,3 +38982,4 @@ SceneRoots:
   - {fileID: 1631571895}
   - {fileID: 51631118}
   - {fileID: 1216226833}
+  - {fileID: 168212948}
