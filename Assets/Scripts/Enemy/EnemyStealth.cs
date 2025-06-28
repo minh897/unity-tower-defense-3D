@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +9,7 @@ public class EnemyStealth : Enemy
     [SerializeField] private float hideDuration = .5f;
     [SerializeField] private ParticleSystem smokeScreenFX;
     [SerializeField] private List<Enemy> enemiesToHide;
+    private bool canHideEnemy = true;
 
     protected override void Awake()
     {
@@ -18,13 +21,10 @@ public class EnemyStealth : Enemy
 
     public void EnableSmokeScreen(bool isEnable)
     {
-        if (isEnable)
-        {
-            if (smokeScreenFX.isPlaying == false)
-                smokeScreenFX.Play();
-            else
-                smokeScreenFX.Stop();
-        }
+        if (smokeScreenFX.isPlaying == false && isEnable)
+            smokeScreenFX.Play();
+        else if (smokeScreenFX.isPlaying == true && isEnable == false)
+            smokeScreenFX.Stop();
     }
 
     private void HideItSelf()
@@ -34,10 +34,26 @@ public class EnemyStealth : Enemy
 
     private void HideEnemies()
     {
+        if (canHideEnemy == false)
+            return;
+            
         foreach (Enemy enemy in enemiesToHide)
         {
             enemy.HideEnemy(hideDuration);
         }
+    }
+
+    protected override IEnumerator DisableHideCo(float duration)
+    {
+        canBeHidden = false;
+        canHideEnemy = false;
+        EnableSmokeScreen(false);
+
+        yield return new WaitForSeconds(duration);
+
+        EnableSmokeScreen(true);
+        canBeHidden = true;
+        canHideEnemy = true;
     }
 
     public List<Enemy> GetEnemiesToHide() => enemiesToHide;

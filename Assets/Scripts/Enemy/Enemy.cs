@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour, IDamagable
     private float totalDistance;
     private GameManager gameManager;
     private Coroutine hideCo;
+    private Coroutine disableHideCo;
 
     protected bool canBeHidden = true;
     protected bool isHidden = true;
@@ -71,6 +72,21 @@ public class Enemy : MonoBehaviour, IDamagable
 
         agent.speed = originalSpeed;
     }
+
+    public void DisableHide(float duration)
+    {
+        if (disableHideCo != null)
+            StopCoroutine(disableHideCo);
+        
+        disableHideCo = StartCoroutine(DisableHideCo(duration));
+    }
+
+    protected virtual IEnumerator DisableHideCo(float duration)
+    {
+        canBeHidden = false;
+        yield return new WaitForSeconds(duration);
+        canBeHidden = true;
+    } 
 
     public void HideEnemy(float duration)
     {
