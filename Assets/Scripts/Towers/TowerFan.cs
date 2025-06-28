@@ -25,6 +25,14 @@ public class TowerFan : Tower
         }
     }
 
+    void OnValidate()
+    {
+        ForwardAttackDisplay display = GetComponent<ForwardAttackDisplay>();
+
+        if (display != null)
+            display.CreateLines(true, attackRange);
+    }
+
     public void AddEnemyToReveal(Enemy enemy) => enemiesToReveal.Add(enemy);
 
     public void RemoveEnemyToReveal(Enemy enemy) => enemiesToReveal.Remove(enemy);

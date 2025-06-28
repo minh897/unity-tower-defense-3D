@@ -727,11 +727,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: 
   towerPrice: 50
-  towerCenterY: 0.5
+  towerAttackRange: 3
   towerToBuild: {fileID: 2407414552725649156, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
   towerNameText: {fileID: 4274520288164181113}
   towerPriceText: {fileID: 418099162755804676}
-  towerAttackRange: 3
 --- !u!1 &7700189369426979480
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ public class Tower : MonoBehaviour
     [SerializeField] protected Transform towerBody;
     [SerializeField] protected Transform gunPoint;
     [SerializeField] protected EnemyType enemyPriorityType;
+    public bool isAttackForward;
     [Space]
 
     [SerializeField] protected float attackRange = 2.5f;

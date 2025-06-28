@@ -6,20 +6,19 @@ public class UIBuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 {
     [SerializeField] private string towerName;
     [SerializeField] private int towerPrice = 50;
-    [Space]
-    [SerializeField] private float towerCenterY = .5f;
+    [SerializeField] private float towerAttackRange = 3;
     [SerializeField] private GameObject towerToBuild;
+    [Space]
 
     [Header("Text Components")]
     [SerializeField] private TextMeshProUGUI towerNameText;
     [SerializeField] private TextMeshProUGUI towerPriceText;
 
-    [SerializeField] private float towerAttackRange = 3;
 
     private UI ui;
     private BuildManager buildManager;
-    private CameraEffects cameraEffects;
-    private GameManager gameManager;
+    // private CameraEffects cameraEffects;
+    // private GameManager gameManager;
     private UIBuildButtonsHolder buildButtonHolder;
     private UIBuildButtonHoverEffect onHoverEffect;
 
@@ -35,8 +34,8 @@ public class UIBuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         buildButtonHolder = GetComponentInParent<UIBuildButtonsHolder>();
 
         buildManager = FindFirstObjectByType<BuildManager>();
-        cameraEffects = FindFirstObjectByType<CameraEffects>();
-        gameManager = FindFirstObjectByType<GameManager>();
+        // cameraEffects = FindFirstObjectByType<CameraEffects>();
+        // gameManager = FindFirstObjectByType<GameManager>();
 
         if (towerToBuild != null)
             towerAttackRange = towerToBuild.GetComponent<Tower>().GetAttackRange();
@@ -90,7 +89,8 @@ public class UIBuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         // Add TowerPreview component to newPreview and store TowerPreview in towerPreview for future use
         towerPreview = newPreview.AddComponent<TowerPreview>();
-        towerPreview.gameObject.SetActive(false);
+        towerPreview.SetupTowerPreview(newPreview);
+        towerPreview.transform.parent = buildManager.transform;
     }
 
     public void UnlockTower(string towerNameToCheck, bool unlockStatus)
@@ -102,35 +102,9 @@ public class UIBuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         gameObject.SetActive(unlockStatus);
     }
 
-    public void BuildTower()
+    public void ConfirmTowerBuilding()
     {
-        if (gameManager.HasEnoughCurrency(towerPrice) == false)
-        {
-            ui.uiInGame.ShakeCurrencyUI();
-            return;
-        }
-
-        if (towerToBuild == null)
-        {
-            Debug.LogWarning("Didn't tower assigned to this button");
-            return;
-        }
-
-        // Check if we have the current selected button
-        if (ui.uiBuildButton.GetLastSelectedButton() == null)
-            return;
-
-        BuildSlot slotToUse = buildManager.GetSelectedBuildSlot();
-        buildManager.CancelBuildAction();
-
-        slotToUse.SnapToDefaultPosition();
-        slotToUse.SetSlotAvailable(false);
-
-        ui.uiBuildButton.SetLastSelected(null);
-
-        cameraEffects.ShakeScreen(.15f, .02f);
-
-        GameObject newTower = Instantiate(towerToBuild, slotToUse.GetBuildPosition(towerCenterY), Quaternion.identity);
+        buildManager.BuildTower(towerToBuild, towerPrice);
     }
 
     private void OnValidate()

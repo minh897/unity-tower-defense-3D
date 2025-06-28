@@ -12,14 +12,27 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private Material attackRangeMat;
     [SerializeField] private Material buildPreviewMat;
 
+    [Header("Build Details")]
+    [SerializeField] private float towerCenterY = .5f;
+    [SerializeField] private float cameraShakeDuration = .15f;
+    [SerializeField] private float cameraShakeMagnitude = .02f;
+
     private bool isMouseOverUI;
     private UI ui;
     private BuildSlot selectedBuildSlot;
+    private GameManager gameManager;
+    private CameraEffects cameraEffects;
 
     void Awake()
     {
         ui = FindFirstObjectByType<UI>();
+        cameraEffects = FindFirstObjectByType<CameraEffects>();
         MakeSlotNotAvailableIfNeeded(waveManager, currentGrid);
+    }
+
+    void Start()
+    {
+        gameManager = GameManager.instance;
     }
 
     void Update()
@@ -42,6 +55,37 @@ public class BuildManager : MonoBehaviour
                     CancelBuildAction();
             }
         }
+    }
+
+    public void BuildTower(GameObject towerToBuild, int towerPrice)
+    {
+        if (gameManager.HasEnoughCurrency(towerPrice) == false)
+        {
+            ui.uiInGame.ShakeCurrencyUI();
+            return;
+        }
+
+        if (towerToBuild == null)
+        {
+            Debug.LogWarning("Didn't tower assigned to this button");
+            return;
+        }
+
+        // Check if we have the current selected button
+        if (ui.uiBuildButton.GetLastSelectedButton() == null)
+            return;
+
+        BuildSlot slotToUse = GetSelectedBuildSlot();
+        CancelBuildAction();
+
+        slotToUse.SnapToDefaultPosition();
+        slotToUse.SetSlotAvailable(false);
+
+        ui.uiBuildButton.SetLastSelected(null);
+
+        cameraEffects.ShakeScreen(cameraShakeDuration, cameraShakeMagnitude);
+
+        GameObject newTower = Instantiate(towerToBuild, slotToUse.GetBuildPosition(towerCenterY), Quaternion.identity);
     }
 
     public void MakeSlotNotAvailableIfNeeded(WaveManager waveManager, GridBuilder currentGrid)

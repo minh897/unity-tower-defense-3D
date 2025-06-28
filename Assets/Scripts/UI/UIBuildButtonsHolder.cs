@@ -41,7 +41,7 @@ public class UIBuildButtonsHolder : MonoBehaviour
             }
 
         if (Input.GetKeyDown(KeyCode.Space) && lastSelectedButton != null)
-            lastSelectedButton.BuildTower();
+            lastSelectedButton.ConfirmTowerBuilding();
     }
 
     public void SelectNewButton(int buttonIndex)
