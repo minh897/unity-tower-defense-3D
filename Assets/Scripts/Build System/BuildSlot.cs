@@ -40,6 +40,7 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (buildManager.GetSelectedBuildSlot() == this)
             return;
 
+        SnapToBeforeBuildPostion();
         // EnableBuildMenu need to be above SelectBuildSlot 
         // so the build menu can be enable correctly    
         buildManager.EnableBuildMenu();
@@ -80,6 +81,12 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             MoveTileDefault();
 
         MoveTileDefault();
+    }
+
+    public void SnapToBeforeBuildPostion()
+    {
+        Vector3 targetPosition = defaultPosition + new Vector3(0, tileAnimator.GetBuildOffset(), 0);
+        transform.position = targetPosition;
     }
 
     public void UnSelectTile()
