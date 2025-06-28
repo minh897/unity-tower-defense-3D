@@ -57,7 +57,7 @@ public class BuildManager : MonoBehaviour
         }
     }
 
-    public void BuildTower(GameObject towerToBuild, int towerPrice)
+    public void BuildTower(GameObject towerToBuild, int towerPrice, Transform newTowerPreview)
     {
         if (gameManager.HasEnoughCurrency(towerPrice) == false)
         {
@@ -75,17 +75,19 @@ public class BuildManager : MonoBehaviour
         if (ui.uiBuildButton.GetLastSelectedButton() == null)
             return;
 
+        Transform towerPreview = newTowerPreview;
         BuildSlot slotToUse = GetSelectedBuildSlot();
         CancelBuildAction();
 
         slotToUse.SnapToDefaultPosition();
         slotToUse.SetSlotAvailable(false);
 
-        ui.uiBuildButton.SetLastSelected(null);
+        ui.uiBuildButton.SetLastSelected(null, null);
 
         cameraEffects.ShakeScreen(cameraShakeDuration, cameraShakeMagnitude);
 
         GameObject newTower = Instantiate(towerToBuild, slotToUse.GetBuildPosition(towerCenterY), Quaternion.identity);
+        newTower.transform.rotation = newTowerPreview.rotation;
     }
 
     public void MakeSlotNotAvailableIfNeeded(WaveManager waveManager, GridBuilder currentGrid)

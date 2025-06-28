@@ -79,7 +79,7 @@ public class UIBuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         towerPreview.gameObject.SetActive(isSelect);
         towerPreview.ShowPreview(isSelect, previewPosition);
         onHoverEffect.ShowButton(isSelect);
-        buildButtonHolder.SetLastSelected(this);
+        buildButtonHolder.SetLastSelected(this, towerPreview.transform);
     }
 
     // Create a preview game object version of a tower
@@ -104,7 +104,7 @@ public class UIBuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void ConfirmTowerBuilding()
     {
-        buildManager.BuildTower(towerToBuild, towerPrice);
+        buildManager.BuildTower(towerToBuild, towerPrice, towerPreview.transform);
     }
 
     private void OnValidate()
