@@ -5480,6 +5480,7 @@ GameObject:
   - component: {fileID: 5584769588128986701}
   - component: {fileID: 6808501986788135051}
   - component: {fileID: 5536835119074225870}
+  - component: {fileID: -3037332600678934415}
   m_Layer: 12
   m_Name: Tower Fan
   m_TagString: Untagged
@@ -5552,7 +5553,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0.255, z: 0}
@@ -5601,6 +5602,22 @@ MonoBehaviour:
   attackRange: 9
   leftLine: {fileID: 3968485206922902263}
   rightLine: {fileID: 339013869979693226}
+--- !u!208 &-3037332600678934415
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3705504229074645879}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.465, y: 0.85, z: 0.465}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.83, z: 0.07}
+  m_TimeToStationary: 0.5
 --- !u!1 &4626371809320876602
 GameObject:
   m_ObjectHideFlags: 0

@@ -34709,6 +34709,7 @@ GameObject:
   - component: {fileID: 5089594397535147265}
   - component: {fileID: 384447701354338325}
   - component: {fileID: 675645289966177663}
+  - component: {fileID: 9031878436742287492}
   m_Layer: 12
   m_Name: Tower Hammer
   m_TagString: Untagged
@@ -34751,6 +34752,7 @@ MonoBehaviour:
   towerBody: {fileID: 0}
   gunPoint: {fileID: 0}
   enemyPriorityType: 0
+  isAttackForward: 0
   attackRange: 3
   whatIsEnemy:
     serializedVersion: 2
@@ -34832,3 +34834,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0.255, z: 0}
+--- !u!208 &9031878436742287492
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8631700495229431575}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.315, y: 0.695, z: 0.35}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.69, z: -0}
+  m_TimeToStationary: 0.5

@@ -40,7 +40,7 @@ public class Tower : MonoBehaviour
 
     protected virtual void Start()
     {
-        GameManager.instance.currentActiveWaveManager.UpdateDroneNavMesh();
+        // For override
     }
 
     protected virtual void Update()
