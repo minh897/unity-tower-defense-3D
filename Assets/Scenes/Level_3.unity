@@ -2890,63 +2890,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1094218442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &971381294
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2407414552725649156, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: m_Name
-      value: Tower Crossbow
-      objectReference: {fileID: 0}
-    - target: {fileID: 6176817097746386812, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 9.982798
-      objectReference: {fileID: 0}
-    - target: {fileID: 6176817097746386812, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.39999986
-      objectReference: {fileID: 0}
-    - target: {fileID: 6176817097746386812, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.5611811
-      objectReference: {fileID: 0}
-    - target: {fileID: 6176817097746386812, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6176817097746386812, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6176817097746386812, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6176817097746386812, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6176817097746386812, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6176817097746386812, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6176817097746386812, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 77e7169ed976a0e7088bf8008c132e5e, type: 3}
 --- !u!1 &1018579664
 GameObject:
   m_ObjectHideFlags: 0
@@ -5148,6 +5091,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2040560816
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2040560818}
+  - component: {fileID: 2040560819}
+  m_Layer: 0
+  m_Name: Object Pool Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2040560818
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040560816}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.10836, y: 1.37501, z: 10.44403}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2040560819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040560816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b920302a8ffe55c67b7b58410ce66ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  predefinedPool:
+  - {fileID: 3590395996922786876, guid: d1e899f1e57c9a231b360106d8f71683, type: 3}
+  defaultPoolSize: 50
+  maxPoolSize: 500
 --- !u!33 &3538984368224423
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -39028,4 +39019,4 @@ SceneRoots:
   - {fileID: 1631571895}
   - {fileID: 51631118}
   - {fileID: 1216226833}
-  - {fileID: 971381294}
+  - {fileID: 2040560818}
