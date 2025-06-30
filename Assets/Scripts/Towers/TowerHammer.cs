@@ -17,7 +17,7 @@ public class TowerHammer : Tower
         hammerVisual = GetComponent<HammerVisual>();
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (isTowerActive == false)
             return;

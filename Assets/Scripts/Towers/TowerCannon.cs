@@ -33,19 +33,20 @@ public class TowerCannon : Tower
     // Override find enemies logic to only target enemy that has the most enemies around it
     protected override Enemy FindEnemiesWithinRange()
     {
-        Collider[] enemiesAround = Physics.OverlapSphere(transform.position, attackRange, whatIsEnemy);
+        int foundColliders = Physics.OverlapSphereNonAlloc(transform.position, attackRange, enemyHitColliders, whatIsEnemy);
 
         Enemy bestTarget = null;
         int maxNearbyEnemies = 0;
 
-        foreach (Collider enemy in enemiesAround)
+        for (int i = 0; i < foundColliders; i++)
         {
-            int enemiesAmount = EnemiesAroundEnemy(enemy.transform);
+            Transform enemyTransform = enemyHitColliders[i].transform;
+            int enemiesAmount = EnemiesAroundEnemy(enemyTransform);
 
             if (enemiesAmount > maxNearbyEnemies)
             {
                 maxNearbyEnemies = enemiesAmount;
-                bestTarget = enemy.GetComponent<Enemy>();
+                bestTarget = enemyTransform.GetComponent<Enemy>();
             }
         }
 
@@ -55,9 +56,7 @@ public class TowerCannon : Tower
     // Return the collider of enemies around targeted enemy
     private int EnemiesAroundEnemy(Transform enemyToCheck)
     {
-        Collider[] enemiesAround = Physics.OverlapSphere(enemyToCheck.position, 1, whatIsEnemy);
-
-        return enemiesAround.Length;
+        return Physics.OverlapSphereNonAlloc(enemyToCheck.position, 1, enemyHitColliders, whatIsEnemy);
     }
 
     // Rotate tower head towards the calculated launch velocity

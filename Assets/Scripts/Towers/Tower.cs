@@ -28,9 +28,9 @@ public class Tower : MonoBehaviour
 
     protected bool isTowerActive = true;
     protected float lastTimeAttacked;
-    protected Collider[] enemyHitColliders = new Collider[20];
     protected Coroutine deactiveTowerCo;
     protected ObjectPoolManager objectPool;
+    protected Collider[] enemyHitColliders = new Collider[50];
 
     private GameObject currentEMPFX;
 
@@ -44,7 +44,7 @@ public class Tower : MonoBehaviour
         objectPool = ObjectPoolManager.instance;
     }
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         CheckForEnemies();
     }
