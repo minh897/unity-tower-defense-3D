@@ -31,8 +31,8 @@ public class TowerMinigun : Tower
             if (damagable == null)
                 return;
 
-            GameObject newProjectile = Instantiate(projectilePrefab, gunPoint.position, Quaternion.identity);
-            newProjectile.GetComponent<ProjectileMinigun>().SetupProjectile(hitInfo.point, damagable, damage, projectileSpeed);
+            GameObject newProjectile = objectPool.Get(projectilePrefab, gunPoint.position, Quaternion.identity);
+            newProjectile.GetComponent<ProjectileMinigun>().SetupProjectile(hitInfo.point, damagable, damage, projectileSpeed, objectPool);
 
             minigunVisual.ReCoilGun(gunPoint);
 

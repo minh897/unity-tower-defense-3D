@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour, IDamagable
     protected EnemyPortal enemyPortal;
     protected NavMeshAgent agent;
     protected Rigidbody rb;
+    protected ObjectPoolManager objectPool;
 
     protected virtual void Awake()
     {
@@ -45,6 +46,8 @@ public class Enemy : MonoBehaviour, IDamagable
 
         gameManager = FindFirstObjectByType<GameManager>();
         originalSpeed = agent.speed;
+
+        objectPool = ObjectPoolManager.instance;
     }
 
     protected virtual void Start()

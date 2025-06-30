@@ -30,6 +30,7 @@ public class Tower : MonoBehaviour
     protected float lastTimeAttacked;
     protected Collider[] enemyHitColliders = new Collider[20];
     protected Coroutine deactiveTowerCo;
+    protected ObjectPoolManager objectPool;
 
     private GameObject currentEMPFX;
 
@@ -40,7 +41,7 @@ public class Tower : MonoBehaviour
 
     protected virtual void Start()
     {
-        // For override
+        objectPool = ObjectPoolManager.instance;
     }
 
     protected virtual void Update()
@@ -59,9 +60,9 @@ public class Tower : MonoBehaviour
             StopCoroutine(deactiveTowerCo);
 
         if (currentEMPFX != null)
-            Destroy(currentEMPFX);
+            objectPool.Remove(currentEMPFX);
 
-        currentEMPFX = Instantiate(empFX, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+        currentEMPFX = objectPool.Get(empFX, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
         deactiveTowerCo = StartCoroutine(DeactivateTowerCo(duration));
     }
 
@@ -184,7 +185,7 @@ public class Tower : MonoBehaviour
         // Prevent the tower from attacking immediately when enable
         // Let the tower has time to adjust their head position before attacking
         lastTimeAttacked = Time.time;
-        Destroy(currentEMPFX);
+        objectPool.Remove(currentEMPFX);
     }
 
     protected virtual void LoseTargetIfNeeded()

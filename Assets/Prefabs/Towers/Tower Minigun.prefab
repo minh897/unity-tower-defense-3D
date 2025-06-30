@@ -1090,7 +1090,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentEnemy: {fileID: 0}
-  attackCoolDown: 0.15
+  attackCoolDown: 0.12
   rotationSpeed: 10
   towerHead: {fileID: 5421195189831284274}
   towerBody: {fileID: 585721342884683399}

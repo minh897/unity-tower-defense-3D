@@ -16,11 +16,13 @@ public class HarpoonVisual : MonoBehaviour
     [SerializeField] private GameObject onElectrifyVFX;
     private GameObject currentVFX;
 
+    private ObjectPoolManager objectPool;
     private List<ProjectileHarpoonLink> links = new();
 
     void Start()
     {
         InitializeLinks();
+        objectPool = ObjectPoolManager.instance;
     }
 
     void Update()
@@ -79,12 +81,12 @@ public class HarpoonVisual : MonoBehaviour
 
     public void CreateElectrifyVFX(Transform targetTransform)
     {
-        currentVFX = Instantiate(onElectrifyVFX, targetTransform.position, Quaternion.identity, targetTransform);
+        currentVFX = objectPool.Get(onElectrifyVFX, targetTransform.position, Quaternion.identity, targetTransform);
     }
 
     private void DestroyElectrifyVFX()
     {
         if (currentVFX != null)
-            Destroy(currentVFX);
+            objectPool.Remove(currentVFX);
     }
 }

@@ -3,8 +3,7 @@ using UnityEngine.AI;
 
 public class ProjectileSpider : MonoBehaviour
 {
-    private NavMeshAgent agent;
-    private Transform currentTarget;
+    
 
     [SerializeField] private float damage;
     [SerializeField] private float damageRadius;
@@ -16,9 +15,16 @@ public class ProjectileSpider : MonoBehaviour
     [SerializeField] private float targetUpdateInterval = .5f;
     [SerializeField] private LayerMask whatIsEnemy;
 
+    private NavMeshAgent agent;
+    private Transform currentTarget;
+    private ObjectPoolManager objectPool;
+    private TrailRenderer trail;
+
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        objectPool = ObjectPoolManager.instance;
+        trail = GetComponent<TrailRenderer>();
 
         InvokeRepeating(nameof(UpdateClosestTarget), .1f, targetUpdateInterval);
     }
@@ -37,9 +43,8 @@ public class ProjectileSpider : MonoBehaviour
     public void Explode()
     {
         DamageEnemies();
-        explosionVFX.transform.parent = null;
-        explosionVFX.SetActive(true);
-        Destroy(gameObject);
+        objectPool.Get(explosionVFX, transform.position + new Vector3(0, 0.4f, 0));
+        objectPool.Remove(gameObject);
     }
 
     public void DamageEnemies()
@@ -57,6 +62,7 @@ public class ProjectileSpider : MonoBehaviour
 
     public void SetupSpider(float towerDamage)
     {
+        trail.Clear();
         damage = towerDamage;
         agent.enabled = true;
         transform.parent = null;

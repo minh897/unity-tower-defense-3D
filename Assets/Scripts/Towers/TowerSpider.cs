@@ -18,11 +18,10 @@ public class TowerSpider : Tower
     private Vector3 spiderPointOffset = new(0, -.18f, 0);
     private GameObject[] activeSpiders;
 
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
         InitializeSpiders();
-
         reloadTimeMultiplier = 1 - attackTimeMultiplier;
     }
 
@@ -58,7 +57,7 @@ public class TowerSpider : Tower
 
         for (int i = 0; i < activeSpiders.Length; i++)
         {
-            GameObject newSpider = Instantiate(spiderPrefab, attachPointSet[i].position + spiderPointOffset, Quaternion.identity, attachPointSet[i]);
+            GameObject newSpider = objectPool.Get(spiderPrefab, attachPointSet[i].position + spiderPointOffset, Quaternion.identity, attachPointSet[i]);
             activeSpiders[i] = newSpider;
         }
     }
@@ -80,7 +79,7 @@ public class TowerSpider : Tower
 
         // Reloading phase
         yield return ChangeScaleCo(currentWeb, .1f, reloadTime);
-        activeSpiders[spiderIndex] = Instantiate(spiderPrefab, currentAttachPoint.position + spiderPointOffset, Quaternion.identity, currentAttachPoint);
+        activeSpiders[spiderIndex] = objectPool.Get(spiderPrefab, currentAttachPoint.position + spiderPointOffset, Quaternion.identity, currentAttachPoint);
 
         // Wraps around to 0 if it reaches the end
         spiderIndex = (spiderIndex + 1) % attachPointSet.Length;

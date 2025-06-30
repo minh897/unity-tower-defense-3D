@@ -15,11 +15,10 @@ public class TowerCannon : Tower
         Vector3 velocity = CalculateLaunchVelocity();
         attackVFX.Play();
         
-        // GameObject projectile = Instantiate(projectilePrefab, gunPoint.position, Quaternion.identity);
-        GameObject projectile = Instantiate(projectilePrefab, gunPoint.position, Quaternion.identity);
+        GameObject projectile = objectPool.Get(projectilePrefab, gunPoint.position, Quaternion.identity);
         ProjectileCannon projectileComp = projectile.GetComponent<ProjectileCannon>();
 
-        projectileComp.SetupProjectile(velocity, towerDamage);
+        projectileComp.SetupProjectile(velocity, towerDamage, objectPool);
     }
 
     protected override void HandleRotation()

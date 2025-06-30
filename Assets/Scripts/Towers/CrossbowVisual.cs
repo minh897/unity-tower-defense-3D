@@ -45,6 +45,7 @@ public class CrossbowVisual : MonoBehaviour
 
     private TowerCrossbow mainTower;
     private Material materialInstance;
+    private ObjectPoolManager objectPool;
 
     void Awake()
     {
@@ -56,6 +57,11 @@ public class CrossbowVisual : MonoBehaviour
         SetupMaterialLR();
 
         StartCoroutine(ChangeEmissionCoroutine(1));
+    }
+
+    void Start()
+    {
+        objectPool = ObjectPoolManager.instance;
     }
 
     void Update()
@@ -75,8 +81,7 @@ public class CrossbowVisual : MonoBehaviour
 
     public void CreateOnHitVFX(Vector3 hitPoint)
     {
-        GameObject newFX = Instantiate(onHitFX, hitPoint, Random.rotation);
-        Destroy(newFX, 1);
+        objectPool.Get(onHitFX, hitPoint, Random.rotation);
     }
 
     public void PlayAttackVFX(Vector3 startPoint, Vector3 endPoint)

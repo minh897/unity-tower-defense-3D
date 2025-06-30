@@ -8,10 +8,13 @@ public class ProjectileCannon : MonoBehaviour
 
     private float projectileDamage;
     private Rigidbody rb;
+    private ObjectPoolManager objPool;
+    private TrailRenderer trail;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        trail = GetComponent<TrailRenderer>();
     }
 
     void OnDrawGizmos()
@@ -19,10 +22,12 @@ public class ProjectileCannon : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, damageRadius);
     }
 
-    public void SetupProjectile(Vector3 newVelocity, float towerDamage)
+    public void SetupProjectile(Vector3 newVelocity, float towerDamage, ObjectPoolManager newObjPool)
     {
+        trail.Clear();
         rb.linearVelocity = newVelocity;
         projectileDamage = towerDamage;
+        objPool = newObjPool;
     }
 
     public void DamageEnemies()
@@ -41,8 +46,8 @@ public class ProjectileCannon : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         DamageEnemies();
-        VFXExplosion.SetActive(true);
-        VFXExplosion.transform.parent = null;
-        Destroy(gameObject);
+
+        objPool.Get(VFXExplosion, transform.position);
+        objPool.Remove(gameObject);
     }
 }
