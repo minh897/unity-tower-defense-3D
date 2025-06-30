@@ -5035,7 +5035,7 @@ GameObject:
   - component: {fileID: 4618215932729800426}
   - component: {fileID: 7473034485331838076}
   m_Layer: 13
-  m_Name: Enemy Spider EMP
+  m_Name: Projectile Spider EMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

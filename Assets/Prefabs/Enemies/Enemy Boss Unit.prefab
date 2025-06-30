@@ -575,7 +575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7db859b557479ef8fcc22422ca193a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 4
+  currentHP: 4
+  maxHP: 100
   turnSpeed: 10
   centerPoint: {fileID: 5198106085118287875}
   enemyType: 3

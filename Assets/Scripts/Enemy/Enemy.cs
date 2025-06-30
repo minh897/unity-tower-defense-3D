@@ -7,14 +7,15 @@ public enum EnemyType {None, Basic, Fast, Swarm, Heavy, Stealth, Flying, SpiderB
 
 public class Enemy : MonoBehaviour, IDamagable
 {
-    public float healthPoints = 4;
+    public float currentHP = 4;
+    public float maxHP = 100;
 
     public EnemyVisual visual { get; private set; }
 
     [SerializeField] private float turnSpeed = 10f;
     [SerializeField] private Transform centerPoint;
     [SerializeField] private EnemyType enemyType;
-    [SerializeField] protected List<Transform> enemyWaypoints;
+    [SerializeField] protected Vector3[] enemyWaypoints;
 
     private int originalLayerIndex;
     private float totalDistance;
@@ -24,7 +25,7 @@ public class Enemy : MonoBehaviour, IDamagable
 
     protected bool canBeHidden = true;
     protected bool isHidden = true;
-    protected bool isDead; // set to false later
+    protected bool isDead;
     protected int nextWaypointIndex;
     protected int currentWavepointIndex;
     protected float originalSpeed;
@@ -115,40 +116,63 @@ public class Enemy : MonoBehaviour, IDamagable
         isHidden = false;
     }
 
-    public void SetupEnemyWaypoint(List<Waypoint> newEnemyWaypoints, EnemyPortal referencePortal)
+    public void SetupEnemyWaypoint(EnemyPortal referencePortal)
     {
-        enemyWaypoints = new();
-
-        foreach (var point in newEnemyWaypoints)
-        {
-            enemyWaypoints.Add(point.transform);
-        }
-
-        CalculateTotalDistance();
-
         enemyPortal = referencePortal;
+
+        UpdateWaypoint(enemyPortal.currentWaypoints);
+        CalculateTotalDistance();
+        ResetEnemy();
+        BeginMovement();
+    }
+
+    private void BeginMovement()
+    {
+        currentWavepointIndex = 0;
+        nextWaypointIndex = 0;
+        ChangeWayPoint();
+    }
+
+    protected void ResetEnemy()
+    {
+        gameObject.layer = originalLayerIndex;
+        visual.MakeTransparent(false);
+        currentHP = maxHP;
+        isDead = false;
+        agent.speed = originalSpeed;
+        agent.enabled = true;
+    }
+
+    private void UpdateWaypoint(Vector3[] newWaypoints)
+    {
+        enemyWaypoints = new Vector3[newWaypoints.Length];
+
+        for (int i = 0; i < newWaypoints.Length; i++)
+        {
+            enemyWaypoints[i] = newWaypoints[i];
+        }
     }
 
     // Calculate the distance between each waypoint and the add each of them to the total distance
     private void CalculateTotalDistance()
     {
-        for (int i = 0; i < enemyWaypoints.Count - 1; i++)
+        for (int i = 0; i < enemyWaypoints.Length - 1; i++)
         {
-            float distance = Vector3.Distance(enemyWaypoints[i].position, enemyWaypoints[i + 1].position);
+            float distance = Vector3.Distance(enemyWaypoints[i], enemyWaypoints[i + 1]);
             totalDistance += distance;
         }
     }
 
     protected virtual bool ShouldChangeWaypoint()
     {
-        if (nextWaypointIndex >= enemyWaypoints.Count)
+        if (nextWaypointIndex >= enemyWaypoints.Length)
             return false;
 
-        if (agent.remainingDistance <= 0.5f)
+        if (agent?.remainingDistance <= 0.5f)
             return true;
         
-        Vector3 currentWaypoint = enemyWaypoints[currentWavepointIndex].position;
-        Vector3 nextWaypoint = enemyWaypoints[nextWaypointIndex].position;
+        Vector3 currentWaypoint = enemyWaypoints[currentWavepointIndex];
+        Vector3 nextWaypoint = enemyWaypoints[nextWaypointIndex];
 
         float distanceToNextWaypoint = Vector3.Distance(transform.position, nextWaypoint);
         float distanceBetweenWaypoints = Vector3.Distance(currentWaypoint, nextWaypoint);
@@ -158,31 +182,34 @@ public class Enemy : MonoBehaviour, IDamagable
 
     protected virtual void ChangeWayPoint()
     {
-        agent.SetDestination(GetNextWayPoint());
+        if (agent.isOnNavMesh == true)
+            agent.SetDestination(GetNextWayPoint());
+        else
+            Debug.Log("This one is not on Nav Mesh: " + agent.gameObject);
     }
 
     protected Vector3 GetFinalWayPoint()
     {
-        if (enemyWaypoints.Count == 0)
+        if (enemyWaypoints.Length == 0)
             return transform.position;
 
-        return enemyWaypoints[enemyWaypoints.Count - 1].position;
+        return enemyWaypoints[enemyWaypoints.Length - 1];
     }
 
     // Returns the position of the next waypoint in the sequence.
     // If all waypoints have been reached, it returns the current position instead.
     private Vector3 GetNextWayPoint()
     {
-        if (nextWaypointIndex >= enemyWaypoints.Count)
+        if (nextWaypointIndex >= enemyWaypoints.Length)
             return transform.position;
 
-        Vector3 targetPosition = enemyWaypoints[nextWaypointIndex].position;
+        Vector3 targetPosition = enemyWaypoints[nextWaypointIndex];
 
         // Subtract the distance between the current waypoint and the previous one from the total distance
         // Start from index 1 because index 0 has no previous waypoint (avoid out of bound error)
         if (nextWaypointIndex > 0)
         {
-            float distance = Vector3.Distance(enemyWaypoints[nextWaypointIndex].position, enemyWaypoints[nextWaypointIndex - 1].position);
+            float distance = Vector3.Distance(enemyWaypoints[nextWaypointIndex], enemyWaypoints[nextWaypointIndex - 1]);
             totalDistance -= distance;
         }
 
@@ -220,9 +247,9 @@ public class Enemy : MonoBehaviour, IDamagable
 
     public virtual void TakeDamage(float damage)
     {
-        healthPoints -= damage;
+        currentHP -= damage;
 
-        if (healthPoints <= 0 && isDead == false)
+        if (currentHP <= 0 && isDead == false)
         {
             // Use flag isDead in case Die() is called twice
             isDead = true;
@@ -233,16 +260,30 @@ public class Enemy : MonoBehaviour, IDamagable
     public virtual void Die()
     {
         gameManager.UpdateCurrency(1);
-        DestroyEnemy();
+        RemoveEnemy();
     }
 
-    public virtual void DestroyEnemy()
+    public virtual void RemoveEnemy()
     {
         visual.CreateDeathVFX();
-        Destroy(gameObject);
+        objectPool.Remove(gameObject);
+
+        // Prevent enemy from being too far from nav mesh when disabled
+        agent.enabled = false;
 
         if (enemyPortal != null)
             enemyPortal.RemoveActiveEnemy(gameObject);
+    }
+
+    protected virtual void OnEnable()
+    {
+
+    }
+
+    protected virtual void OnDisable()
+    {
+        StopAllCoroutines();
+        CancelInvoke();
     }
 
     public virtual float CalculateDistanceToGoal() => totalDistance + agent.remainingDistance;

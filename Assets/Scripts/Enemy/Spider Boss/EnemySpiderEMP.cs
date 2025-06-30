@@ -10,6 +10,12 @@ public class EnemySpiderEMP : MonoBehaviour
     private bool shouldShrink;
     private float shrinkSpeed = 3;
     private Vector3 destination;
+    private ObjectPoolManager objectPool;
+
+    void Awake()
+    {
+        objectPool = ObjectPoolManager.instance;
+    }
 
     void Update()
     {
@@ -24,7 +30,7 @@ public class EnemySpiderEMP : MonoBehaviour
         transform.localScale -= Vector3.one * shrinkSpeed * Time.deltaTime;
 
         if (transform.localScale.x <= 0.1f)
-            Destroy(gameObject);
+            objectPool.Remove(gameObject);
     }
 
     private void MoveTowerTarget()

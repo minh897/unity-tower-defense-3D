@@ -11,14 +11,6 @@ public class EnemyStealth : Enemy
     [SerializeField] private List<Enemy> enemiesToHide;
     private bool canHideEnemy = true;
 
-    protected override void Awake()
-    {
-        base.Awake();
-
-        InvokeRepeating(nameof(HideItSelf), .1f, hideDuration);
-        InvokeRepeating(nameof(HideEnemies), .1f, hideDuration);
-    }
-
     public void EnableSmokeScreen(bool isEnable)
     {
         if (smokeScreenFX.isPlaying == false && isEnable)
@@ -54,6 +46,13 @@ public class EnemyStealth : Enemy
         EnableSmokeScreen(true);
         canBeHidden = true;
         canHideEnemy = true;
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        InvokeRepeating(nameof(HideItSelf), .1f, hideDuration);
+        InvokeRepeating(nameof(HideEnemies), .1f, hideDuration);
     }
 
     public List<Enemy> GetEnemiesToHide() => enemiesToHide;

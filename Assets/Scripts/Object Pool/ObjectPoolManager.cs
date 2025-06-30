@@ -8,9 +8,11 @@ public class ObjectPoolManager : MonoBehaviour
     public static ObjectPoolManager instance;
 
     [Header("Object Pool Details")]
-    [SerializeField] private GameObject[] predefinedPool;
     [SerializeField] private int defaultPoolSize = 50;
     [SerializeField] private int maxPoolSize = 500;
+    [SerializeField] private GameObject[] enemyPools;
+    [SerializeField] private GameObject[] projectilePools;
+    [SerializeField] private GameObject[] vfxPools;
 
     private Dictionary<GameObject, ObjectPool<GameObject>> poolDictionary;
 
@@ -42,6 +44,7 @@ public class ObjectPoolManager : MonoBehaviour
         objectToGet.transform.position = position;
         objectToGet.transform.rotation = rotation ?? Quaternion.identity;
         objectToGet.transform.parent = parent;
+        objectToGet.SetActive(true);
 
         return objectToGet;
     }
@@ -64,10 +67,14 @@ public class ObjectPoolManager : MonoBehaviour
     {
         poolDictionary = new();
 
-        foreach (GameObject prefab in predefinedPool)
-        {
+        foreach (GameObject prefab in enemyPools)
             CreateNewPool(prefab);
-        }
+
+        foreach (GameObject prefab in projectilePools)
+            CreateNewPool(prefab);
+
+        foreach (GameObject prefab in vfxPools)
+            CreateNewPool(prefab);
     }
 
     private void CreateNewPool(GameObject prefab)
@@ -75,7 +82,7 @@ public class ObjectPoolManager : MonoBehaviour
         var pool = new ObjectPool<GameObject>
             (
                 createFunc: () => NewPoolObject(prefab),
-                actionOnGet: obj => obj.SetActive(true),
+                // actionOnGet: obj => obj.SetActive(true),
                 actionOnRelease: obj =>
                 {
                     obj.SetActive(false);

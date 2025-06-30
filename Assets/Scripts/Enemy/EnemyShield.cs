@@ -18,6 +18,7 @@ public class EnemyShield : MonoBehaviour
     void Start()
     {
         defaultScale = transform.localScale.x;
+        shieldMat = Instantiate(shieldMat);
     }
 
     public void ActivateShieldImpact()

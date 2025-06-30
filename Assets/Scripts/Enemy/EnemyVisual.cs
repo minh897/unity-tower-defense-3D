@@ -19,6 +19,8 @@ public class EnemyVisual : MonoBehaviour
     private List<Material> originalMats;
     private MeshRenderer[] myMeshes;
 
+    private ObjectPoolManager objectPool;
+
     protected virtual void Awake()
     {
         CollectDefaultMat();
@@ -26,7 +28,7 @@ public class EnemyVisual : MonoBehaviour
 
     protected virtual void Start()
     {
-        // Do something
+        objectPool = ObjectPoolManager.instance;
     }
 
     protected virtual void Update()
@@ -42,7 +44,7 @@ public class EnemyVisual : MonoBehaviour
 
     public void CreateDeathVFX()
     {
-        GameObject createdDeathVFX = Instantiate(deathVFX, transform.position + new Vector3(0, .15f, 0), Quaternion.identity);
+        GameObject createdDeathVFX = objectPool.Get(deathVFX, transform.position + new Vector3(0, .15f, 0), Quaternion.identity);
         createdDeathVFX.transform.localScale = new Vector3(deathVFXScale, deathVFXScale, deathVFXScale);
     }
 

@@ -6,7 +6,7 @@ public class EnemyPortal : MonoBehaviour
 {
     [SerializeField] private float spawnCoolDown;
     [SerializeField] private WaveManager myWaveManager;
-    [SerializeField] private List<Waypoint> waypoints;
+    [SerializeField] private List<Waypoint> waypointList;
     [Space]
 
     [SerializeField] private ParticleSystem flyPortalFX;
@@ -15,6 +15,9 @@ public class EnemyPortal : MonoBehaviour
     private Coroutine flyPortalFXCo;
     private List<GameObject> enemiesToCreate;
     private List<GameObject> activeEnemies;
+    private ObjectPoolManager objectPool;
+
+    public Vector3[] currentWaypoints { get; private set; }
 
     void Awake()
     {
@@ -24,12 +27,15 @@ public class EnemyPortal : MonoBehaviour
         CollectWaypoints();
     }
 
+    void Start()
+    {
+        objectPool = ObjectPoolManager.instance;
+    }
+
     void Update()
     {
         if (CanMakeNewEnemy())
-        {
             CreateEnemy();
-        }
     }
 
     private void PlaceEnemyAyFlyPortalIfNeeded(GameObject newEnemy, EnemyType enemyType)
@@ -68,10 +74,10 @@ public class EnemyPortal : MonoBehaviour
     private void CreateEnemy()
     {
         GameObject randomEnemy = GetRandomEnemy();
-        GameObject newEnemy = Instantiate(randomEnemy, transform.position, Quaternion.identity);
+        GameObject newEnemy = objectPool.Get(randomEnemy, transform.position, Quaternion.identity);
 
         Enemy enemy = newEnemy.GetComponent<Enemy>();
-        enemy.SetupEnemyWaypoint(waypoints, this);
+        enemy.SetupEnemyWaypoint(this);
 
         PlaceEnemyAyFlyPortalIfNeeded(newEnemy, enemy.GetEnemyType());
         activeEnemies.Add(newEnemy);
@@ -80,14 +86,20 @@ public class EnemyPortal : MonoBehaviour
     private void CollectWaypoints()
     {
         // Make a new waypoint list each time
-        waypoints = new();
+        waypointList = new();
 
         foreach (Transform child in transform)
         {
             if (child.TryGetComponent<Waypoint>(out var waypoint))
-            {
-                waypoints.Add(waypoint);
-            }
+                waypointList.Add(waypoint);
+        }
+
+        currentWaypoints = new Vector3[waypointList.Count];
+
+        // Collect all waypoints only once instead of on each enemy
+        for (int i = 0; i < currentWaypoints.Length; i++)
+        {
+            currentWaypoints[i] = waypointList[i].transform.position;
         }
     }
 

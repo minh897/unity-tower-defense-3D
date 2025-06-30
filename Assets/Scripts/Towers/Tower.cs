@@ -76,7 +76,7 @@ public class Tower : MonoBehaviour
         HandleRotation();
 
         if (CanAttack())
-            Attack();
+            AttemptToAttack();
     }
 
     private void UpdateTargetIfNeeded()
@@ -123,6 +123,19 @@ public class Tower : MonoBehaviour
 
         Quaternion lookRotation = Quaternion.LookRotation(directionToEnemy);
         towerBody.rotation = Quaternion.Slerp(towerBody.rotation, lookRotation, rotationSpeed * Time.deltaTime);
+    }
+
+    // Tower can still target disabled enemy from object pool
+    // Make a check for inactive current enemy so it can switch to other enemy
+    protected void AttemptToAttack()
+    {
+        if (currentEnemy.gameObject.activeSelf == false)
+        {
+            currentEnemy = null;
+            return;
+        }
+
+        Attack();
     }
 
     // Returns the transform of the closest enemy within the tower's attack radius.

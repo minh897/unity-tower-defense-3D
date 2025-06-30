@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2334554849314254760}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.593, y: 0, z: 0.192}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -51,12 +51,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04cb74d56197d4e36b6f5c0def1051b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 100
+  currentHP: 4
+  maxHP: 100
   turnSpeed: 10
   centerPoint: {fileID: 1813633557988162194}
   enemyType: 4
   enemyWaypoints: []
-  shieldAmount: 50
+  currentShield: 50
+  maxShield: 150
   shieldObject: {fileID: 5364975176859451671}
 --- !u!114 &5348260199271532713
 MonoBehaviour:

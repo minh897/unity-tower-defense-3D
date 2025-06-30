@@ -17,7 +17,7 @@ public class EnemyFlying : Enemy
         return Vector3.Distance(transform.position, GetFinalWayPoint());
     }
 
-    public override void DestroyEnemy()
+    public override void RemoveEnemy()
     {
         foreach (var tower in observingTowers)
             tower.ResetAttack();
@@ -25,7 +25,7 @@ public class EnemyFlying : Enemy
         foreach (var harpoon in GetComponentsInChildren<ProjectileCannon>())
             objectPool.Remove(harpoon.gameObject);
 
-        base.DestroyEnemy();
+        base.RemoveEnemy();
     }
 
     public void AddObservingTower(TowerHarpoon newTower) => observingTowers.Add(newTower);

@@ -8,7 +8,7 @@ public class PlayerCastle : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.GetComponent<Enemy>().DestroyEnemy();
+            other.GetComponent<Enemy>().RemoveEnemy();
 
             if (gameManager == null)
                 gameManager = FindFirstObjectByType<GameManager>();

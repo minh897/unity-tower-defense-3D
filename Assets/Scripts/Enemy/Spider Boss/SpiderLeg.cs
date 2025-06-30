@@ -20,13 +20,26 @@ public class SpiderLeg : MonoBehaviour
     [SerializeField] private Transform worldTargetRef;
     private EnemySpiderVisual spiderVisual;
 
+    private ObjectPoolManager objectPool;
+
     void Awake()
     {
+        objectPool = ObjectPoolManager.instance;
         spiderVisual = GetComponentInParent<EnemySpiderVisual>();
         worldTargetRef = Instantiate(worldTargetRef, actualTarget.position, Quaternion.identity).transform;
 
         worldTargetRef.gameObject.name = legRef.gameObject.name + "_world";
         legMoveSpeed = spiderVisual.legSpeed;
+    }
+
+    void OnEnable()
+    {
+        ParentLegReference(false);
+    }
+
+    void OnDisable()
+    {
+        ParentLegReference(true);
     }
 
     public void UpdateLeg()
@@ -73,6 +86,14 @@ public class SpiderLeg : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         legMoveSpeed = spiderVisual.legSpeed;
+    }
+
+    private void ParentLegReference(bool isParent)
+    {
+        if (worldTargetRef == null)
+            return;
+
+        worldTargetRef.transform.parent = isParent ? objectPool.transform : null;
     }
 
     private void CanMove(bool enableMovement) => canMove = enableMovement;

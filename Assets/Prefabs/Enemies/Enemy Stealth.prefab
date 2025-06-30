@@ -14482,7 +14482,7 @@ Transform:
   m_GameObject: {fileID: 5193090797057504146}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.75044, y: 0.4, z: 3.808}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -14502,7 +14502,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ea08b1a03856ef98d028f78ab8a3fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 10
+  currentHP: 4
+  maxHP: 100
   turnSpeed: 5
   centerPoint: {fileID: 240207007083401048}
   enemyType: 5

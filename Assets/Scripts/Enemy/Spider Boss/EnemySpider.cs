@@ -38,7 +38,7 @@ public class EnemySpider : Enemy
 
     protected override bool ShouldChangeWaypoint()
     {
-        if (nextWaypointIndex >= enemyWaypoints.Count)
+        if (nextWaypointIndex >= enemyWaypoints.Length)
             return false;
 
         if (agent.remainingDistance <= 0.2f)
@@ -62,7 +62,7 @@ public class EnemySpider : Enemy
 
         empAttackTimer = empCooldown;
 
-        GameObject newEMP = Instantiate(empPrefab, transform.position + new Vector3(0, 0.15f, 0), Quaternion.identity);
+        GameObject newEMP = objectPool.Get(empPrefab, transform.position + new Vector3(0, 0.15f, 0), Quaternion.identity);
         newEMP.GetComponent<EnemySpiderEMP>().SetupEMP(empFXDuration, target.position);
     }
 
