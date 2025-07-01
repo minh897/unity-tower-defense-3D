@@ -288,6 +288,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Portal_1
       objectReference: {fileID: 0}
+    - target: {fileID: 9051176055747901429, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.77
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2247,6 +2251,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Portal_2
       objectReference: {fileID: 0}
+    - target: {fileID: 7220825264302251090, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051176055747901429, guid: da270fac526b2b33e82d93bb3aa5882e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.77
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2760,62 +2772,62 @@ MonoBehaviour:
   waveTimer: 0
   waveIndex: 0
   levelWaves:
-  - basicEnemyCount: 0
+  - basicEnemyCount: 10
     fastEnemyCount: 21
-    swarmEnemyCount: 0
-    heavyEnemyCount: 0
-    stealthEnemyCount: 0
+    swarmEnemyCount: 60
+    heavyEnemyCount: 5
+    stealthEnemyCount: 10
     flyingEnemyCount: 0
     flyingBossEnemyCount: 0
     spiderBossEnemyCount: 0
     waveGrid: {fileID: 0}
     wavePortals: []
-  - basicEnemyCount: 0
+  - basicEnemyCount: 10
     fastEnemyCount: 21
-    swarmEnemyCount: 0
-    heavyEnemyCount: 0
-    stealthEnemyCount: 0
-    flyingEnemyCount: 0
+    swarmEnemyCount: 60
+    heavyEnemyCount: 5
+    stealthEnemyCount: 10
+    flyingEnemyCount: 8
     flyingBossEnemyCount: 0
     spiderBossEnemyCount: 0
     waveGrid: {fileID: 0}
     wavePortals: []
-  - basicEnemyCount: 0
+  - basicEnemyCount: 10
     fastEnemyCount: 21
-    swarmEnemyCount: 0
-    heavyEnemyCount: 0
-    stealthEnemyCount: 0
-    flyingEnemyCount: 0
+    swarmEnemyCount: 60
+    heavyEnemyCount: 5
+    stealthEnemyCount: 10
+    flyingEnemyCount: 8
     flyingBossEnemyCount: 0
     spiderBossEnemyCount: 0
     waveGrid: {fileID: 0}
     wavePortals: []
-  - basicEnemyCount: 0
+  - basicEnemyCount: 10
     fastEnemyCount: 21
-    swarmEnemyCount: 0
-    heavyEnemyCount: 0
-    stealthEnemyCount: 0
-    flyingEnemyCount: 0
+    swarmEnemyCount: 60
+    heavyEnemyCount: 5
+    stealthEnemyCount: 10
+    flyingEnemyCount: 8
     flyingBossEnemyCount: 0
     spiderBossEnemyCount: 0
     waveGrid: {fileID: 0}
     wavePortals: []
-  - basicEnemyCount: 0
+  - basicEnemyCount: 10
     fastEnemyCount: 21
-    swarmEnemyCount: 0
-    heavyEnemyCount: 0
-    stealthEnemyCount: 0
-    flyingEnemyCount: 0
+    swarmEnemyCount: 60
+    heavyEnemyCount: 5
+    stealthEnemyCount: 10
+    flyingEnemyCount: 8
     flyingBossEnemyCount: 0
     spiderBossEnemyCount: 0
     waveGrid: {fileID: 0}
     wavePortals: []
-  - basicEnemyCount: 0
+  - basicEnemyCount: 10
     fastEnemyCount: 21
-    swarmEnemyCount: 0
-    heavyEnemyCount: 0
-    stealthEnemyCount: 0
-    flyingEnemyCount: 0
+    swarmEnemyCount: 60
+    heavyEnemyCount: 5
+    stealthEnemyCount: 10
+    flyingEnemyCount: 8
     flyingBossEnemyCount: 0
     spiderBossEnemyCount: 0
     waveGrid: {fileID: 0}
@@ -3418,6 +3430,7 @@ MonoBehaviour:
   maxPoolSize: 100
   enemyPools:
   - {fileID: 8347791830468167753, guid: 5e783f239bd9e531c8bfc2467bf28a67, type: 3}
+  - {fileID: 8802225364200957580, guid: 88511ee1fd6f384548cf7e34437382c6, type: 3}
   projectilePools:
   - {fileID: 3235177964855585631, guid: 58aa8ab13c4e32df69f5c7a216df07be, type: 3}
   - {fileID: 2957319482185558834, guid: 406a1ebdeeaffd81fbdfc6b69c0b9b92, type: 3}
