@@ -14,11 +14,8 @@ public class UIBuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private TextMeshProUGUI towerNameText;
     [SerializeField] private TextMeshProUGUI towerPriceText;
 
-
     private UI ui;
     private BuildManager buildManager;
-    // private CameraEffects cameraEffects;
-    // private GameManager gameManager;
     private UIBuildButtonsHolder buildButtonHolder;
     private UIBuildButtonHoverEffect onHoverEffect;
 
@@ -34,8 +31,6 @@ public class UIBuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         buildButtonHolder = GetComponentInParent<UIBuildButtonsHolder>();
 
         buildManager = FindFirstObjectByType<BuildManager>();
-        // cameraEffects = FindFirstObjectByType<CameraEffects>();
-        // gameManager = FindFirstObjectByType<GameManager>();
 
         if (towerToBuild != null)
             towerAttackRange = towerToBuild.GetComponent<Tower>().GetAttackRange();

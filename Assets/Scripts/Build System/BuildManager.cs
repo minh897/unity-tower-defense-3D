@@ -18,6 +18,7 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private float cameraShakeMagnitude = .02f;
 
     private bool isMouseOverUI;
+    
     private UI ui;
     private BuildSlot selectedBuildSlot;
     private GameManager gameManager;

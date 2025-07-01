@@ -51,7 +51,7 @@ public class CameraController : MonoBehaviour
         HandleZoom();
         HandleRotation();
         HandleMouseMovement();
-        // HandleEdgeMovement();
+        HandleEdgeMovement();
         HandleKeyBoardMovement();
 
         // focusPoint.position = transform.position + transform.forward * GetFocusPointDistance();
