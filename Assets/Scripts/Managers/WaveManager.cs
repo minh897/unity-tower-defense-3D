@@ -14,8 +14,8 @@ public class WaveDetails
     public int flyingEnemyCount;
     public int flyingBossEnemyCount;
     public int spiderBossEnemyCount;
-    public GridBuilder nextWaveGrid;
-    public EnemyPortal[] nextWavePortals;
+    public GridBuilder waveGrid;
+    public EnemyPortal[] wavePortals;
 }
 
 public class WaveManager : MonoBehaviour
@@ -108,7 +108,7 @@ public class WaveManager : MonoBehaviour
 
     private void UpdateLevelTiles(WaveDetails nextWave)
     {
-        GridBuilder nextGrid = nextWave.nextWaveGrid;
+        GridBuilder nextGrid = nextWave.waveGrid;
         List<GameObject> grid = currentGrid.GetTileSetup();
         List<GameObject> newGrid = nextGrid.GetTileSetup();
 
@@ -311,13 +311,13 @@ public class WaveManager : MonoBehaviour
             AddTile(tilesToAdd[i]);
         }
 
-        EnableNewPortals(waveDetails.nextWavePortals);
+        EnableNewPortals(waveDetails.wavePortals);
         EnableWaveTimer(true);
     }
 
     public WaveDetails[] GetLevelWaves() => levelWaves;
 
-    private bool HasNewLayout() => waveIndex < levelWaves.Length && levelWaves[waveIndex].nextWaveGrid != null;
+    private bool HasNewLayout() => waveIndex < levelWaves.Length && levelWaves[waveIndex].waveGrid != null;
 
     private bool HasNoMoreWave() => waveIndex >= levelWaves.Length;
 

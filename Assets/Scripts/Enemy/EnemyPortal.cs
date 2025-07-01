@@ -35,7 +35,7 @@ public class EnemyPortal : MonoBehaviour
     void Update()
     {
         if (CanMakeNewEnemy())
-            CreateEnemy();
+            SpawnEnemy();
     }
 
     private void PlaceEnemyAtFlyPortalIfNeeded(GameObject newEnemy, EnemyType enemyType)
@@ -71,7 +71,7 @@ public class EnemyPortal : MonoBehaviour
         return choosenEnemy;
     }
 
-    private void CreateEnemy()
+    private void SpawnEnemy()
     {
         GameObject randomEnemy = GetRandomEnemy();
         GameObject newEnemy = objectPool.Get(randomEnemy, transform.position, Quaternion.identity);

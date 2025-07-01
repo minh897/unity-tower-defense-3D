@@ -5476,10 +5476,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3779934788063308872}
-  - component: {fileID: 8889892921031852693}
-  - component: {fileID: 5584769588128986701}
   - component: {fileID: 6808501986788135051}
   - component: {fileID: 5536835119074225870}
+  - component: {fileID: 8889892921031852693}
+  - component: {fileID: 5584769588128986701}
   - component: {fileID: -3037332600678934415}
   m_Layer: 12
   m_Name: Tower Fan
@@ -5509,6 +5509,51 @@ Transform:
   - {fileID: 463759109079930979}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6808501986788135051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3705504229074645879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8852ccda3bd9f896c8faf601a17ab28a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEnemy: {fileID: 0}
+  attackCoolDown: 1
+  rotationSpeed: 10
+  towerHead: {fileID: 0}
+  towerBody: {fileID: 0}
+  gunPoint: {fileID: 0}
+  enemyPriorityType: 0
+  isAttackForward: 1
+  attackRange: 9
+  whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 0
+  whatIsTargetable:
+    serializedVersion: 2
+    m_Bits: 0
+  attackSFX: {fileID: 0}
+  revealFrequency: 0.1
+  revealDuration: 1
+--- !u!114 &5536835119074225870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3705504229074645879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 295cb5fe886aa059594dcf4115dd72b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRange: 9
+  leftLine: {fileID: 3968485206922902263}
+  rightLine: {fileID: 339013869979693226}
 --- !u!54 &8889892921031852693
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5557,51 +5602,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0.255, z: 0}
---- !u!114 &6808501986788135051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3705504229074645879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8852ccda3bd9f896c8faf601a17ab28a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentEnemy: {fileID: 0}
-  attackCoolDown: 1
-  rotationSpeed: 10
-  towerHead: {fileID: 0}
-  towerBody: {fileID: 0}
-  gunPoint: {fileID: 0}
-  enemyPriorityType: 0
-  isAttackForward: 1
-  attackRange: 9
-  whatIsEnemy:
-    serializedVersion: 2
-    m_Bits: 0
-  whatIsTargetable:
-    serializedVersion: 2
-    m_Bits: 0
-  attackSFX: {fileID: 0}
-  revealFrequency: 0.1
-  revealDuration: 1
---- !u!114 &5536835119074225870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3705504229074645879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 295cb5fe886aa059594dcf4115dd72b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackRange: 9
-  leftLine: {fileID: 3968485206922902263}
-  rightLine: {fileID: 339013869979693226}
 --- !u!208 &-3037332600678934415
 NavMeshObstacle:
   m_ObjectHideFlags: 0

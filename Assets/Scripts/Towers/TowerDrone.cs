@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class TowerDrone : Tower
 {
@@ -32,10 +33,10 @@ public class TowerDrone : Tower
     }
 
     // For testing without enemy
-    protected override bool CanAttack()
-    {
-        return Time.time > lastTimeAttacked + attackCoolDown;
-    }
+    // protected override bool CanAttack()
+    // {
+    //     return Time.time > lastTimeAttacked + attackCoolDown;
+    // }
 
     protected override void Attack()
     {
@@ -58,6 +59,7 @@ public class TowerDrone : Tower
         for (int i = 0; i < activeDrones.Length; i++)
         {
             GameObject newDrone = objectPool.Get(dronePrefab, attachPointSet[i].position + dronePointOffset, Quaternion.identity, attachPointSet[i]);
+            newDrone.SetActive(true);
             activeDrones[i] = newDrone;
         }
     }

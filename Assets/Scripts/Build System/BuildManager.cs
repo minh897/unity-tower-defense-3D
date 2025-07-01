@@ -95,11 +95,11 @@ public class BuildManager : MonoBehaviour
     {
         foreach (var wave in waveManager.GetLevelWaves())
         {
-            if (wave.nextWaveGrid == null)
+            if (wave.waveGrid == null)
                 continue;
 
             List<GameObject> grid = currentGrid.GetTileSetup();
-            List<GameObject> nextWaveGrid = wave.nextWaveGrid.GetTileSetup();
+            List<GameObject> nextWaveGrid = wave.waveGrid.GetTileSetup();
 
             for (int i = 0; i < grid.Count; i++)
             {

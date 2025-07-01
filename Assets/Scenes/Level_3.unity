@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &3720137
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -155,7 +155,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -167,7 +167,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3720136}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1030,7 +1030,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &265972634
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1048,7 +1048,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -1060,7 +1060,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 265972633}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1675,7 +1675,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &701896148
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1693,7 +1693,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -1705,7 +1705,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 701896147}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2091,7 +2091,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1018579665
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2109,7 +2109,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -2121,7 +2121,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1018579664}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2768,8 +2768,8 @@ MonoBehaviour:
     flyingEnemyCount: 0
     flyingBossEnemyCount: 0
     spiderBossEnemyCount: 0
-    nextWaveGrid: {fileID: 0}
-    nextWavePortals: []
+    waveGrid: {fileID: 0}
+    wavePortals: []
   - basicEnemyCount: 0
     fastEnemyCount: 21
     swarmEnemyCount: 0
@@ -2778,8 +2778,8 @@ MonoBehaviour:
     flyingEnemyCount: 0
     flyingBossEnemyCount: 0
     spiderBossEnemyCount: 0
-    nextWaveGrid: {fileID: 0}
-    nextWavePortals: []
+    waveGrid: {fileID: 0}
+    wavePortals: []
   - basicEnemyCount: 0
     fastEnemyCount: 21
     swarmEnemyCount: 0
@@ -2788,8 +2788,8 @@ MonoBehaviour:
     flyingEnemyCount: 0
     flyingBossEnemyCount: 0
     spiderBossEnemyCount: 0
-    nextWaveGrid: {fileID: 0}
-    nextWavePortals: []
+    waveGrid: {fileID: 0}
+    wavePortals: []
   - basicEnemyCount: 0
     fastEnemyCount: 21
     swarmEnemyCount: 0
@@ -2798,8 +2798,8 @@ MonoBehaviour:
     flyingEnemyCount: 0
     flyingBossEnemyCount: 0
     spiderBossEnemyCount: 0
-    nextWaveGrid: {fileID: 0}
-    nextWavePortals: []
+    waveGrid: {fileID: 0}
+    wavePortals: []
   - basicEnemyCount: 0
     fastEnemyCount: 21
     swarmEnemyCount: 0
@@ -2808,8 +2808,8 @@ MonoBehaviour:
     flyingEnemyCount: 0
     flyingBossEnemyCount: 0
     spiderBossEnemyCount: 0
-    nextWaveGrid: {fileID: 0}
-    nextWavePortals: []
+    waveGrid: {fileID: 0}
+    wavePortals: []
   - basicEnemyCount: 0
     fastEnemyCount: 21
     swarmEnemyCount: 0
@@ -2818,8 +2818,8 @@ MonoBehaviour:
     flyingEnemyCount: 0
     flyingBossEnemyCount: 0
     spiderBossEnemyCount: 0
-    nextWaveGrid: {fileID: 0}
-    nextWavePortals: []
+    waveGrid: {fileID: 0}
+    wavePortals: []
 --- !u!114 &1631574965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2848,9 +2848,9 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.120000005
+  m_VoxelSize: 0.04
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 8ebbacdd29344ed1aaf51ff21a6fa18e, type: 2}
   m_BuildHeightMesh: 0
 --- !u!114 &1631574966
 MonoBehaviour:
@@ -3149,7 +3149,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1963736649
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3167,7 +3167,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -3179,7 +3179,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1963736648}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
