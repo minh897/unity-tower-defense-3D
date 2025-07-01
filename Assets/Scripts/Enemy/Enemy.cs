@@ -182,10 +182,10 @@ public class Enemy : MonoBehaviour, IDamagable
 
     protected virtual void ChangeWayPoint()
     {
-        if (agent.isOnNavMesh == true)
-            agent.SetDestination(GetNextWayPoint());
-        else
-            Debug.Log("This one is not on Nav Mesh: " + agent.gameObject);
+        if (agent.isOnNavMesh == false)
+            return;
+            
+        agent.SetDestination(GetNextWayPoint());
     }
 
     protected Vector3 GetFinalWayPoint()

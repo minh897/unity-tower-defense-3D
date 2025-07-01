@@ -46,6 +46,9 @@ public class ObjectPoolManager : MonoBehaviour
         objectToGet.transform.rotation =  rotation ?? Quaternion.identity;
         objectToGet.transform.parent = parent;
 
+        // Unity was checking NavMeshAgent as soon as the pooled object was activated
+        // during preload, before it had valid poition. Disabling agent upfront avoided
+        // that premature validation
         if (objectToGet.TryGetComponent<NavMeshAgent>(out var agent))
             agent.enabled = false;
         else
@@ -122,13 +125,6 @@ public class ObjectPoolManager : MonoBehaviour
     private GameObject NewPoolObject(GameObject prefab)
     {
         GameObject newObject = Instantiate(prefab);
-
-        // Unity was checking NavMeshAgent as soon as the pooled object was activated
-        // during preload, before it had valid poition. Disabling agent upfront avoided
-        // that premature validation
-        if (newObject.TryGetComponent<NavMeshAgent>(out var agent))
-            agent.enabled = false; // Prevent errors during preload
-
         newObject.AddComponent<PooledObject>().originalPrefab = prefab;
 
         return newObject;
