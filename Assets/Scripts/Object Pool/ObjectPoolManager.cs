@@ -45,7 +45,11 @@ public class ObjectPoolManager : MonoBehaviour
         objectToGet.transform.position = position;
         objectToGet.transform.rotation =  rotation ?? Quaternion.identity;
         objectToGet.transform.parent = parent;
-        objectToGet.SetActive(true);
+
+        if (objectToGet.TryGetComponent<NavMeshAgent>(out var agent))
+            agent.enabled = false;
+        else
+            objectToGet.SetActive(true);
 
         return objectToGet;
     }

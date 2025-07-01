@@ -1,22 +1,22 @@
 using System.Collections;
 using UnityEngine;
 
-public class TowerSpider : Tower
+public class TowerDrone : Tower
 {
-    [Header("Tower Spider Details")]
+    [Header("Tower Drone Details")]
     [SerializeField] private float damage;
     [SerializeField] private float attackTimeMultiplier = .4f; // The percentage of the time used for attacking (40%)
     [SerializeField] private float reloadTimeMultiplier = .6f; // The percentage of the time used for reloading (60%)
-    [SerializeField] private GameObject spiderPrefab;
+    [SerializeField] private GameObject dronePrefab;
     [Space]
 
     [SerializeField] private Transform[] webSet;
     [SerializeField] private Transform[] attachPointSet;
     [SerializeField] private Transform[] attachPointRefSet;
 
-    private int spiderIndex;
-    private Vector3 spiderPointOffset = new(0, -.18f, 0);
-    private GameObject[] activeSpiders;
+    private int droneIndex;
+    private Vector3 dronePointOffset = new(0, -.18f, 0);
+    private GameObject[] activeDrones;
 
     protected override void Start()
     {
@@ -53,36 +53,37 @@ public class TowerSpider : Tower
     
     private void InitializeSpiders()
     {
-        activeSpiders = new GameObject[attachPointSet.Length];
+        activeDrones = new GameObject[attachPointSet.Length];
 
-        for (int i = 0; i < activeSpiders.Length; i++)
+        for (int i = 0; i < activeDrones.Length; i++)
         {
-            GameObject newSpider = objectPool.Get(spiderPrefab, attachPointSet[i].position + spiderPointOffset, Quaternion.identity, attachPointSet[i]);
-            activeSpiders[i] = newSpider;
+            GameObject newDrone = objectPool.Get(dronePrefab, attachPointSet[i].position + dronePointOffset, Quaternion.identity, attachPointSet[i]);
+            activeDrones[i] = newDrone;
         }
     }
 
     private IEnumerator AttackCo()
     {
-        Transform currentWeb = webSet[spiderIndex];
-        Transform currentAttachPoint = attachPointSet[spiderIndex];
+        Transform currentWeb = webSet[droneIndex];
+        Transform currentAttachPoint = attachPointSet[droneIndex];
 
-        // The cooldown is split into 4 parts (because we have 4 spider drones)
-        // only 1/4th of it is used for attacking and reloading for each spider
-        // So if attackCoolDown is 4, then each spider with take up one second
+        // The cooldown is split into 4 parts (for 4 drones)
+        // Each drone only use 1/4th of the time for attacking and reloading
+        // So if attackCoolDown is 4, then each drone with take up one second
         float attackTime = (attackCoolDown / 4) * attackTimeMultiplier;
         float reloadTime = (attackCoolDown / 4) * reloadTimeMultiplier;
 
         // Attacking phase
         yield return ChangeScaleCo(currentWeb, 1, attackTime);
-        activeSpiders[spiderIndex].GetComponent<ProjectileSpider>().SetupSpider(damage);
+        activeDrones[droneIndex].GetComponent<ProjectileDrone>().SetupDrone(damage);
 
         // Reloading phase
         yield return ChangeScaleCo(currentWeb, .1f, reloadTime);
-        activeSpiders[spiderIndex] = objectPool.Get(spiderPrefab, currentAttachPoint.position + spiderPointOffset, Quaternion.identity, currentAttachPoint);
+        activeDrones[droneIndex] = objectPool.Get(dronePrefab, currentAttachPoint.position + dronePointOffset, Quaternion.identity, currentAttachPoint);
+        activeDrones[droneIndex].SetActive(true);
 
         // Wraps around to 0 if it reaches the end
-        spiderIndex = (spiderIndex + 1) % attachPointSet.Length;
+        droneIndex = (droneIndex + 1) % attachPointSet.Length;
     }
 
     public IEnumerator ChangeScaleCo(Transform obj, float newScale, float duration = .25f)

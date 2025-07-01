@@ -902,12 +902,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5615497202107319163}
+  - component: {fileID: 780332529556613710}
   - component: {fileID: 7558852168185403593}
   - component: {fileID: 2717854831675332615}
-  - component: {fileID: 780332529556613710}
   - component: {fileID: -8717299131640941453}
   m_Layer: 12
-  m_Name: Tower Spider
+  m_Name: Tower Drone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -930,6 +930,53 @@ Transform:
   - {fileID: 612965289521925943}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &780332529556613710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7016929490065090533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e89df3c96de298368029cc54373a14f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEnemy: {fileID: 0}
+  attackCoolDown: 2
+  rotationSpeed: 8
+  towerHead: {fileID: 0}
+  towerBody: {fileID: 0}
+  gunPoint: {fileID: 0}
+  enemyPriorityType: 3
+  isAttackForward: 0
+  attackRange: 0
+  whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 256
+  whatIsTargetable:
+    serializedVersion: 2
+    m_Bits: 256
+  attackSFX: {fileID: 0}
+  damage: 15
+  attackTimeMultiplier: 0.4
+  reloadTimeMultiplier: 0.6
+  dronePrefab: {fileID: 7946068040904475185, guid: 700df666732450a588013fae1af558a9, type: 3}
+  webSet:
+  - {fileID: 7947983301652870097}
+  - {fileID: 3671442773636169632}
+  - {fileID: 4359587888235471617}
+  - {fileID: 4491939755064149272}
+  attachPointSet:
+  - {fileID: 6753503640458504832}
+  - {fileID: 200918854665109066}
+  - {fileID: 6402486294681971489}
+  - {fileID: 955964397992458302}
+  attachPointRefSet:
+  - {fileID: 7754670852529504398}
+  - {fileID: 2772774515944263002}
+  - {fileID: 4970407559971684835}
+  - {fileID: 5565832274559493670}
 --- !u!54 &7558852168185403593
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -978,53 +1025,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0.255, z: 0}
---- !u!114 &780332529556613710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7016929490065090533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e89df3c96de298368029cc54373a14f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentEnemy: {fileID: 0}
-  attackCoolDown: 2
-  rotationSpeed: 10
-  towerHead: {fileID: 0}
-  towerBody: {fileID: 0}
-  gunPoint: {fileID: 0}
-  enemyPriorityType: 0
-  isAttackForward: 0
-  attackRange: 2.5
-  whatIsEnemy:
-    serializedVersion: 2
-    m_Bits: 0
-  whatIsTargetable:
-    serializedVersion: 2
-    m_Bits: 0
-  attackSFX: {fileID: 0}
-  damage: 15
-  attackTimeMultiplier: 0.4
-  reloadTimeMultiplier: 0.6
-  spiderPrefab: {fileID: 7946068040904475185, guid: 700df666732450a588013fae1af558a9, type: 3}
-  webSet:
-  - {fileID: 7947983301652870097}
-  - {fileID: 3671442773636169632}
-  - {fileID: 4359587888235471617}
-  - {fileID: 4491939755064149272}
-  attachPointSet:
-  - {fileID: 6753503640458504832}
-  - {fileID: 200918854665109066}
-  - {fileID: 6402486294681971489}
-  - {fileID: 955964397992458302}
-  attachPointRefSet:
-  - {fileID: 7754670852529504398}
-  - {fileID: 2772774515944263002}
-  - {fileID: 4970407559971684835}
-  - {fileID: 5565832274559493670}
 --- !u!208 &-8717299131640941453
 NavMeshObstacle:
   m_ObjectHideFlags: 0

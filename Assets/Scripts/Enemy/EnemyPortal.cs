@@ -78,8 +78,10 @@ public class EnemyPortal : MonoBehaviour
 
         Enemy enemy = newEnemy.GetComponent<Enemy>();
         enemy.SetupEnemyWaypoint(this);
-
+        
         PlaceEnemyAtFlyPortalIfNeeded(newEnemy, enemy.GetEnemyType());
+
+        newEnemy.SetActive(true);
         activeEnemies.Add(newEnemy);
     }
 

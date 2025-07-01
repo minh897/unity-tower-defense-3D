@@ -604,6 +604,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -120
       objectReference: {fileID: 0}
+    - target: {fileID: 1632799810657657669, guid: 69d48765dc0578d9ab5aab37c5c20037, type: 3}
+      propertyPath: m_text
+      value: Drone Nest
+      objectReference: {fileID: 0}
     - target: {fileID: 2062108272145015347, guid: 69d48765dc0578d9ab5aab37c5c20037, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -735,6 +739,10 @@ PrefabInstance:
     - target: {fileID: 7866218035597159116, guid: 69d48765dc0578d9ab5aab37c5c20037, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -120
+      objectReference: {fileID: 0}
+    - target: {fileID: 7893655279283593254, guid: 69d48765dc0578d9ab5aab37c5c20037, type: 3}
+      propertyPath: m_Name
+      value: Build Button - Spider Nest
       objectReference: {fileID: 0}
     - target: {fileID: 7944432779638250825, guid: 69d48765dc0578d9ab5aab37c5c20037, type: 3}
       propertyPath: towerPrice
@@ -2763,7 +2771,7 @@ MonoBehaviour:
     nextWaveGrid: {fileID: 0}
     nextWavePortals: []
   - basicEnemyCount: 0
-    fastEnemyCount: 22
+    fastEnemyCount: 21
     swarmEnemyCount: 0
     heavyEnemyCount: 0
     stealthEnemyCount: 0
@@ -2773,7 +2781,7 @@ MonoBehaviour:
     nextWaveGrid: {fileID: 0}
     nextWavePortals: []
   - basicEnemyCount: 0
-    fastEnemyCount: 23
+    fastEnemyCount: 21
     swarmEnemyCount: 0
     heavyEnemyCount: 0
     stealthEnemyCount: 0
@@ -2783,7 +2791,7 @@ MonoBehaviour:
     nextWaveGrid: {fileID: 0}
     nextWavePortals: []
   - basicEnemyCount: 0
-    fastEnemyCount: 24
+    fastEnemyCount: 21
     swarmEnemyCount: 0
     heavyEnemyCount: 0
     stealthEnemyCount: 0
@@ -2793,7 +2801,17 @@ MonoBehaviour:
     nextWaveGrid: {fileID: 0}
     nextWavePortals: []
   - basicEnemyCount: 0
-    fastEnemyCount: 25
+    fastEnemyCount: 21
+    swarmEnemyCount: 0
+    heavyEnemyCount: 0
+    stealthEnemyCount: 0
+    flyingEnemyCount: 0
+    flyingBossEnemyCount: 0
+    spiderBossEnemyCount: 0
+    nextWaveGrid: {fileID: 0}
+    nextWavePortals: []
+  - basicEnemyCount: 0
+    fastEnemyCount: 21
     swarmEnemyCount: 0
     heavyEnemyCount: 0
     stealthEnemyCount: 0

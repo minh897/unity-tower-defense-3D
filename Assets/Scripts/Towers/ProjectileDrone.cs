@@ -1,10 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ProjectileSpider : MonoBehaviour
+public class ProjectileDrone : MonoBehaviour
 {
-    
-
     [SerializeField] private float damage;
     [SerializeField] private float damageRadius;
     [SerializeField] private float detonateDistance;
@@ -60,7 +58,7 @@ public class ProjectileSpider : MonoBehaviour
         }
     }
 
-    public void SetupSpider(float towerDamage)
+    public void SetupDrone(float towerDamage)
     {
         trail.Clear();
         damage = towerDamage;

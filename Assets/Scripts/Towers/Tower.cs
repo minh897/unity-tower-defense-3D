@@ -129,7 +129,7 @@ public class Tower : MonoBehaviour
     // Make a check for inactive current enemy so it can switch to other enemy
     protected void AttemptToAttack()
     {
-        if (currentEnemy.gameObject.activeSelf == false)
+        if (currentEnemy != null && currentEnemy.gameObject.activeSelf == false)
         {
             currentEnemy = null;
             return;
