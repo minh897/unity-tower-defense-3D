@@ -47,7 +47,7 @@ public class ProjectileCannon : MonoBehaviour
     {
         DamageEnemies();
 
-        objPool.Get(VFXExplosion, transform.position);
+        objPool.Get(VFXExplosion, transform.position, Quaternion.identity);
         objPool.Remove(gameObject);
     }
 }

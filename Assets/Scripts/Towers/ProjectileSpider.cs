@@ -43,7 +43,7 @@ public class ProjectileSpider : MonoBehaviour
     public void Explode()
     {
         DamageEnemies();
-        objectPool.Get(explosionVFX, transform.position + new Vector3(0, 0.4f, 0));
+        objectPool.Get(explosionVFX, transform.position + new Vector3(0, 0.4f, 0), Quaternion.identity);
         objectPool.Remove(gameObject);
     }
 

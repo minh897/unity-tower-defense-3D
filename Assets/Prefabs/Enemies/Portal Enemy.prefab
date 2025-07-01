@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1498555832510749184}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.566, y: 0.051, z: 0}
+  m_LocalPosition: {x: -0.1, y: 0.051, z: 0}
   m_LocalScale: {x: 0.11, y: 0.11, z: 0.11}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -9943,7 +9943,7 @@ Transform:
   m_GameObject: {fileID: 6064591676840903524}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.70710784}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15029,7 +15029,7 @@ GameObject:
   m_Component:
   - component: {fileID: 391389089437768508}
   - component: {fileID: 2618622690087899506}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Portal Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15065,17 +15065,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 522201a3eb178280382096072e113887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnCoolDown: 1
+  spawnCoolDown: 0.5
   myWaveManager: {fileID: 0}
-  waypoints:
+  waypointList:
   - {fileID: 3433316943751682684}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   flyPortalFX: {fileID: 9173674927776796915}
 --- !u!1 &9185594299250654108
 GameObject:

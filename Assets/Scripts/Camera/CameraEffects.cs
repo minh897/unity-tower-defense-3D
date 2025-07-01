@@ -118,14 +118,12 @@ public class CameraEffects : MonoBehaviour
 
         while (time < duration)
         {
-            transform.position = Vector3.Lerp(startPosition, targetPosition, time / duration);
-            transform.rotation = Quaternion.Lerp(startRotation, targetRotation, time / duration);
+            transform.SetPositionAndRotation(Vector3.Lerp(startPosition, targetPosition, time / duration), Quaternion.Lerp(startRotation, targetRotation, time / duration));
             time += Time.deltaTime;
             yield return null;
         }
 
-        transform.position = targetPosition;
-        transform.rotation = targetRotation;
+        transform.SetPositionAndRotation(targetPosition, targetRotation);
     }
 
     private IEnumerator ScreenShakeFX(float duration, float magnitude)

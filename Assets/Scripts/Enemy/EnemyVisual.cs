@@ -34,12 +34,6 @@ public class EnemyVisual : MonoBehaviour
     protected virtual void Update()
     {
         AlignWithSlope();
-
-        if (Input.GetKeyDown(KeyCode.X))
-            MakeTransparent(true);
-
-        if (Input.GetKeyDown(KeyCode.C))
-            MakeTransparent(false);
     }
 
     public void CreateDeathVFX()

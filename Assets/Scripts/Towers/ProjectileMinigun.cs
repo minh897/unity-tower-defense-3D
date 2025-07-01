@@ -33,7 +33,7 @@ public class ProjectileMinigun : MonoBehaviour
 
             damagable.TakeDamage(damage);
 
-            objectPool.Get(onHitVFX, transform.position);
+            objectPool.Get(onHitVFX, transform.position, Quaternion.identity);
             objectPool.Remove(gameObject);
         }   
     }

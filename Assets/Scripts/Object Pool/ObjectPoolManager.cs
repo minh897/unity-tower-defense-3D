@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Pool;
 
 public class ObjectPoolManager : MonoBehaviour
@@ -16,7 +17,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     private Dictionary<GameObject, ObjectPool<GameObject>> poolDictionary;
 
-    void Awake()
+    private void Awake()
     {
         if (instance == null)
             instance = this;
@@ -27,7 +28,7 @@ public class ObjectPoolManager : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         InitializePools();
     }
@@ -36,13 +37,13 @@ public class ObjectPoolManager : MonoBehaviour
     {
         if (poolDictionary.ContainsKey(prefab) == false)
         {
-            Debug.LogWarning("No pool was founded for " + gameObject.name + ". Creating new pool");
+            Debug.LogWarning("No pool was found for game object " + prefab.name + ". Creating new pool!");
             CreateNewPool(prefab);
         }
 
         GameObject objectToGet = poolDictionary[prefab].Get();
         objectToGet.transform.position = position;
-        objectToGet.transform.rotation = rotation ?? Quaternion.identity;
+        objectToGet.transform.rotation =  rotation ?? Quaternion.identity;
         objectToGet.transform.parent = parent;
         objectToGet.SetActive(true);
 
@@ -55,7 +56,7 @@ public class ObjectPoolManager : MonoBehaviour
 
         if (originalPrefab == null)
         {
-            Debug.LogWarning("This game object is destroyed because it doesn't have ObjectPool component.");
+            Debug.LogWarning("You do not have object pool for this game object. Game object will be destroyed!");
             Destroy(objectToRemove);
             return;
         }
@@ -65,9 +66,9 @@ public class ObjectPoolManager : MonoBehaviour
 
     private void InitializePools()
     {
-        poolDictionary = new();
+        poolDictionary = new Dictionary<GameObject, ObjectPool<GameObject>>();
 
-        foreach (GameObject prefab in enemyPools)
+        foreach(GameObject prefab in enemyPools)
             CreateNewPool(prefab);
 
         foreach (GameObject prefab in projectilePools)
@@ -82,7 +83,7 @@ public class ObjectPoolManager : MonoBehaviour
         var pool = new ObjectPool<GameObject>
             (
                 createFunc: () => NewPoolObject(prefab),
-                // actionOnGet: obj => obj.SetActive(true),
+                //actionOnGet: obj => obj.SetActive(true),
                 actionOnRelease: obj =>
                 {
                     obj.SetActive(false);
@@ -100,25 +101,30 @@ public class ObjectPoolManager : MonoBehaviour
 
     private IEnumerator PreloadPoolCo(ObjectPool<GameObject> poolToPreload, int count)
     {
-        List<GameObject> preloadObjects = new();
+        List<GameObject> preloadedObjects = new List<GameObject>();
 
         for (int i = 0; i < count; i++)
         {
             GameObject obj = poolToPreload.Get();
-            preloadObjects.Add(obj);
+            preloadedObjects.Add(obj);
             obj.SetActive(false);
             yield return null;
         }
 
-        foreach (GameObject obj in preloadObjects)
-        {
+        foreach (GameObject obj in preloadedObjects)
             poolToPreload.Release(obj);
-        }
     }
 
     private GameObject NewPoolObject(GameObject prefab)
     {
         GameObject newObject = Instantiate(prefab);
+
+        // Unity was checking NavMeshAgent as soon as the pooled object was activated
+        // during preload, before it had valid poition. Disabling agent upfront avoided
+        // that premature validation
+        if (newObject.TryGetComponent<NavMeshAgent>(out var agent))
+            agent.enabled = false; // Prevent errors during preload
+
         newObject.AddComponent<PooledObject>().originalPrefab = prefab;
 
         return newObject;

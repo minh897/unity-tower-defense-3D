@@ -38,7 +38,7 @@ public class EnemyPortal : MonoBehaviour
             CreateEnemy();
     }
 
-    private void PlaceEnemyAyFlyPortalIfNeeded(GameObject newEnemy, EnemyType enemyType)
+    private void PlaceEnemyAtFlyPortalIfNeeded(GameObject newEnemy, EnemyType enemyType)
     {
         if (enemyType != EnemyType.Flying)
             return;
@@ -79,7 +79,7 @@ public class EnemyPortal : MonoBehaviour
         Enemy enemy = newEnemy.GetComponent<Enemy>();
         enemy.SetupEnemyWaypoint(this);
 
-        PlaceEnemyAyFlyPortalIfNeeded(newEnemy, enemy.GetEnemyType());
+        PlaceEnemyAtFlyPortalIfNeeded(newEnemy, enemy.GetEnemyType());
         activeEnemies.Add(newEnemy);
     }
 

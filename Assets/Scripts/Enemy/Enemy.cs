@@ -147,7 +147,7 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         enemyWaypoints = new Vector3[newWaypoints.Length];
 
-        for (int i = 0; i < newWaypoints.Length; i++)
+        for (int i = 0; i < enemyWaypoints.Length; i++)
         {
             enemyWaypoints[i] = newWaypoints[i];
         }
@@ -249,7 +249,7 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         currentHP -= damage;
 
-        if (currentHP <= 0 && isDead == false)
+        if (rb != null && currentHP <= 0 && isDead == false)
         {
             // Use flag isDead in case Die() is called twice
             isDead = true;
@@ -265,7 +265,9 @@ public class Enemy : MonoBehaviour, IDamagable
 
     public virtual void RemoveEnemy()
     {
-        visual.CreateDeathVFX();
+        if (visual != null)
+            visual.CreateDeathVFX();
+
         objectPool.Remove(gameObject);
 
         // Prevent enemy from being too far from nav mesh when disabled
