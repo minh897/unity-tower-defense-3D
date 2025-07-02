@@ -153,7 +153,8 @@ public class TileAnimator : MonoBehaviour
 
         foreach (var tile in objectsToMove)
         {
-            tile.GetComponent<TileSlot>().MakeNonInteractable(false);
+            if (tile.TryGetComponent<TileSlot>(out var tileSlot))
+                tileSlot.MakeNonInteractable(false);
         }
 
         isGridMoving = false;

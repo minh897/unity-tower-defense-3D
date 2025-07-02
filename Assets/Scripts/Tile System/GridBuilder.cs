@@ -73,11 +73,11 @@ public class GridBuilder : MonoBehaviour
 
     public void UpdateNewNavMesh() => myNavMesh.BuildNavMesh();
 
-    public void MakeTileNonInteractable(bool isNonInteractable)
+    public void MakeTileNonInteractable(bool isUninteractable)
     {
         foreach (var tile in createdTiles)
         {
-            tile.GetComponent<TileSlot>().MakeNonInteractable(isNonInteractable);
+            tile.GetComponent<TileSlot>().MakeNonInteractable(isUninteractable);
         }
     }
 }

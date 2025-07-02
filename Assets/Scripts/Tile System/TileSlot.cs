@@ -142,9 +142,9 @@ public class TileSlot : MonoBehaviour
 
     public Collider GetCollider() => tileCollider;
 
-    public void MakeNonInteractable(bool nonInteractable)
+    public void MakeNonInteractable(bool isUninteractable)
     {
-        gameObject.layer = nonInteractable ? 15 : originalLayerIndex;
+        gameObject.layer = isUninteractable ? 15 : originalLayerIndex;
     }
 
     private void UpdateLayer(GameObject referenceObj)
