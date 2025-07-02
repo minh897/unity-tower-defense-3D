@@ -18,20 +18,8 @@ public class TowerAttackRangeDisplay : MonoBehaviour
         lineRenderer.startWidth = lineWidth;
         lineRenderer.endWidth = lineWidth;
         lineRenderer.material = FindFirstObjectByType<BuildManager>().GetAttackRangeMaterial();
+        lineRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
     }
-
-    // public void ShowAttackRange(bool isRangeShow, float newRange, Vector3 newCenter)
-    // {
-    //     lineRenderer.enabled = isRangeShow;
-
-    //     if (isRangeShow == false)
-    //         return;
-
-    //     transform.position = newCenter;
-    //     range = newRange;
-
-    //     CreateCircle();
-    // }
 
     public void CreateCircle(bool isCircleShow, float range = 0)
     {

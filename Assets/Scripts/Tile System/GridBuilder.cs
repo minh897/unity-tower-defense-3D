@@ -13,6 +13,14 @@ public class GridBuilder : MonoBehaviour
 
     private bool hadFirstLoad;
 
+    public void DisableTileShadow()
+    {
+        foreach (var tile in createdTiles)
+        {
+            tile.GetComponent<TileSlot>().DisableShadowIfNeeded();
+        }
+    }
+
     public bool IsOnFirstLoad()
     {
         if (hadFirstLoad == false)
@@ -20,7 +28,7 @@ public class GridBuilder : MonoBehaviour
             hadFirstLoad = true;
             return true;
         }
-        
+
         return false;
     }
 
@@ -46,6 +54,8 @@ public class GridBuilder : MonoBehaviour
                 CreateTile(x, z);
             }
         }
+
+        DisableTileShadow();
     }
 
     [ContextMenu("Clear Grid")]

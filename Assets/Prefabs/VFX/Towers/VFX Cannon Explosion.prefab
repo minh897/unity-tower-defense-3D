@@ -9594,7 +9594,7 @@ MonoBehaviour:
   animatedLights:
   - light: {fileID: 0}
     loop: 0
-    animateIntensity: 1
+    animateIntensity: 0
     intensityStart: 4
     intensityEnd: 0
     intensityDuration: 0.7

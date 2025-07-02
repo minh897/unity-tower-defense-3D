@@ -6,6 +6,13 @@ public class ForwardAttackDisplay : MonoBehaviour
     [SerializeField] private LineRenderer leftLine;
     [SerializeField] private LineRenderer rightLine;
 
+
+    void Awake()
+    {
+        leftLine.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;    
+        rightLine.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;    
+    }
+
     public void CreateLines(bool showLines, float newRange)
     {
         leftLine.enabled = showLines;

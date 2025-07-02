@@ -26,6 +26,7 @@ public class TileSlot : MonoBehaviour
         UpdateNavMesh();
 
         TurnIntoBuildSlot(referenceTile);
+        DisableShadowIfNeeded();
     }
 
     public List<GameObject> GetAllChildren()
@@ -106,6 +107,26 @@ public class TileSlot : MonoBehaviour
     {
         transform.position += new Vector3(0, 0.1f * verticalDir, 0);
         UpdateNavMesh();
+    }
+
+    public void DisableShadowIfNeeded()
+    {
+        UnityEngine.Rendering.ShadowCastingMode shadowMode = UnityEngine.Rendering.ShadowCastingMode.On;
+
+        int blockSides = 0;
+        Vector3 surfaceCenterPoint = transform.position + new Vector3(0, .49f, 0);
+        Vector3[] direction = { Vector3.left, Vector3.right, Vector3.forward, Vector3.back };
+
+        foreach (var dir in direction)
+        {
+            if (Physics.Raycast(surfaceCenterPoint, dir, .6f))
+                blockSides++;
+        }
+
+        if (blockSides == direction.Length)
+            shadowMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+
+        tileMeshRenderer.shadowCastingMode = shadowMode;
     }
 
     public Material GetMaterial() => tileMeshRenderer.sharedMaterial;
