@@ -2,6 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class TowerUnlockData
+{
+    public string towerName;
+    public bool isUnlocked;
+
+    public TowerUnlockData(string towerNamePara, bool isUnlockedPara)
+    {
+        towerName = towerNamePara;
+        isUnlocked = isUnlockedPara;
+    }
+}
+
 public class LevelSetup : MonoBehaviour
 {
     [Header("Level Details")]
@@ -17,17 +30,19 @@ public class LevelSetup : MonoBehaviour
     private TileAnimator tileAnimator;
     private LevelManager levelManager;
     private GameManager gameManager;
+    private BuildManager buildManager;
 
     // Unity will automatically call this Start coroutine
     // to wait until it done with GetCurrentActiveCo
     // then activate WaveManager
     private IEnumerator Start()
     {
-        UnlockAvailableTowers();
-
         if (CheckLevelLoadedToMainScene())
         {
             DeleteExtraObjects();
+
+            buildManager = FindFirstObjectByType<BuildManager>();
+            buildManager.UpdateBuildManager(myWaveManager);
 
             levelManager.UpdateCurrentGrid(mainGrid);
 
@@ -37,14 +52,14 @@ public class LevelSetup : MonoBehaviour
 
             yield return tileAnimator.GetCurrentActiveRoutine();
 
-            gameManager = FindFirstObjectByType<GameManager>();
-            gameManager.UpdateGameManager(levelCurrency, myWaveManager);
-
             ui = FindFirstObjectByType<UI>();
             ui.EnableInGameUI(true);
 
-            myWaveManager.ActivateWaveManager();
+            gameManager = FindFirstObjectByType<GameManager>();
+            gameManager.PrepareLevel(levelCurrency, myWaveManager);
         }
+
+        UnlockAvailableTowers();
     }
 
     private bool CheckLevelLoadedToMainScene()
@@ -89,17 +104,6 @@ public class LevelSetup : MonoBehaviour
         towerUnlocks.Add(new TowerUnlockData("Hammer", false));
         towerUnlocks.Add(new TowerUnlockData("Just Fan", false));
     }
-}
 
-[System.Serializable]
-public class TowerUnlockData
-{
-    public string towerName;
-    public bool isUnlocked;
-
-    public TowerUnlockData(string towerNamePara, bool isUnlockedPara)
-    {
-        towerName = towerNamePara;
-        isUnlocked = isUnlockedPara;
-    }
+    public WaveManager GetWaveManager() => myWaveManager;
 }

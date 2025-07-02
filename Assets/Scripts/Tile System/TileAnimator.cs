@@ -54,7 +54,9 @@ public class TileAnimator : MonoBehaviour
             ApplyOffset(objectsToMove, new Vector3(0, -moveYOffset, 0));
 
         float newOffset = isGridShow ? moveYOffset : -moveYOffset;
-        currentActiveCo = StartCoroutine(MoveGridRoutine(objectsToMove, newOffset));
+
+        gridToMove.MakeTileNonInteractable(true);
+        currentActiveCo = StartCoroutine(MoveGridCo(objectsToMove, newOffset));
     }
 
     public void ShowMainGrid(bool isMainGridShow)
@@ -131,7 +133,7 @@ public class TileAnimator : MonoBehaviour
             objToMove.position = targetPosition;
     }
 
-    private IEnumerator MoveGridRoutine(List<GameObject> objectsToMove, float yOffset)
+    private IEnumerator MoveGridCo(List<GameObject> objectsToMove, float yOffset)
     {
         isGridMoving = true;
 
@@ -147,6 +149,11 @@ public class TileAnimator : MonoBehaviour
             Transform tile = objectsToMove[i].transform;
             Vector3 targetPosition = tile.position + new Vector3(0, yOffset, 0);
             MoveTile(tile, targetPosition, tileMoveDuration);
+        }
+
+        foreach (var tile in objectsToMove)
+        {
+            tile.GetComponent<TileSlot>().MakeNonInteractable(false);
         }
 
         isGridMoving = false;

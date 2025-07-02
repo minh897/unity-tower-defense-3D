@@ -11,11 +11,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int currency;
 
     private bool isGameLost;
-    private UIInGame uiInGame;
     private LevelManager levelManager;
     private CameraEffects cameraEffects;
 
     public int enemiesKilled { get; private set; }
+    public UIInGame uiInGame { get; private set; }
     public WaveManager currentActiveWaveManager;
 
     void Awake()
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CompleteLevelCo());
     }
 
-    public void UpdateGameManager(int levelCurrency, WaveManager newWaveManager)
+    public void PrepareLevel(int levelCurrency, WaveManager newWaveManager)
     {
         isGameLost = false;
         enemiesKilled = 0;
@@ -56,6 +56,8 @@ public class GameManager : MonoBehaviour
 
         uiInGame.UpdateCurrencyText(currentHP);
         uiInGame.UpdateHealthPointUIText(currentHP, maxHP);
+
+        newWaveManager.ActivateWaveManager();
     }
 
     public void UpdateHP(int changeValue)

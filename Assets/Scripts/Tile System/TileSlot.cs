@@ -5,11 +5,18 @@ using UnityEngine;
 
 public class TileSlot : MonoBehaviour
 {
+    private int originalLayerIndex;
+
     private MeshRenderer tileMeshRenderer => GetComponent<MeshRenderer>();
     private MeshFilter tileMeshFilter => GetComponent<MeshFilter>();
     private Collider tileCollider => GetComponent<Collider>();
     private NavMeshSurface tileNavMesh => GetComponentInParent<NavMeshSurface>(true);
     private TileSetHolder tileSetHolder => GetComponentInParent<TileSetHolder>(true);
+
+    void Awake()
+    {
+        originalLayerIndex = gameObject.layer;    
+    }
 
     public void SwitchTile(GameObject referenceTile)
     {
@@ -26,7 +33,7 @@ public class TileSlot : MonoBehaviour
         UpdateNavMesh();
 
         TurnIntoBuildSlot(referenceTile);
-        DisableShadowIfNeeded();
+        // DisableShadowIfNeeded();
     }
 
     public List<GameObject> GetAllChildren()
@@ -135,7 +142,16 @@ public class TileSlot : MonoBehaviour
 
     public Collider GetCollider() => tileCollider;
 
-    private void UpdateLayer(GameObject referenceObj) => gameObject.layer = referenceObj.layer;
+    public void MakeNonInteractable(bool nonInteractable)
+    {
+        gameObject.layer = nonInteractable ? 15 : originalLayerIndex;
+    }
+
+    private void UpdateLayer(GameObject referenceObj)
+    {
+        gameObject.layer = referenceObj.layer;
+        originalLayerIndex = gameObject.layer;
+    }
 
     private void UpdateNavMesh() => tileNavMesh.BuildNavMesh();
 }

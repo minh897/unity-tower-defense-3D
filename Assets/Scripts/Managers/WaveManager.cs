@@ -69,7 +69,7 @@ public class WaveManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
             ActivateWaveManager();
-        
+
         if (isGameBegun == false)
             return;
 
@@ -80,6 +80,7 @@ public class WaveManager : MonoBehaviour
     public void ActivateWaveManager()
     {
         isGameBegun = true;
+        uiInGame = gameManager.uiInGame;
         EnableWaveTimer(true);
     }
 
@@ -166,7 +167,7 @@ public class WaveManager : MonoBehaviour
             return;
 
         if (AreAllEnemiesDead() == false || isMakingNextWave)
-                return;
+            return;
 
         isMakingNextWave = true;
         waveIndex++;

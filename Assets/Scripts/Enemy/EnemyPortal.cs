@@ -13,18 +13,18 @@ public class EnemyPortal : MonoBehaviour
 
     private float spawnTimer;
     private Coroutine flyPortalFXCo;
-    private List<GameObject> enemiesToCreate;
-    private List<GameObject> activeEnemies;
+    private List<GameObject> enemiesToCreate = new();
+    private List<GameObject> activeEnemies = new();
     private ObjectPoolManager objectPool;
 
     public Vector3[] currentWaypoints { get; private set; }
 
     void Awake()
     {
-        enemiesToCreate = new();
-        activeEnemies = new();
-
         CollectWaypoints();
+
+        if (myWaveManager == null)
+            myWaveManager = FindFirstObjectByType<LevelSetup>().GetWaveManager();
     }
 
     void Start()

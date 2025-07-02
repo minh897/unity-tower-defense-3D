@@ -55,7 +55,7 @@ public class GridBuilder : MonoBehaviour
             }
         }
 
-        DisableTileShadow();
+        // DisableTileShadow();
     }
 
     [ContextMenu("Clear Grid")]
@@ -72,4 +72,12 @@ public class GridBuilder : MonoBehaviour
     public List<GameObject> GetTileSetup() => createdTiles;
 
     public void UpdateNewNavMesh() => myNavMesh.BuildNavMesh();
+
+    public void MakeTileNonInteractable(bool isNonInteractable)
+    {
+        foreach (var tile in createdTiles)
+        {
+            tile.GetComponent<TileSlot>().MakeNonInteractable(isNonInteractable);
+        }
+    }
 }
