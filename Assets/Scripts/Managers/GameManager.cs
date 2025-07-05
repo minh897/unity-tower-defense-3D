@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        
+
         uiInGame = FindFirstObjectByType<UIInGame>(FindObjectsInactive.Include);
         levelManager = FindFirstObjectByType<LevelManager>();
         cameraEffects = FindFirstObjectByType<CameraEffects>();
@@ -116,5 +116,4 @@ public class GameManager : MonoBehaviour
     }
 
     public bool IsTestingLevel() => levelManager == null;
-
 }

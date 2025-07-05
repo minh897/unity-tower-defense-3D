@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GridBuilder : MonoBehaviour
 {
+    [SerializeField] private bool hadFirstLoad;
     [SerializeField] private int gridLength = 10;
     [SerializeField] private int gridWidth = 10;
     [SerializeField] private GameObject mainPrefab;
@@ -11,7 +12,6 @@ public class GridBuilder : MonoBehaviour
 
     private NavMeshSurface myNavMesh => GetComponent<NavMeshSurface>();
 
-    private bool hadFirstLoad;
 
     public void DisableTileShadow()
     {
@@ -25,8 +25,7 @@ public class GridBuilder : MonoBehaviour
     {
         if (hadFirstLoad == false)
         {
-            hadFirstLoad = true;
-            return true;
+            return hadFirstLoad = true;
         }
 
         return false;

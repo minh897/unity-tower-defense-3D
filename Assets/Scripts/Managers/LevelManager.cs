@@ -68,28 +68,28 @@ public class LevelManager : MonoBehaviour
     private IEnumerator LoadLevelFromMenuCo(string levelSceneName)
     {
         CleanUpScene();
-        ui.EnableMainMenuUI(false);
 
+        ui.EnableMainMenuUI(false);
         cameraEffects.SwitchToGameView();
 
         yield return tileAnimator.GetCurrentActiveRoutine();
 
         tileAnimator.EnableMainSceneObjects(false);
-
         LoadScene(levelSceneName);
     }
 
     private IEnumerator LoadMainMenuCo()
     {
         CleanUpScene();
-        ui.EnableInGameUI(false);
 
+        ui.EnableInGameUI(false);
         cameraEffects.SwitchToMenuView();
 
         // Delay until this GetCurrentActiveRoutine coroutine is finished
         yield return tileAnimator.GetCurrentActiveRoutine();
 
         UnloadCurrentScene();
+
         tileAnimator.EnableMainSceneObjects(true);
         tileAnimator.ShowMainGrid(true);
 

@@ -15,7 +15,7 @@ public class TileAnimator : MonoBehaviour
     [SerializeField] private float tileDelay = .1f;
     [SerializeField] private float moveYOffset = 5;
     [Space]
-    
+
     [SerializeField] private GridBuilder mainSceneGrid;
     [SerializeField] private List<GameObject> mainMenuObjects = new();
 
@@ -28,7 +28,6 @@ public class TileAnimator : MonoBehaviour
             return;
 
         CollectMainSceneObjects();
-        ShowCurrentGrid(mainSceneGrid, true);
     }
 
     public void MoveTile(Transform objToMove, Vector3 targetPosition, float? newDuration = null)
