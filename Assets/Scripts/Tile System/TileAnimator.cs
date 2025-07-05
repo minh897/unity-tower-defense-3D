@@ -15,6 +15,7 @@ public class TileAnimator : MonoBehaviour
     [SerializeField] private float tileDelay = .1f;
     [SerializeField] private float moveYOffset = 5;
     [Space]
+    
     [SerializeField] private GridBuilder mainSceneGrid;
     [SerializeField] private List<GameObject> mainMenuObjects = new();
 
@@ -61,6 +62,9 @@ public class TileAnimator : MonoBehaviour
 
     public void ShowMainGrid(bool isMainGridShow)
     {
+        if (mainSceneGrid != null)
+            Debug.Log(mainSceneGrid.gameObject.name);
+            
         ShowCurrentGrid(mainSceneGrid, isMainGridShow);
     }
 

@@ -34,8 +34,8 @@ public class UIInGame : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Backspace))
-            ui.SwitchUIElement(uiPauseMenu.gameObject);
+        // if (Input.GetKeyDown(KeyCode.Backspace))
+        //     ui.SwitchUIElement(uiPauseMenu.gameObject);
     }
 
     public void EnableVictoryUI(bool isEnable)

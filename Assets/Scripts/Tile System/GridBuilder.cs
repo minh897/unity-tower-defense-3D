@@ -69,6 +69,11 @@ public class GridBuilder : MonoBehaviour
         createdTiles.Clear();
     }
 
+    public void ClearNavMeshData()
+    {
+        myNavMesh.RemoveData();
+    }
+
     public List<GameObject> GetTileSetup() => createdTiles;
 
     public void UpdateNewNavMesh() => myNavMesh.BuildNavMesh();

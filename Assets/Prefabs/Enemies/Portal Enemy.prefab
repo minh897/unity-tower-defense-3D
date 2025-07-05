@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8152506197025037198}
   - component: {fileID: 3433316943751682684}
   m_Layer: 0
-  m_Name: Waypoint
+  m_Name: waypoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1498555832510749184}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 0.051, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0.3}
   m_LocalScale: {x: 0.11, y: 0.11, z: 0.11}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -9928,7 +9928,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7750161161934017525}
   m_Layer: 0
-  m_Name: enemies_portal
+  m_Name: portal_visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9980,7 +9980,7 @@ Transform:
   m_GameObject: {fileID: 6068924399562196859}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.657, z: 0}
+  m_LocalPosition: {x: 0, y: 3.77, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

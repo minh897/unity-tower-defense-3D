@@ -4,6 +4,10 @@ using UnityEngine.EventSystems;
 
 public class TileLevelButton : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    [Header("UI SFX")]
+    public AudioSource onHoverSFX;
+    public AudioSource onClickSFX;
+
     [SerializeField] private int levelIndex;
 
     private bool canClick;
@@ -49,12 +53,9 @@ public class TileLevelButton : MonoBehaviour, IPointerDownHandler, IPointerEnter
             return;
 
         if (unlocked == false)
-        {
-            Debug.Log("This level is locked");
-            // play sound effect
             return;
-        }
 
+        onClickSFX.Play();
         transform.position = defaultPosition;
         levelManager.LoadLevelFromMenu("Level_" + levelIndex);
     }
@@ -64,12 +65,19 @@ public class TileLevelButton : MonoBehaviour, IPointerDownHandler, IPointerEnter
         if (tileAnimator.IsGridMoving())
             return;
 
+        if (unlocked == false)
+            return;
+
+        onHoverSFX.Play();
         MoveTileUp();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (tileAnimator.IsGridMoving())
+            return;
+        
+        if (unlocked == false)
             return;
 
         if (currentMoveCo != null)
@@ -80,7 +88,7 @@ public class TileLevelButton : MonoBehaviour, IPointerDownHandler, IPointerEnter
 
     void OnValidate()
     {
-        levelIndex = transform.GetSiblingIndex() + 1;
+        // levelIndex = transform.GetSiblingIndex() + 1;
 
         if (myText != null)
             myText.text = "Level " + levelIndex;

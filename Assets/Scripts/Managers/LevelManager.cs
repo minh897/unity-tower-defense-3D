@@ -1,4 +1,6 @@
 using System.Collections;
+using NUnit.Framework;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,8 +8,8 @@ public class LevelManager : MonoBehaviour
 {
     private UI ui;
     private TileAnimator tileAnimator;
-    private GridBuilder currentActiveGrid;
     private CameraEffects cameraEffects;
+    private GridBuilder currentActiveGrid;
 
     public string currentLevelName { get; private set; }
 
@@ -16,21 +18,22 @@ public class LevelManager : MonoBehaviour
         ui = FindFirstObjectByType<UI>();
         tileAnimator = FindFirstObjectByType<TileAnimator>();
         cameraEffects = FindFirstObjectByType<CameraEffects>();
+        currentActiveGrid = FindFirstObjectByType<GridBuilder>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-            LoadLevelFromMenu("Level_1");
+        // if (Input.GetKeyDown(KeyCode.L))
+        //     LoadLevelFromMenu("Level_1");
 
-        if (Input.GetKeyDown(KeyCode.K))
-            LoadMainMenu();
+        // if (Input.GetKeyDown(KeyCode.K))
+        //     LoadMainMenu();
 
-        if (Input.GetKeyDown(KeyCode.R))
-            RestartLevel();
+        // if (Input.GetKeyDown(KeyCode.R))
+        //     RestartLevel();
     }
 
-    private void EleminateAllEnemies()
+    private void RemoveAllEnemies()
     {
         Enemy[] enemiesArray = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
 
@@ -40,7 +43,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void EleminateAllTowers()
+    private void RemoveAllTowers()
     {
         Tower[] towersArray = FindObjectsByType<Tower>(FindObjectsSortMode.None);
 
@@ -52,16 +55,19 @@ public class LevelManager : MonoBehaviour
 
     private void CleanUpScene()
     {
-        EleminateAllEnemies();
-        EleminateAllTowers();
+        RemoveAllEnemies();
+        RemoveAllTowers();
 
         if (currentActiveGrid != null)
+        {
+            currentActiveGrid.ClearNavMeshData();
             tileAnimator.ShowCurrentGrid(currentActiveGrid, false);
+        }
     }
 
     private IEnumerator LoadLevelFromMenuCo(string levelSceneName)
     {
-        tileAnimator.ShowMainGrid(false);
+        CleanUpScene();
         ui.EnableMainMenuUI(false);
 
         cameraEffects.SwitchToGameView();

@@ -46,11 +46,11 @@ public class TileSlotEditor : Editor
 
         GUILayout.BeginHorizontal();
         MakeButtonSwitchTile("Big Inner Corner", tileHolder.tileCornerInnerBig, twoButtonWidth);
-        MakeButtonSwitchTile("Small Inner Corner", tileHolder.tileCornerInnerSmall, twoButtonWidth);
+        MakeButtonSwitchTile("Big Outer Corner", tileHolder.tileCornerOuterBig, twoButtonWidth);
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
-        MakeButtonSwitchTile("Big Outer Corner", tileHolder.tileCornerOuterBig, twoButtonWidth);
+        MakeButtonSwitchTile("Small Inner Corner", tileHolder.tileCornerInnerSmall, twoButtonWidth);
         MakeButtonSwitchTile("Small Outer Corner", tileHolder.tileCornerOuterSmall, twoButtonWidth);
         GUILayout.EndHorizontal();
 
