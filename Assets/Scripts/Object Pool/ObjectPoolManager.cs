@@ -124,6 +124,9 @@ public class ObjectPoolManager : MonoBehaviour
 
     private GameObject NewPoolObject(GameObject prefab)
     {
+        if (prefab.TryGetComponent<NavMeshAgent>(out var agent))
+            agent.enabled = false;
+
         GameObject newObject = Instantiate(prefab);
         newObject.AddComponent<PooledObject>().originalPrefab = prefab;
 

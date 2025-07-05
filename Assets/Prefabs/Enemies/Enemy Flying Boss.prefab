@@ -637,7 +637,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2306773834372514187}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: -1372625422
   m_Radius: 0.3
   m_Speed: 1
@@ -1441,6 +1441,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5757635281402462792}
     m_Modifications:
+    - target: {fileID: 2671574841666275063, guid: 6d50e05affcc52dd3be6ea7e3d462a2d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5028530572163983385, guid: 6d50e05affcc52dd3be6ea7e3d462a2d, type: 3}
       propertyPath: m_Name
       value: Enemy Boss Unit

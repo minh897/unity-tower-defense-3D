@@ -6440,7 +6440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7624341052903336411, guid: 69d48765dc0578d9ab5aab37c5c20037, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7698927088593280020, guid: 69d48765dc0578d9ab5aab37c5c20037, type: 3}
       propertyPath: nextWaveButtonTrans
