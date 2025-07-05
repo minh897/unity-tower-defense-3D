@@ -63,9 +63,7 @@ public class TileAnimator : MonoBehaviour
     public void ShowMainGrid(bool isMainGridShow)
     {
         if (mainSceneGrid != null)
-            Debug.Log(mainSceneGrid.gameObject.name);
-            
-        ShowCurrentGrid(mainSceneGrid, isMainGridShow);
+            ShowCurrentGrid(mainSceneGrid, isMainGridShow);
     }
 
     private void CollectMainSceneObjects()
@@ -141,6 +139,12 @@ public class TileAnimator : MonoBehaviour
     {
         isGridMoving = true;
 
+        foreach (var tile in objectsToMove)
+        {
+            if (tile.TryGetComponent<TileSlot>(out var tileSlot))
+                tileSlot.MakeNonInteractable(false);
+        }
+
         for (int i = 0; i < objectsToMove.Count; i++)
         {
             yield return new WaitForSeconds(tileDelay);
@@ -153,12 +157,6 @@ public class TileAnimator : MonoBehaviour
             Transform tile = objectsToMove[i].transform;
             Vector3 targetPosition = tile.position + new Vector3(0, yOffset, 0);
             MoveTile(tile, targetPosition, tileMoveDuration);
-        }
-
-        foreach (var tile in objectsToMove)
-        {
-            if (tile.TryGetComponent<TileSlot>(out var tileSlot))
-                tileSlot.MakeNonInteractable(false);
         }
 
         isGridMoving = false;

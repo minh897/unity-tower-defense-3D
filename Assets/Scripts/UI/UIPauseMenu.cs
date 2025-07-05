@@ -15,7 +15,7 @@ public class UIPauseMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F10))
+        if (Input.GetKeyDown(KeyCode.Escape))
             ui.SwitchUIElement(inGameUI.gameObject);
     }
 

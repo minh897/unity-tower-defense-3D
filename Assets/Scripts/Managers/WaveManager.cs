@@ -41,8 +41,6 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private float tileDelay = .1f;
 
     [Header("Wave Settings")]
-    [SerializeField] private float timeBetweenWaves = 10f;
-    [SerializeField] private float waveTimer;
     [SerializeField] private int waveIndex;
     [SerializeField] private WaveDetails[] levelWaves;
 
@@ -73,7 +71,7 @@ public class WaveManager : MonoBehaviour
         if (isGameBegun == false)
             return;
 
-        HandleWaveTiming();
+        // HandleWaveTiming();
     }
 
     [ContextMenu("Activate Wave Manager")]
@@ -186,18 +184,6 @@ public class WaveManager : MonoBehaviour
         EnableWaveTimer(true);
     }
 
-    private void HandleWaveTiming()
-    {
-        if (isWaveTimerEnabled == false)
-            return;
-
-        waveTimer -= Time.deltaTime;
-        uiInGame.UpdateWaveTimerText(waveTimer);
-
-        if (waveTimer <= 0)
-            StartNewWave();
-    }
-
     public void StartNewWave()
     {
         UpdateNavMeshes();
@@ -211,7 +197,6 @@ public class WaveManager : MonoBehaviour
         if (isWaveTimerEnabled == isEnable)
             return;
 
-        waveTimer = timeBetweenWaves;
         isWaveTimerEnabled = isEnable; // To keep track of toggle status
         uiInGame.ToggleWaveTimerUI(isEnable);
     }
