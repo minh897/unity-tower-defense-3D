@@ -45,7 +45,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private WaveDetails[] levelWaves;
 
     private bool isGameBegun;
-    private bool isWaveTimerEnabled;
+    private bool isNextWaveButtonEnabled;
     private bool isMakingNextWave;
     private List<EnemyPortal> enemyPortals;
     private UIInGame uiInGame;
@@ -70,8 +70,6 @@ public class WaveManager : MonoBehaviour
 
         if (isGameBegun == false)
             return;
-
-        // HandleWaveTiming();
     }
 
     [ContextMenu("Activate Wave Manager")]
@@ -79,7 +77,7 @@ public class WaveManager : MonoBehaviour
     {
         isGameBegun = true;
         uiInGame = gameManager.uiInGame;
-        EnableWaveTimer(true);
+        EnableNextWaveUI(true);
     }
 
     private void UpdateNavMeshes()
@@ -179,26 +177,26 @@ public class WaveManager : MonoBehaviour
         if (HasNewLayout())
             AttemptToUpdateLayout();
         else
-            EnableWaveTimer(true);
+            EnableNextWaveUI(true);
 
-        EnableWaveTimer(true);
+        EnableNextWaveUI(true);
     }
 
     public void StartNewWave()
     {
         UpdateNavMeshes();
         GiveEnemiesToPortals();
-        EnableWaveTimer(false);
+        EnableNextWaveUI(false);
         isMakingNextWave = false;
     }
 
-    private void EnableWaveTimer(bool isEnable)
+    private void EnableNextWaveUI(bool isEnable)
     {
-        if (isWaveTimerEnabled == isEnable)
+        if (isNextWaveButtonEnabled == isEnable)
             return;
 
-        isWaveTimerEnabled = isEnable; // To keep track of toggle status
-        uiInGame.ToggleWaveTimerUI(isEnable);
+        isNextWaveButtonEnabled = isEnable; // To keep track of toggle status
+        uiInGame.ToggleNextWaveButton(isEnable);
     }
 
     private void GiveEnemiesToPortals()
@@ -298,7 +296,7 @@ public class WaveManager : MonoBehaviour
         }
 
         EnableNewPortals(waveDetails.wavePortals);
-        EnableWaveTimer(true);
+        EnableNextWaveUI(true);
     }
 
     public WaveDetails[] GetLevelWaves() => levelWaves;

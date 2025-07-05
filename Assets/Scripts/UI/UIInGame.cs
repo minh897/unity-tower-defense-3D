@@ -7,10 +7,10 @@ public class UIInGame : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currencyText;
     [Space]
 
-    [SerializeField] private float waveTimerOffset;
-    [SerializeField] private UITextBlinkEffect waveTimerTextBlinkEffect;
-    [SerializeField] private Transform waveTimerTrans;
-    [SerializeField] private Coroutine waveTimerMoveRoutine;
+    [SerializeField] private float nextWaveButtonOffset;
+    [SerializeField] private UITextBlinkEffect nextWaveButtonTextBlinkEffect;
+    [SerializeField] private Transform nextWaveButtonTrans;
+    [SerializeField] private Coroutine nextWaveButtonMoveRoutine;
 
     [Header("Victory & Defeat")]
     [SerializeField] private GameObject victoryUI;
@@ -20,7 +20,7 @@ public class UIInGame : MonoBehaviour
     private UI ui;
     private UIAnimator uIAnimator;
     private UIPauseMenu uiPauseMenu;
-    private Vector3 waveTimerDefaultPos; 
+    private Vector3 nextWaveButtonDefaultPos; 
 
     void Awake()
     {
@@ -28,8 +28,8 @@ public class UIInGame : MonoBehaviour
         uIAnimator = GetComponentInParent<UIAnimator>();
         uiPauseMenu = ui.GetComponentInChildren<UIPauseMenu>(true);
 
-        if (waveTimerTrans != null)
-            waveTimerDefaultPos = waveTimerTrans.localPosition;
+        if (nextWaveButtonTrans != null)
+            nextWaveButtonDefaultPos = nextWaveButtonTrans.localPosition;
     }
 
     void Update()
@@ -62,25 +62,25 @@ public class UIInGame : MonoBehaviour
         healthPointsText.text = "Threat : " + newValue + "/" + maxValue;
     }
 
-    public void ToggleWaveTimerUI(bool enable)
+    public void ToggleNextWaveButton(bool enable)
     {
-        RectTransform waveTimerTransform = waveTimerTrans.GetComponent<RectTransform>();
-        float yOffset = enable ? -waveTimerOffset : waveTimerOffset;
+        RectTransform nextWaveButtonTransform = nextWaveButtonTrans.GetComponent<RectTransform>();
+        float yOffset = enable ? -nextWaveButtonOffset : nextWaveButtonOffset;
         Vector3 offset = new(0, yOffset, 0);
 
-        waveTimerMoveRoutine = StartCoroutine(uIAnimator.ChangePositionCo(waveTimerTransform, offset));
-        waveTimerTextBlinkEffect.ToggleBlinkEffect(true);
+        nextWaveButtonMoveRoutine = StartCoroutine(uIAnimator.ChangePositionCo(nextWaveButtonTransform, offset));
+        nextWaveButtonTextBlinkEffect.ToggleBlinkEffect(true);
     }
 
-    public void DefaultWaveTimerPos()
+    public void DefaultNextWaveButonPos()
     {
-        if (waveTimerTrans == null)
+        if (nextWaveButtonTrans == null)
             return;
 
-        if (waveTimerMoveRoutine != null)
-            StopCoroutine(waveTimerMoveRoutine);
+        if (nextWaveButtonMoveRoutine != null)
+            StopCoroutine(nextWaveButtonMoveRoutine);
 
-        waveTimerTrans.localPosition = waveTimerDefaultPos;
+        nextWaveButtonTrans.localPosition = nextWaveButtonDefaultPos;
     }
 
     public void ActivateNextWave()

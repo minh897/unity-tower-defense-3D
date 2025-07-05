@@ -18514,10 +18514,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPointsText: {fileID: 3355841720844380757}
   currencyText: {fileID: 7362097642592019633}
-  waveTimerOffset: 240
-  waveTimerText: {fileID: 2858691256613231651}
-  waveTimerTextBlinkEffect: {fileID: 7267934011947075418}
-  waveTimerTrans: {fileID: 3536519785502527806}
+  nextWaveButtonOffset: 0
+  nextWaveButtonTextBlinkEffect: {fileID: 0}
+  nextWaveButtonTrans: {fileID: 0}
   victoryUI: {fileID: 6918273222828617037}
   defeatUI: {fileID: 1923362170901090224}
   levelCompletedUI: {fileID: 2586337443888881048}

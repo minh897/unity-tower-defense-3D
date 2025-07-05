@@ -48,7 +48,7 @@ public class UI : MonoBehaviour
             SwitchUIElement(uiInGame.gameObject);
         else
         {
-            uiInGame.DefaultWaveTimerPos();
+            uiInGame.DefaultNextWaveButonPos();
             SwitchUIElement(null);
         }
     }
