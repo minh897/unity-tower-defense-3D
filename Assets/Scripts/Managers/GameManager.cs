@@ -85,7 +85,6 @@ public class GameManager : MonoBehaviour
         {
             totalCurrency -= price;
             uiInGame.UpdateCurrencyText(totalCurrency);
-            Debug.Log("Total currency: " + totalCurrency);
             return true;
         }
 
