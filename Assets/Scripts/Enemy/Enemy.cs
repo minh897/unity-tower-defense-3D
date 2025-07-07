@@ -7,11 +7,12 @@ public enum EnemyType {None, Basic, Fast, Swarm, Heavy, Stealth, Flying, SpiderB
 
 public class Enemy : MonoBehaviour, IDamagable
 {
-    public float currentHP = 4;
+    public float currentHP = 0;
     public float maxHP = 100;
 
     public EnemyVisual visual { get; private set; }
 
+    [SerializeField] private int enemyWorth;
     [SerializeField] private float turnSpeed = 10f;
     [SerializeField] private Transform centerPoint;
     [SerializeField] private EnemyType enemyType;
@@ -259,7 +260,7 @@ public class Enemy : MonoBehaviour, IDamagable
 
     public virtual void Die()
     {
-        gameManager.UpdateCurrency(1);
+        gameManager.IncreaseCurrencyFromKill(enemyWorth);
         RemoveEnemy();
     }
 

@@ -41,6 +41,8 @@ public class CameraController : MonoBehaviour
     {
         screenHeight = Screen.height;
         screenWidth = Screen.width;
+
+        focusPoint.GetComponent<MeshRenderer>().enabled = false;
     }
 
     void Update()

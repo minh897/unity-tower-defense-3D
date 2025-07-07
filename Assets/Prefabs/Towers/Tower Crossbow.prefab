@@ -476,14 +476,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentEnemy: {fileID: 0}
-  attackCoolDown: 3
+  attackCoolDown: 1.3
   rotationSpeed: 10
   towerHead: {fileID: 7057486507410325546}
   towerBody: {fileID: 0}
   gunPoint: {fileID: 4884208571705384344}
   enemyPriorityType: 2
   isAttackForward: 0
-  attackRange: 4
+  attackRange: 3
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 256
@@ -491,7 +491,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 257
   attackSFX: {fileID: 8156632223536569669}
-  towerDamage: 10
+  towerDamage: 12
 --- !u!114 &4163412314516803931
 MonoBehaviour:
   m_ObjectHideFlags: 0

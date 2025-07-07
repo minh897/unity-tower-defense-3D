@@ -1,14 +1,15 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public int totalCurrency;
     public static GameManager instance;
 
     [SerializeField] private int maxHP;
     [SerializeField] private int currentHP;
-    [SerializeField] private int currency;
 
     private bool isGameLost;
     private LevelManager levelManager;
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     public int enemiesKilled { get; private set; }
     public UIInGame uiInGame { get; private set; }
+
     public WaveManager currentActiveWaveManager;
 
     void Awake()
@@ -33,12 +35,12 @@ public class GameManager : MonoBehaviour
 
         if (IsTestingLevel())
         {
-            currency += 9999;
+            totalCurrency += 9999;
             currentHP += 9999;
         }
 
         uiInGame.UpdateHealthPointUIText(currentHP, maxHP);
-        uiInGame.UpdateCurrencyText(currency);
+        uiInGame.UpdateCurrencyText(totalCurrency);
     }
 
     public void CompleteLevel()
@@ -50,11 +52,11 @@ public class GameManager : MonoBehaviour
     {
         isGameLost = false;
         enemiesKilled = 0;
-        currency = levelCurrency;
+        totalCurrency = levelCurrency;
         currentHP = maxHP;
         currentActiveWaveManager = newWaveManager;
 
-        uiInGame.UpdateCurrencyText(currentHP);
+        uiInGame.UpdateCurrencyText(totalCurrency);
         uiInGame.UpdateHealthPointUIText(currentHP, maxHP);
 
         newWaveManager.ActivateWaveManager();
@@ -70,19 +72,20 @@ public class GameManager : MonoBehaviour
             StartCoroutine(FailLevel());
     }
 
-    public void UpdateCurrency(int changeValue)
+    public void IncreaseCurrencyFromKill(int changeValue)
     {
         enemiesKilled++;
-        currency += changeValue;
-        uiInGame.UpdateCurrencyText(currency);
+        totalCurrency += changeValue;
+        uiInGame.UpdateCurrencyText(totalCurrency);
     }
 
     public bool HasEnoughCurrency(int price)
     {
-        if (price < currency)
+        if (price <= totalCurrency)
         {
-            currency -= price;
-            uiInGame.UpdateCurrencyText(currency);
+            totalCurrency -= price;
+            uiInGame.UpdateCurrencyText(totalCurrency);
+            Debug.Log("Total currency: " + totalCurrency);
             return true;
         }
 
