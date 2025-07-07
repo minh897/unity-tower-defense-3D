@@ -5,13 +5,13 @@ public class UIBuildButtonsHolder : MonoBehaviour
 {
     [SerializeField] private float yPosOffset;
     [SerializeField] private float openAnimDuration = .1f;
+    [SerializeField] private List<UIBuildButton> unlockedButtons;
 
     private bool isBuildMenuActive;
     private UIAnimator uIAnimator;
     private UIBuildButtonHoverEffect[] buildButtonEffects;
     private UIBuildButton[] buildButtons;
 
-    private List<UIBuildButton> unlockedButtons;
     private UIBuildButton lastSelectedButton;
     private Transform towerPreview;
 
@@ -63,7 +63,10 @@ public class UIBuildButtonsHolder : MonoBehaviour
             return;
 
         target.Rotate(0, angle, 0);
-        target.GetComponent<ForwardAttackDisplay>().UpdateLines();
+
+        if (target.TryGetComponent<ForwardAttackDisplay>(out var attackVisual))
+            attackVisual.UpdateLines();
+
     }
 
     public void SelectNewButton(int buttonIndex)

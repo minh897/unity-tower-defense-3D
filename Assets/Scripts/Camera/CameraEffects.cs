@@ -6,14 +6,17 @@ public class CameraEffects : MonoBehaviour
     [Header("Camera Transition")]
     [SerializeField] private float transitionDuration = 3;
     [Space]
+
     [SerializeField] private Vector3 inMenuPosition;
     [SerializeField] private Quaternion inMenuRotation;
     [Space]
+
     [SerializeField] private Vector3 inGamePosition;
     [SerializeField] private Quaternion inGameRotation;
     [Space]
-    [SerializeField] private Vector3 levelSelectPosition;
-    [SerializeField] private Quaternion levelSelectRotation;
+
+    // [SerializeField] private Vector3 levelSelectPosition;
+    // [SerializeField] private Quaternion levelSelectRotation;
 
     [Header("Camera Shake")]
     [Range(0.01f, 0.5f)]
@@ -45,15 +48,6 @@ public class CameraEffects : MonoBehaviour
         SwitchToMenuView();
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.V))
-            ShakeScreen(shakeDuration, shakeMagnitude);
-
-        if (Input.GetKeyDown(KeyCode.B))
-            FocusOnCastle();
-    }
-
     public void FocusOnCastle()
     {
         Transform castle = FindFirstObjectByType<PlayerCastle>().transform;
@@ -71,15 +65,6 @@ public class CameraEffects : MonoBehaviour
             StopCoroutine(cameraCo);
 
         cameraCo = StartCoroutine(ChangePositionAndRotation(targetPosition, targetRotation, focusOnCastleDuration));
-    }
-
-    public void SwitchToLevelSelectView()
-    {
-        if (cameraCo != null)
-            StopCoroutine(cameraCo);
-
-        cameraCo = StartCoroutine(ChangePositionAndRotation(levelSelectPosition, levelSelectRotation, transitionDuration));
-        cameraController.AdjustPicthValue(levelSelectRotation.eulerAngles.x);
     }
 
     public void SwitchToMenuView()

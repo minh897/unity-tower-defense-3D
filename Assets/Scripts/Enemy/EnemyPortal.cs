@@ -23,8 +23,8 @@ public class EnemyPortal : MonoBehaviour
     {
         CollectWaypoints();
 
-        if (myWaveManager == null)
-            myWaveManager = FindFirstObjectByType<LevelSetup>().GetWaveManager();
+        // if (myWaveManager == null)
+        //     myWaveManager = FindFirstObjectByType<LevelSetup>().GetWaveManager();
     }
 
     void Start()

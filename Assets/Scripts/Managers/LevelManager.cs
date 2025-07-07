@@ -1,6 +1,4 @@
 using System.Collections;
-using NUnit.Framework;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +9,7 @@ public class LevelManager : MonoBehaviour
     private CameraEffects cameraEffects;
     private GridBuilder currentActiveGrid;
 
-    public string currentLevelName { get; private set; }
+    public string currentSceneName { get; private set; }
 
     void Awake()
     {
@@ -65,18 +63,18 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private IEnumerator LoadLevelFromMenuCo(string levelSceneName)
-    {
-        CleanUpScene();
+    // private IEnumerator LoadLevelFromMenuCo(string levelSceneName)
+    // {
+    //     CleanUpScene();
 
-        ui.EnableMainMenuUI(false);
-        cameraEffects.SwitchToGameView();
+    //     ui.EnableMainMenuUI(false);
+    //     cameraEffects.SwitchToGameView();
 
-        yield return tileAnimator.GetCurrentActiveRoutine();
+    //     yield return tileAnimator.GetCurrentActiveRoutine();
 
-        tileAnimator.EnableMainSceneObjects(false);
-        LoadScene(levelSceneName);
-    }
+    //     tileAnimator.EnableMainSceneObjects(false);
+    //     LoadScene(levelSceneName);
+    // }
 
     private IEnumerator LoadMainMenuCo()
     {
@@ -98,7 +96,7 @@ public class LevelManager : MonoBehaviour
         ui.EnableMainMenuUI(true);
     }
 
-    private IEnumerator LoadLevelCo(string levelName)
+    private IEnumerator LoadLevelCo(string sceneName)
     {
         CleanUpScene();
         ui.EnableInGameUI(false);
@@ -107,35 +105,35 @@ public class LevelManager : MonoBehaviour
         yield return tileAnimator.GetCurrentActiveRoutine();
 
         UnloadCurrentScene();
-        LoadScene(levelName);
+        LoadScene(sceneName);
     }
 
-    public int GetNextLevelIndex() => SceneUtility.GetBuildIndexByScenePath(currentLevelName) + 1;
+    public int GetNextLevelIndex() => SceneUtility.GetBuildIndexByScenePath(currentSceneName) + 1;
 
-    public string GetNextLevelName() => "Level_" + GetNextLevelIndex();
+    // public string GetNextLevelName() => "Level_" + GetNextLevelIndex();
 
     public bool HasNoMoreLevels() => GetNextLevelIndex() >= SceneManager.sceneCountInBuildSettings;
 
-    public void LoadNextLevel() => LoadLevel(GetNextLevelName());
+    // public void LoadNextLevel() => LoadLevel(GetNextLevelName());
 
     public void LoadMainMenu() => StartCoroutine(LoadMainMenuCo());
 
-    public void LoadLevelFromMenu(string levelName) => StartCoroutine(LoadLevelFromMenuCo(levelName));
+    // public void LoadLevelFromMenu(string levelName) => StartCoroutine(LoadLevelFromMenuCo(levelName));
 
-    public void LoadLevel(string levelName) => StartCoroutine(LoadLevelCo(levelName));
+    // public void LoadLevel(string levelName) => StartCoroutine(LoadLevelCo(levelName));
 
-    public void RestartLevel() => StartCoroutine(LoadLevelCo(currentLevelName));
+    public void RestartGame() => StartCoroutine(LoadLevelCo(currentSceneName));
 
     public void UpdateCurrentGrid(GridBuilder newGrid) => currentActiveGrid = newGrid;
 
     // Unload a scene in the background as the current scene run asynchronously
-    public void UnloadCurrentScene() => SceneManager.UnloadSceneAsync(currentLevelName);
+    public void UnloadCurrentScene() => SceneManager.UnloadSceneAsync(currentSceneName);
 
     // Load a scene in the background as the current scene run asynchronously
-    private void LoadScene(string sceneNameLoad)
+    private void LoadScene(string sceneName)
     {
-        currentLevelName = sceneNameLoad;
-        SceneManager.LoadSceneAsync(sceneNameLoad, LoadSceneMode.Additive);
+        currentSceneName = sceneName;
+        SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
     }
 }
  

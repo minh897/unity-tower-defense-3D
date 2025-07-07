@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -110,11 +108,11 @@ public class GameManager : MonoBehaviour
 
         if (levelManager.HasNoMoreLevels())
             uiInGame.EnableVictoryUI(true);
-        else
-        {
-            uiInGame.EnableLevelCompletionUI(true);
-            PlayerPrefs.SetInt(levelManager.GetNextLevelName() + "unlocked", 1);
-        }
+        // else
+        // {
+        //     uiInGame.EnableLevelCompletionUI(true);
+        //     PlayerPrefs.SetInt(levelManager.GetNextLevelName() + "unlocked", 1);
+        // }
     }
 
     public bool IsTestingLevel() => levelManager == null;
