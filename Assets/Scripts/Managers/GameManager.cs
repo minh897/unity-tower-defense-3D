@@ -29,16 +29,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        currentHP = maxHP;
-
         if (IsTestingLevel())
         {
             totalCurrency += 9999;
-            currentHP += 9999;
+            maxHP += 9999;
         }
-
-        uiInGame.UpdateHealthPointUIText(currentHP, maxHP);
-        uiInGame.UpdateCurrencyText(totalCurrency);
     }
 
     public void CompleteLevel()
@@ -46,18 +41,16 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CompleteLevelCo());
     }
 
-    public void PrepareLevel(int levelCurrency, WaveManager newWaveManager)
+    public void PrepareLevel()
     {
         isGameLost = false;
         enemiesKilled = 0;
-        totalCurrency = levelCurrency;
         currentHP = maxHP;
-        currentActiveWaveManager = newWaveManager;
 
         uiInGame.UpdateCurrencyText(totalCurrency);
         uiInGame.UpdateHealthPointUIText(currentHP, maxHP);
 
-        newWaveManager.ActivateWaveManager();
+        currentActiveWaveManager.ActivateWaveManager();
     }
 
     public void UpdateHP(int changeValue)
@@ -103,16 +96,11 @@ public class GameManager : MonoBehaviour
     public IEnumerator CompleteLevelCo()
     {
         cameraEffects.FocusOnCastle();
+        currentActiveWaveManager.DeactivateWaveManager();
 
         yield return cameraEffects.GetActiveCameraCo();
 
-        if (levelManager.HasNoMoreLevels())
-            uiInGame.EnableVictoryUI(true);
-        // else
-        // {
-        //     uiInGame.EnableLevelCompletionUI(true);
-        //     PlayerPrefs.SetInt(levelManager.GetNextLevelName() + "unlocked", 1);
-        // }
+        uiInGame.EnableVictoryUI(true);
     }
 
     public bool IsTestingLevel() => levelManager == null;

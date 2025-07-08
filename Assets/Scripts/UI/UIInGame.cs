@@ -50,11 +50,11 @@ public class UIInGame : MonoBehaviour
             defeatUI.SetActive(isEnable);
     }
 
-    public void EnableLevelCompletionUI(bool isEnable)
-    {
-        if (levelCompletedUI != null)
-            levelCompletedUI.SetActive(isEnable);
-    }
+    // public void EnableLevelCompletionUI(bool isEnable)
+    // {
+    //     if (levelCompletedUI != null)
+    //         levelCompletedUI.SetActive(isEnable);
+    // }
 
     public void UpdateHealthPointUIText(int changeValue, int maxValue)
     {

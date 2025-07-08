@@ -72,8 +72,8 @@ public class CameraEffects : MonoBehaviour
         if (cameraCo != null)
             StopCoroutine(cameraCo);
 
-        cameraCo = StartCoroutine(ChangePositionAndRotation(inMenuPosition, inMenuRotation, transitionDuration));
         cameraController.AdjustPicthValue(inMenuRotation.eulerAngles.x);
+        cameraCo = StartCoroutine(ChangePositionAndRotation(inMenuPosition, inMenuRotation, transitionDuration));
     }
 
     public void SwitchToGameView()
@@ -81,9 +81,8 @@ public class CameraEffects : MonoBehaviour
         if (cameraCo != null)
             StopCoroutine(cameraCo);
 
-        cameraCo = StartCoroutine(ChangePositionAndRotation(inGamePosition, inGameRotation, transitionDuration));
         cameraController.AdjustPicthValue(inGameRotation.eulerAngles.x);
-        StartCoroutine(EnableCameraControlAfter(transitionDuration + .1f));
+        cameraCo = StartCoroutine(ChangePositionAndRotation(inGamePosition, inGameRotation, transitionDuration));
     }
 
     public void ShakeScreen(float refDuration, float refMagnitude)
@@ -130,11 +129,13 @@ public class CameraEffects : MonoBehaviour
         cameraController.transform.position = originalPosition;
     }
 
-    private IEnumerator EnableCameraControlAfter(float delay)
+    private IEnumerator EnableCameraControlCo(float delay)
     {
         yield return new WaitForSeconds(delay);
         cameraController.EnableCamControl(true);
     }
 
     public Coroutine GetActiveCameraCo() => cameraCo;
+
+    public void EnableCameraControl() => StartCoroutine(EnableCameraControlCo(transitionDuration + .5f));
 }

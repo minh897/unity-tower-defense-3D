@@ -45,8 +45,8 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private WaveDetails[] levelWaves;
 
     private bool isGameBegun;
-    private bool isNextWaveButtonEnabled;
     private bool isMakingNextWave;
+    private bool isNextWaveButtonEnabled;
     private List<EnemyPortal> enemyPortals;
     private UIInGame uiInGame;
     private TileAnimator tileAnimator;

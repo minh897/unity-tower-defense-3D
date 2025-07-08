@@ -19,18 +19,6 @@ public class LevelManager : MonoBehaviour
         currentActiveGrid = FindFirstObjectByType<GridBuilder>();
     }
 
-    void Update()
-    {
-        // if (Input.GetKeyDown(KeyCode.L))
-        //     LoadLevelFromMenu("Level_1");
-
-        // if (Input.GetKeyDown(KeyCode.K))
-        //     LoadMainMenu();
-
-        // if (Input.GetKeyDown(KeyCode.R))
-        //     RestartLevel();
-    }
-
     private void RemoveAllEnemies()
     {
         Enemy[] enemiesArray = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
@@ -57,41 +45,32 @@ public class LevelManager : MonoBehaviour
         RemoveAllTowers();
 
         if (currentActiveGrid != null)
-        {
             currentActiveGrid.ClearNavMeshData();
-            tileAnimator.ShowCurrentGrid(currentActiveGrid, false);
-        }
     }
 
-    // private IEnumerator LoadLevelFromMenuCo(string levelSceneName)
-    // {
-    //     CleanUpScene();
+    private IEnumerator LoadLevelFromMenuCo()
+    {
+        CleanUpScene();
 
-    //     ui.EnableMainMenuUI(false);
-    //     cameraEffects.SwitchToGameView();
+        ui.EnableMainMenuUI(false);
+        cameraEffects.SwitchToGameView();
 
-    //     yield return tileAnimator.GetCurrentActiveRoutine();
+        yield return tileAnimator.GetCurrentActiveRoutine();
 
-    //     tileAnimator.EnableMainSceneObjects(false);
-    //     LoadScene(levelSceneName);
-    // }
+        ui.EnableInGameUI(true);
+        cameraEffects.EnableCameraControl();
+
+        GameManager gameManager = FindFirstObjectByType<GameManager>();
+        gameManager.PrepareLevel();
+    }
 
     private IEnumerator LoadMainMenuCo()
     {
         CleanUpScene();
 
         ui.EnableInGameUI(false);
-        cameraEffects.SwitchToMenuView();
 
-        // Delay until this GetCurrentActiveRoutine coroutine is finished
-        yield return tileAnimator.GetCurrentActiveRoutine();
-
-        UnloadCurrentScene();
-
-        tileAnimator.EnableMainSceneObjects(true);
-        tileAnimator.ShowMainGrid(true);
-
-        yield return tileAnimator.GetCurrentActiveRoutine();
+        yield return cameraEffects.GetActiveCameraCo();
 
         ui.EnableMainMenuUI(true);
     }
@@ -108,17 +87,17 @@ public class LevelManager : MonoBehaviour
         LoadScene(sceneName);
     }
 
-    public int GetNextLevelIndex() => SceneUtility.GetBuildIndexByScenePath(currentSceneName) + 1;
+    // public int GetNextLevelIndex() => SceneUtility.GetBuildIndexByScenePath(currentSceneName) + 1;
 
     // public string GetNextLevelName() => "Level_" + GetNextLevelIndex();
 
-    public bool HasNoMoreLevels() => GetNextLevelIndex() >= SceneManager.sceneCountInBuildSettings;
+    // public bool HasNoMoreLevels() => GetNextLevelIndex() >= SceneManager.sceneCountInBuildSettings;
 
     // public void LoadNextLevel() => LoadLevel(GetNextLevelName());
 
     public void LoadMainMenu() => StartCoroutine(LoadMainMenuCo());
 
-    // public void LoadLevelFromMenu(string levelName) => StartCoroutine(LoadLevelFromMenuCo(levelName));
+    public void LoadLevelFromMenu() => StartCoroutine(LoadLevelFromMenuCo());
 
     // public void LoadLevel(string levelName) => StartCoroutine(LoadLevelCo(levelName));
 
