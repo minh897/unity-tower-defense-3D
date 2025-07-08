@@ -87,19 +87,9 @@ public class LevelManager : MonoBehaviour
         LoadScene(sceneName);
     }
 
-    // public int GetNextLevelIndex() => SceneUtility.GetBuildIndexByScenePath(currentSceneName) + 1;
-
-    // public string GetNextLevelName() => "Level_" + GetNextLevelIndex();
-
-    // public bool HasNoMoreLevels() => GetNextLevelIndex() >= SceneManager.sceneCountInBuildSettings;
-
-    // public void LoadNextLevel() => LoadLevel(GetNextLevelName());
-
     public void LoadMainMenu() => StartCoroutine(LoadMainMenuCo());
 
     public void LoadLevelFromMenu() => StartCoroutine(LoadLevelFromMenuCo());
-
-    // public void LoadLevel(string levelName) => StartCoroutine(LoadLevelCo(levelName));
 
     public void RestartGame() => StartCoroutine(LoadLevelCo(currentSceneName));
 
