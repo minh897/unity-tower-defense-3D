@@ -5521,21 +5521,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8852ccda3bd9f896c8faf601a17ab28a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAttackForward: 1
   currentEnemy: {fileID: 0}
+  towerDamage: 10
+  attackRange: 9
   attackCoolDown: 1
   rotationSpeed: 10
   towerHead: {fileID: 0}
   towerBody: {fileID: 0}
   gunPoint: {fileID: 0}
-  enemyPriorityType: 0
-  isAttackForward: 1
-  attackRange: 9
+  enemyPriorityType: 5
   whatIsEnemy:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   whatIsTargetable:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   attackSFX: {fileID: 0}
   revealFrequency: 0.1
   revealDuration: 1

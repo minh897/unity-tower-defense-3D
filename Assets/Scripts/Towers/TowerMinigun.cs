@@ -3,7 +3,6 @@ using UnityEngine;
 public class TowerMinigun : Tower
 {
     [Header("Minigun Details")]
-    [SerializeField] private float damage;
     [SerializeField] private float projectileSpeed;
     [SerializeField] private GameObject projectilePrefab;
     private MinigunVisual minigunVisual;
@@ -32,7 +31,7 @@ public class TowerMinigun : Tower
                 return;
 
             GameObject newProjectile = objectPool.Get(projectilePrefab, gunPoint.position, Quaternion.identity);
-            newProjectile.GetComponent<ProjectileMinigun>().SetupProjectile(hitInfo.point, damagable, damage, projectileSpeed, objectPool);
+            newProjectile.GetComponent<ProjectileMinigun>().SetupProjectile(hitInfo.point, damagable, towerDamage, projectileSpeed, objectPool);
 
             minigunVisual.ReCoilGun(gunPoint);
 

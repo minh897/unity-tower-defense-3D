@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
@@ -15,7 +14,7 @@ public class WaveDetails
     public int flyingBossEnemyCount;
     public int spiderBossEnemyCount;
     public GridBuilder waveGrid;
-    public EnemyPortal[] wavePortals;
+    // public EnemyPortal[] wavePortals;
 }
 
 public class WaveManager : MonoBehaviour
@@ -36,9 +35,9 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private GameObject flyingBossEnemyPrefab;
     [SerializeField] private GameObject spiderBossEnemyPrefab;
 
-    [Header("Level Update Details")]
-    [SerializeField] private float yOffset = 5;
-    [SerializeField] private float tileDelay = .1f;
+    // [Header("Level Update Details")]
+    // [SerializeField] private float yOffset = 5;
+    // [SerializeField] private float tileDelay = .1f;
 
     [Header("Wave Settings")]
     [SerializeField] private int waveIndex;
@@ -48,8 +47,9 @@ public class WaveManager : MonoBehaviour
     private bool isMakingNextWave;
     private bool isNextWaveButtonEnabled;
     private List<EnemyPortal> enemyPortals;
+    private List<GameObject> enemyList;
     private UIInGame uiInGame;
-    private TileAnimator tileAnimator;
+    // private TileAnimator tileAnimator;
     private GameManager gameManager;
 
     void Awake()
@@ -57,22 +57,21 @@ public class WaveManager : MonoBehaviour
         enemyPortals = new List<EnemyPortal>(FindObjectsByType<EnemyPortal>(FindObjectsSortMode.None));
 
         uiInGame = FindFirstObjectByType<UIInGame>(FindObjectsInactive.Include);
-        tileAnimator = FindFirstObjectByType<TileAnimator>();
         gameManager = FindFirstObjectByType<GameManager>();
+        // tileAnimator = FindFirstObjectByType<TileAnimator>();
 
         flyingNavColliders = GetComponentsInChildren<MeshCollider>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-            ActivateWaveManager();
-
         if (isGameBegun == false)
             return;
+
+        if (Input.GetKeyDown(KeyCode.T))
+            ActivateWaveManager();
     }
 
-    [ContextMenu("Activate Wave Manager")]
     public void ActivateWaveManager()
     {
         isGameBegun = true;
@@ -103,66 +102,13 @@ public class WaveManager : MonoBehaviour
         droneNavSurface.BuildNavMesh();
     }
 
-    private void UpdateLevelTiles(WaveDetails nextWave)
-    {
-        GridBuilder nextGrid = nextWave.waveGrid;
-        List<GameObject> grid = currentGrid.GetTileSetup();
-        List<GameObject> newGrid = nextGrid.GetTileSetup();
-
-        if (grid.Count != newGrid.Count)
-        {
-            Debug.LogWarning("current grid and new grid has different size");
-            return;
-        }
-
-        List<TileSlot> tilesToRemove = new();
-        List<TileSlot> tilesToAdd = new();
-
-        for (int i = 0; i < grid.Count; i++)
-        {
-            TileSlot currentTile = grid[i].GetComponent<TileSlot>();
-            TileSlot newTile = newGrid[i].GetComponent<TileSlot>();
-
-            bool shouldBeUpdated = currentTile.GetMesh() != newTile.GetMesh() ||
-                currentTile.GetMaterial() != newTile.GetMaterial() ||
-                currentTile.GetAllChildren().Count != newTile.GetAllChildren().Count ||
-                currentTile.transform.rotation != newTile.transform.rotation;
-
-            if (shouldBeUpdated)
-            {
-                tilesToRemove.Add(currentTile);
-                tilesToAdd.Add(newTile);
-                grid[i] = newTile.gameObject;
-            }
-        }
-
-        StartCoroutine(RebuildLevelCoroutine(tilesToRemove, tilesToAdd, nextWave, tileDelay));
-    }
-
-    private void AddTile(TileSlot newTile)
-    {
-        newTile.gameObject.SetActive(true);
-        newTile.transform.position += new Vector3(0, -5, 0);
-        newTile.transform.parent = currentGrid.transform;
-
-        Vector3 targetPosition = newTile.transform.position + new Vector3(0, yOffset, 0);
-        tileAnimator.MoveTile(newTile.transform, targetPosition);
-    }
-
-    private void RemoveTile(TileSlot tileToRemove)
-    {
-        Vector3 targetPosition = tileToRemove.transform.position + new Vector3(0, -yOffset, 0);
-        tileAnimator.MoveTile(tileToRemove.transform, targetPosition);
-        Destroy(tileToRemove.gameObject, 1);
-    }
-
     public void HandleWaveCompletion()
     {
         // Stop next wave when WaveManager is disabled
         if (isGameBegun == false)
             return;
 
-        if (AreAllEnemiesDead() == false || isMakingNextWave)
+        if (isMakingNextWave == true)
             return;
 
         isMakingNextWave = true;
@@ -174,12 +120,12 @@ public class WaveManager : MonoBehaviour
             return;
         }
 
-        if (HasNewLayout())
-            AttemptToUpdateLayout();
-        else
-            EnableNextWaveUI(true);
-
         EnableNextWaveUI(true);
+
+        // if (HasNewLayout())
+        //     AttemptToUpdateLayout();
+        // else
+        //     EnableNextWaveUI(true);
     }
 
     public void StartNewWave()
@@ -190,7 +136,7 @@ public class WaveManager : MonoBehaviour
         isMakingNextWave = false;
     }
 
-    private void EnableNextWaveUI(bool isEnable)
+    public void EnableNextWaveUI(bool isEnable)
     {
         if (isNextWaveButtonEnabled == isEnable)
             return;
@@ -201,7 +147,7 @@ public class WaveManager : MonoBehaviour
 
     private void GiveEnemiesToPortals()
     {
-        List<GameObject> enemyList = GetNewEnemies();
+        enemyList = GetNewEnemies();
 
         if (enemyList == null)
         {
@@ -223,28 +169,20 @@ public class WaveManager : MonoBehaviour
             if (portalIndex >= enemyPortals.Count)
                 portalIndex = 0;
         }
+
+        uiInGame.UpdateEnemyCountText(enemyList.Count);
     }
 
-    private void EnableNewPortals(EnemyPortal[] newPortals)
-    {
-        foreach (EnemyPortal portal in newPortals)
-        {
-            portal.AssignWaveManager(this);
-            portal.gameObject.SetActive(true);
-            enemyPortals.Add(portal);
-        }
-    }
+    // private bool AreAllEnemiesDead()
+    // {
+    //     foreach (EnemyPortal portal in enemyPortals)
+    //     {
+    //         if (portal.GetActiveEnemies().Count > 0)
+    //             return false;
+    //     }
 
-    private bool AreAllEnemiesDead()
-    {
-        foreach (EnemyPortal portal in enemyPortals)
-        {
-            if (portal.GetActiveEnemies().Count > 0)
-                return false;
-        }
-
-        return true;
-    }
+    //     return true;
+    // }
 
     private List<GameObject> GetNewEnemies()
     {
@@ -281,32 +219,99 @@ public class WaveManager : MonoBehaviour
         return enemyList;
     }
 
-    private IEnumerator RebuildLevelCoroutine(List<TileSlot> tilesToRemove, List<TileSlot> tilesToAdd, WaveDetails waveDetails, float delay)
-    {
-        for (int i = 0; i < tilesToRemove.Count; i++)
-        {
-            yield return new WaitForSeconds(delay);
-            RemoveTile(tilesToRemove[i]);
-        }
-
-        for (int i = 0; i < tilesToAdd.Count; i++)
-        {
-            yield return new WaitForSeconds(delay);
-            AddTile(tilesToAdd[i]);
-        }
-
-        EnableNewPortals(waveDetails.wavePortals);
-        EnableNextWaveUI(true);
-    }
-
     public WaveDetails[] GetLevelWaves() => levelWaves;
 
-    private bool HasNewLayout() => waveIndex < levelWaves.Length && levelWaves[waveIndex].waveGrid != null;
+    public int GetEnemyCount() => enemyList.Count;
 
     private bool HasNoMoreWave() => waveIndex >= levelWaves.Length;
 
-    private void AttemptToUpdateLayout() => UpdateLevelTiles(levelWaves[waveIndex]);
-
     public void DeactivateWaveManager() => isGameBegun = false;
+
+    /* USE FOR UPDATING NEW GRID LAYOUT IN THE SAME LEVEL */
+
+    // private void UpdateLevelTiles(WaveDetails nextWave)
+    // {
+    //     GridBuilder nextGrid = nextWave.waveGrid;
+    //     List<GameObject> grid = currentGrid.GetTileSetup();
+    //     List<GameObject> newGrid = nextGrid.GetTileSetup();
+
+    //     if (grid.Count != newGrid.Count)
+    //     {
+    //         Debug.LogWarning("current grid and new grid has different size");
+    //         return;
+    //     }
+
+    //     List<TileSlot> tilesToRemove = new();
+    //     List<TileSlot> tilesToAdd = new();
+
+    //     for (int i = 0; i < grid.Count; i++)
+    //     {
+    //         TileSlot currentTile = grid[i].GetComponent<TileSlot>();
+    //         TileSlot newTile = newGrid[i].GetComponent<TileSlot>();
+
+    //         bool shouldBeUpdated = currentTile.GetMesh() != newTile.GetMesh() ||
+    //             currentTile.GetMaterial() != newTile.GetMaterial() ||
+    //             currentTile.GetAllChildren().Count != newTile.GetAllChildren().Count ||
+    //             currentTile.transform.rotation != newTile.transform.rotation;
+
+    //         if (shouldBeUpdated)
+    //         {
+    //             tilesToRemove.Add(currentTile);
+    //             tilesToAdd.Add(newTile);
+    //             grid[i] = newTile.gameObject;
+    //         }
+    //     }
+
+    //     StartCoroutine(RebuildLevelCoroutine(tilesToRemove, tilesToAdd, nextWave, tileDelay));
+    // }
+
+    // private void AddTile(TileSlot newTile)
+    // {
+    //     newTile.gameObject.SetActive(true);
+    //     newTile.transform.position += new Vector3(0, -5, 0);
+    //     newTile.transform.parent = currentGrid.transform;
+
+    //     Vector3 targetPosition = newTile.transform.position + new Vector3(0, yOffset, 0);
+    //     tileAnimator.MoveTile(newTile.transform, targetPosition);
+    // }
+
+    // private void RemoveTile(TileSlot tileToRemove)
+    // {
+    //     Vector3 targetPosition = tileToRemove.transform.position + new Vector3(0, -yOffset, 0);
+    //     tileAnimator.MoveTile(tileToRemove.transform, targetPosition);
+    //     Destroy(tileToRemove.gameObject, 1);
+    // }
+
+    // private IEnumerator RebuildLevelCoroutine(List<TileSlot> tilesToRemove, List<TileSlot> tilesToAdd, WaveDetails waveDetails, float delay)
+    // {
+    //     for (int i = 0; i < tilesToRemove.Count; i++)
+    //     {
+    //         yield return new WaitForSeconds(delay);
+    //         RemoveTile(tilesToRemove[i]);
+    //     }
+
+    //     for (int i = 0; i < tilesToAdd.Count; i++)
+    //     {
+    //         yield return new WaitForSeconds(delay);
+    //         AddTile(tilesToAdd[i]);
+    //     }
+
+    //     EnableNewPortals(waveDetails.wavePortals);
+    //     EnableNextWaveUI(true);
+    // }
+
+    // private void EnableNewPortals(EnemyPortal[] newPortals)
+    // {
+    //     foreach (EnemyPortal portal in newPortals)
+    //     {
+    //         portal.AssignWaveManager(this);
+    //         portal.gameObject.SetActive(true);
+    //         enemyPortals.Add(portal);
+    //     }
+    // }
+
+    // private bool HasNewLayout() => waveIndex < levelWaves.Length && levelWaves[waveIndex].waveGrid != null;
+
+    // private void AttemptToUpdateLayout() => UpdateLevelTiles(levelWaves[waveIndex]);
 
 }

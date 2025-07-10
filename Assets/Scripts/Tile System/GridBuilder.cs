@@ -12,15 +12,6 @@ public class GridBuilder : MonoBehaviour
 
     private NavMeshSurface myNavMesh => GetComponent<NavMeshSurface>();
 
-
-    public void DisableTileShadow()
-    {
-        foreach (var tile in createdTiles)
-        {
-            tile.GetComponent<TileSlot>().DisableShadowIfNeeded();
-        }
-    }
-
     public bool IsOnFirstLoad()
     {
         if (hadFirstLoad == false)
@@ -53,8 +44,6 @@ public class GridBuilder : MonoBehaviour
                 CreateTile(x, z);
             }
         }
-
-        // DisableTileShadow();
     }
 
     [ContextMenu("Clear Grid")]

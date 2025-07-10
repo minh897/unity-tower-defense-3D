@@ -28,6 +28,7 @@ public class TileAnimator : MonoBehaviour
             return;
 
         CollectMainSceneObjects();
+        ShowCurrentGrid(mainSceneGrid, true);
     }
 
     public void MoveTile(Transform objToMove, Vector3 targetPosition, float? newDuration = null)

@@ -90,7 +90,6 @@ public class ObjectPoolManager : MonoBehaviour
         var pool = new ObjectPool<GameObject>
             (
                 createFunc: () => NewPoolObject(prefab),
-                //actionOnGet: obj => obj.SetActive(true),
                 actionOnRelease: obj =>
                 {
                     obj.SetActive(false);

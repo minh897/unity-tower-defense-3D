@@ -3,7 +3,6 @@ using UnityEngine;
 public class TowerCannon : Tower
 {
     [Header("Cannon Details")]
-    [SerializeField] private float towerDamage;
     [SerializeField] private float timeToTarget = 1.5f;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private ParticleSystem attackVFX;

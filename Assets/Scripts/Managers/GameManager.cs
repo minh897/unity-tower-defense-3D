@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -6,17 +7,18 @@ public class GameManager : MonoBehaviour
     public int totalCurrency;
     public static GameManager instance;
 
+    public int enemiesKilled { get; private set; }
+    public UIInGame uiInGame { get; private set; }
+    public WaveManager activeWaveManager { get; private set; }
+
     [SerializeField] private int maxHP;
     [SerializeField] private int currentHP;
 
     private bool isGameLost;
+    private int enemyAmount;
     private LevelManager levelManager;
     private CameraEffects cameraEffects;
 
-    public int enemiesKilled { get; private set; }
-    public UIInGame uiInGame { get; private set; }
-
-    public WaveManager currentActiveWaveManager;
 
     void Awake()
     {
@@ -25,14 +27,16 @@ public class GameManager : MonoBehaviour
         uiInGame = FindFirstObjectByType<UIInGame>(FindObjectsInactive.Include);
         levelManager = FindFirstObjectByType<LevelManager>();
         cameraEffects = FindFirstObjectByType<CameraEffects>();
+        activeWaveManager = FindFirstObjectByType<WaveManager>();
     }
 
     void Start()
     {
         if (IsTestingLevel())
         {
-            totalCurrency += 9999;
             maxHP += 9999;
+            totalCurrency += 9999;
+            PrepareLevel(activeWaveManager, totalCurrency);
         }
     }
 
@@ -41,16 +45,21 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CompleteLevelCo());
     }
 
-    public void PrepareLevel()
+    public void PrepareLevel(WaveManager sceneWaveManager, int? sceneCurrency = 0)
     {
         isGameLost = false;
         enemiesKilled = 0;
         currentHP = maxHP;
+        activeWaveManager = sceneWaveManager;
+
+        if (sceneCurrency != 0)
+            totalCurrency = (int)sceneCurrency;
 
         uiInGame.UpdateCurrencyText(totalCurrency);
         uiInGame.UpdateHealthPointUIText(currentHP, maxHP);
+        uiInGame.UpdateEnemyCountText(enemyAmount);
 
-        currentActiveWaveManager.ActivateWaveManager();
+        activeWaveManager.ActivateWaveManager();
     }
 
     public void UpdateHP(int changeValue)
@@ -66,8 +75,19 @@ public class GameManager : MonoBehaviour
     public void IncreaseCurrencyFromKill(int changeValue)
     {
         enemiesKilled++;
+        DecreaseEnemyCount();
+
         totalCurrency += changeValue;
         uiInGame.UpdateCurrencyText(totalCurrency);
+    }
+
+    public void DecreaseEnemyCount()
+    {
+        int remainingEnemies = activeWaveManager.GetEnemyCount() - enemiesKilled;
+        uiInGame.UpdateEnemyCountText(remainingEnemies);
+
+        if (remainingEnemies <= 0)
+            activeWaveManager.HandleWaveCompletion();
     }
 
     public bool HasEnoughCurrency(int price)
@@ -85,7 +105,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator FailLevel()
     {
         isGameLost = true;
-        currentActiveWaveManager.DeactivateWaveManager();
+        activeWaveManager.DeactivateWaveManager();
         cameraEffects.FocusOnCastle();
 
         yield return cameraEffects.GetActiveCameraCo();
@@ -96,7 +116,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator CompleteLevelCo()
     {
         cameraEffects.FocusOnCastle();
-        currentActiveWaveManager.DeactivateWaveManager();
+        activeWaveManager.DeactivateWaveManager();
 
         yield return cameraEffects.GetActiveCameraCo();
 

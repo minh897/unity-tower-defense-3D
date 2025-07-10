@@ -137,5 +137,5 @@ public class CameraEffects : MonoBehaviour
 
     public Coroutine GetActiveCameraCo() => cameraCo;
 
-    public void EnableCameraControl() => StartCoroutine(EnableCameraControlCo(transitionDuration + .5f));
+    public void EnableCameraEffect() => StartCoroutine(EnableCameraControlCo(transitionDuration + .5f));
 }

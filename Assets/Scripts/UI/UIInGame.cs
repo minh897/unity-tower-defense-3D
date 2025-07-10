@@ -5,6 +5,7 @@ public class UIInGame : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI healthPointsText;
     [SerializeField] private TextMeshProUGUI currencyText;
+    [SerializeField] private TextMeshProUGUI enemyCountText;
     [Space]
 
     [SerializeField] private float nextWaveButtonOffset;
@@ -65,6 +66,7 @@ public class UIInGame : MonoBehaviour
     public void ToggleNextWaveButton(bool enable)
     {
         RectTransform nextWaveButtonTransform = nextWaveButtonTrans.GetComponent<RectTransform>();
+        
         float yOffset = enable ? -nextWaveButtonOffset : nextWaveButtonOffset;
         Vector3 offset = new(0, yOffset, 0);
 
@@ -89,7 +91,9 @@ public class UIInGame : MonoBehaviour
         waveManager.StartNewWave();
     }
 
-    public void UpdateCurrencyText(int changeValue) => currencyText.text = "Currency : " + changeValue;
+    public void UpdateEnemyCountText(int remainingEnemy) => enemyCountText.text = "Enemies : " + remainingEnemy;
+
+    public void UpdateCurrencyText(int changeCurrency) => currencyText.text = "Currency : " + changeCurrency;
 
     public void ShakeCurrencyUI() => ui.uiAnimator.StartShake(currencyText.transform.parent);
 

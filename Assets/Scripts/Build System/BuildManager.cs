@@ -28,6 +28,7 @@ public class BuildManager : MonoBehaviour
     {
         ui = FindFirstObjectByType<UI>();
         cameraEffects = FindFirstObjectByType<CameraEffects>();
+
         MakeSlotNotAvailableIfNeeded(waveManager, currentGrid);
     }
 
@@ -50,9 +51,9 @@ public class BuildManager : MonoBehaviour
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, ~whatToIgnore))
             {
                 // Return true or false whether BuildSlot component was found on the hit object
-                bool isBuildSlotClicked = hit.collider.GetComponent<BuildSlot>() == null;
+                bool isBuildSlotNotClicked = hit.collider.GetComponent<BuildSlot>() == null;
 
-                if (isBuildSlotClicked)
+                if (isBuildSlotNotClicked)
                     CancelBuildAction();
             }
         }
@@ -93,7 +94,7 @@ public class BuildManager : MonoBehaviour
         cameraEffects.ShakeScreen(cameraShakeDuration, cameraShakeMagnitude);
 
         GameObject newTower = Instantiate(towerToBuild, slotToUse.GetBuildPosition(towerCenterY), Quaternion.identity);
-        newTower.transform.rotation = newTowerPreview.rotation;
+        newTower.transform.rotation = towerPreview.rotation;
     }
 
     public void MakeSlotNotAvailableIfNeeded(WaveManager waveManager, GridBuilder currentGrid)

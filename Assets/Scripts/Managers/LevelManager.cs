@@ -51,23 +51,20 @@ public class LevelManager : MonoBehaviour
     private IEnumerator LoadLevelFromMenuCo()
     {
         CleanUpScene();
-
         ui.EnableMainMenuUI(false);
         cameraEffects.SwitchToGameView();
 
         yield return tileAnimator.GetCurrentActiveRoutine();
 
         ui.EnableInGameUI(true);
-        cameraEffects.EnableCameraControl();
-
-        GameManager gameManager = FindFirstObjectByType<GameManager>();
-        gameManager.PrepareLevel();
+        cameraEffects.EnableCameraEffect();
+        
+        GameManager.instance.activeWaveManager.ActivateWaveManager();
     }
 
     private IEnumerator LoadMainMenuCo()
     {
         CleanUpScene();
-
         ui.EnableInGameUI(false);
 
         yield return cameraEffects.GetActiveCameraCo();

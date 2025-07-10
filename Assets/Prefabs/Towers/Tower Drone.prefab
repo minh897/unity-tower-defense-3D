@@ -942,15 +942,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e89df3c96de298368029cc54373a14f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAttackForward: 0
   currentEnemy: {fileID: 0}
+  towerDamage: 10
+  attackRange: 20
   attackCoolDown: 2
   rotationSpeed: 8
   towerHead: {fileID: 0}
   towerBody: {fileID: 0}
   gunPoint: {fileID: 0}
-  enemyPriorityType: 3
-  isAttackForward: 0
-  attackRange: 20
+  enemyPriorityType: 0
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 256
@@ -958,7 +959,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   attackSFX: {fileID: 0}
-  damage: 15
   attackTimeMultiplier: 0.4
   reloadTimeMultiplier: 0.6
   dronePrefab: {fileID: 7946068040904475185, guid: 700df666732450a588013fae1af558a9, type: 3}

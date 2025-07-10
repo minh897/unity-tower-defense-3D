@@ -1033,8 +1033,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 257737807414589102}
-  - component: {fileID: 3248702111708815023}
   - component: {fileID: 3108382978581964053}
+  - component: {fileID: 3248702111708815023}
   - component: {fileID: 2341980815406109693}
   - component: {fileID: 2274549245109001110}
   - component: {fileID: 1929829616128585658}
@@ -1062,6 +1062,45 @@ Transform:
   - {fileID: 8247796086336800386}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3108382978581964053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3122061222310990994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ab61bdc18cf54c2ab29067eef6c8bf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAttackForward: 0
+  currentEnemy: {fileID: 0}
+  towerDamage: 10
+  attackRange: 5
+  attackCoolDown: 0.12
+  rotationSpeed: 10
+  towerHead: {fileID: 5421195189831284274}
+  towerBody: {fileID: 585721342884683399}
+  gunPoint: {fileID: 0}
+  enemyPriorityType: 4
+  whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 256
+  whatIsTargetable:
+    serializedVersion: 2
+    m_Bits: 257
+  attackSFX: {fileID: 0}
+  projectileSpeed: 15
+  projectilePrefab: {fileID: 3590395996922786876, guid: d1e899f1e57c9a231b360106d8f71683, type: 3}
+  rotationOffset: {x: 0, y: 0.6, z: 0}
+  gunPointSet:
+  - {fileID: 3987361082734244355}
+  - {fileID: 6542427506722280038}
+  - {fileID: 4418944315616033123}
+  - {fileID: 1568389394335283626}
+  - {fileID: 9222690873705010300}
+  - {fileID: 2986804300422714482}
 --- !u!114 &3248702111708815023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1077,45 +1116,6 @@ MonoBehaviour:
   recoilOffset: -0.1
   recoverSpeed: 1
   gunFlashVFX: {fileID: 6213377452151377434}
---- !u!114 &3108382978581964053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3122061222310990994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ab61bdc18cf54c2ab29067eef6c8bf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentEnemy: {fileID: 0}
-  attackCoolDown: 0.12
-  rotationSpeed: 10
-  towerHead: {fileID: 5421195189831284274}
-  towerBody: {fileID: 585721342884683399}
-  gunPoint: {fileID: 0}
-  enemyPriorityType: 0
-  isAttackForward: 0
-  attackRange: 5
-  whatIsEnemy:
-    serializedVersion: 2
-    m_Bits: 256
-  whatIsTargetable:
-    serializedVersion: 2
-    m_Bits: 257
-  attackSFX: {fileID: 0}
-  damage: 6
-  projectileSpeed: 15
-  projectilePrefab: {fileID: 3590395996922786876, guid: d1e899f1e57c9a231b360106d8f71683, type: 3}
-  rotationOffset: {x: 0, y: 0.6, z: 0}
-  gunPointSet:
-  - {fileID: 3987361082734244355}
-  - {fileID: 6542427506722280038}
-  - {fileID: 4418944315616033123}
-  - {fileID: 1568389394335283626}
-  - {fileID: 9222690873705010300}
-  - {fileID: 2986804300422714482}
 --- !u!54 &2341980815406109693
 Rigidbody:
   m_ObjectHideFlags: 0

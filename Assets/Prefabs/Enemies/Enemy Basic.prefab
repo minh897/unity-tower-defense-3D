@@ -4832,7 +4832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHP: 0
-  maxHP: 15
+  maxHP: 10
   enemyWorth: 15
   turnSpeed: 10
   centerPoint: {fileID: 7104675368191282976}

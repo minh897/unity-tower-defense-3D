@@ -10,7 +10,6 @@ public class TowerHarpoon : Tower
     private ProjectileHarpoon currentProjectile;
 
     [Header("Damage Details")]
-    [SerializeField] private float initialDamage = 5;
     [SerializeField] private float damageOvertime = 10;
     [SerializeField] private float overtimeEffectDuration = 10;
     [Range(0f, 1f)]
@@ -94,7 +93,7 @@ public class TowerHarpoon : Tower
         visuals.CreateElectrifyVFX(currentEnemy.transform);
 
         IDamagable damagable = currentEnemy.GetComponent<IDamagable>();
-        damagable?.TakeDamage(initialDamage);
+        damagable?.TakeDamage(towerDamage);
 
         damageOvertimeCo = StartCoroutine(DamageOvertimeCo(damagable));
     }

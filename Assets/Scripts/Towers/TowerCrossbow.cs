@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class TowerCrossbow : Tower
 {
-    [Header("Crossbow Details")]
-    [SerializeField] private int towerDamage;
-
     private CrossbowVisual visual;
 
     protected override void Awake()

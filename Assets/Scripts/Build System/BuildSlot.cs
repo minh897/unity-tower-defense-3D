@@ -41,6 +41,7 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             return;
 
         SnapToBeforeBuildPostion();
+        
         // EnableBuildMenu need to be above SelectBuildSlot 
         // so the build menu can be enable correctly    
         buildManager.EnableBuildMenu();

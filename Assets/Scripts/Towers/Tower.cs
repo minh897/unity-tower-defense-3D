@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    public bool isAttackForward;
     public Enemy currentEnemy;
 
+    [Header("Tower Details")]
+    [SerializeField] protected int towerDamage = 10;
+    [SerializeField] protected float attackRange = 2.5f;
     [SerializeField] protected float attackCoolDown = 1f;
+    [SerializeField] protected float rotationSpeed = 10f;
     [Space]
 
-    [Header("Tower Setup")]
-    [SerializeField] protected float rotationSpeed = 10f;
     [SerializeField] protected Transform towerHead;
     [SerializeField] protected Transform towerBody;
     [SerializeField] protected Transform gunPoint;
-    [SerializeField] protected EnemyType enemyPriorityType;
-    public bool isAttackForward;
     [Space]
 
-    [SerializeField] protected float attackRange = 2.5f;
+    [SerializeField] protected EnemyType enemyPriorityType;
     [SerializeField] protected LayerMask whatIsEnemy;
     [SerializeField] protected LayerMask whatIsTargetable;
     [Space]

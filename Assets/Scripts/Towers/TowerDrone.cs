@@ -5,7 +5,6 @@ using UnityEngine.AI;
 public class TowerDrone : Tower
 {
     [Header("Tower Drone Details")]
-    [SerializeField] private float damage;
     [SerializeField] private float attackTimeMultiplier = .4f; // The percentage of the time used for attacking (40%)
     [SerializeField] private float reloadTimeMultiplier = .6f; // The percentage of the time used for reloading (60%)
     [SerializeField] private GameObject dronePrefab;
@@ -77,7 +76,7 @@ public class TowerDrone : Tower
 
         // Attacking phase
         yield return ChangeScaleCo(currentWeb, 1, attackTime);
-        activeDrones[droneIndex].GetComponent<ProjectileDrone>().SetupDrone(damage);
+        activeDrones[droneIndex].GetComponent<ProjectileDrone>().SetupDrone(towerDamage);
 
         // Reloading phase
         yield return ChangeScaleCo(currentWeb, .1f, reloadTime);
