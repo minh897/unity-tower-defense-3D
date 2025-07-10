@@ -14,11 +14,12 @@ public class WaveDetails
     public int flyingBossEnemyCount;
     public int spiderBossEnemyCount;
     public GridBuilder waveGrid;
-    // public EnemyPortal[] wavePortals;
 }
 
 public class WaveManager : MonoBehaviour
 {
+    public EnemyPortal enemyPortal { get; private set; }
+
     [SerializeField] private GridBuilder currentGrid;
     [SerializeField] private NavMeshSurface flyingNavSurface;
     [SerializeField] private NavMeshSurface droneNavSurface;
@@ -35,10 +36,6 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private GameObject flyingBossEnemyPrefab;
     [SerializeField] private GameObject spiderBossEnemyPrefab;
 
-    // [Header("Level Update Details")]
-    // [SerializeField] private float yOffset = 5;
-    // [SerializeField] private float tileDelay = .1f;
-
     [Header("Wave Settings")]
     [SerializeField] private int waveIndex;
     [SerializeField] private WaveDetails[] levelWaves;
@@ -46,35 +43,23 @@ public class WaveManager : MonoBehaviour
     private bool isGameBegun;
     private bool isMakingNextWave;
     private bool isNextWaveButtonEnabled;
-    private List<EnemyPortal> enemyPortals;
-    private List<GameObject> enemyList;
     private UIInGame uiInGame;
-    // private TileAnimator tileAnimator;
     private GameManager gameManager;
+    private List<GameObject> enemyList;
 
     void Awake()
     {
-        enemyPortals = new List<EnemyPortal>(FindObjectsByType<EnemyPortal>(FindObjectsSortMode.None));
-
+        enemyPortal = FindFirstObjectByType<EnemyPortal>();
         uiInGame = FindFirstObjectByType<UIInGame>(FindObjectsInactive.Include);
         gameManager = FindFirstObjectByType<GameManager>();
-        // tileAnimator = FindFirstObjectByType<TileAnimator>();
 
         flyingNavColliders = GetComponentsInChildren<MeshCollider>();
-    }
-
-    void Update()
-    {
-        if (isGameBegun == false)
-            return;
-
-        if (Input.GetKeyDown(KeyCode.T))
-            ActivateWaveManager();
     }
 
     public void ActivateWaveManager()
     {
         isGameBegun = true;
+        gameObject.SetActive(true);
         uiInGame = gameManager.uiInGame;
         EnableNextWaveUI(true);
     }
@@ -121,11 +106,6 @@ public class WaveManager : MonoBehaviour
         }
 
         EnableNextWaveUI(true);
-
-        // if (HasNewLayout())
-        //     AttemptToUpdateLayout();
-        // else
-        //     EnableNextWaveUI(true);
     }
 
     public void StartNewWave()
@@ -155,34 +135,14 @@ public class WaveManager : MonoBehaviour
             return;
         }
 
-        int portalIndex = 0;
-
         for (int i = 0; i < enemyList.Count; i++)
         {
             GameObject enemyToAdd = enemyList[i];
-            EnemyPortal portal = enemyPortals[portalIndex];
-
-            portal.AddEnemy(enemyToAdd);
-
-            portalIndex++;
-
-            if (portalIndex >= enemyPortals.Count)
-                portalIndex = 0;
+            enemyPortal.AddEnemy(enemyToAdd);
         }
 
         uiInGame.UpdateEnemyCountText(enemyList.Count);
     }
-
-    // private bool AreAllEnemiesDead()
-    // {
-    //     foreach (EnemyPortal portal in enemyPortals)
-    //     {
-    //         if (portal.GetActiveEnemies().Count > 0)
-    //             return false;
-    //     }
-
-    //     return true;
-    // }
 
     private List<GameObject> GetNewEnemies()
     {

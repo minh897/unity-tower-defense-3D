@@ -260,8 +260,8 @@ public class Enemy : MonoBehaviour, IDamagable
 
     public virtual void Die()
     {
-        gameManager.IncreaseCurrencyFromKill(enemyWorth);
         RemoveEnemy();
+        gameManager.IncreaseCurrencyFromKill(enemyWorth);
     }
 
     public virtual void RemoveEnemy()
@@ -280,7 +280,7 @@ public class Enemy : MonoBehaviour, IDamagable
 
     protected virtual void OnEnable()
     {
-
+        // Used for override
     }
 
     protected virtual void OnDisable()

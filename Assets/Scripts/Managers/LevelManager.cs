@@ -58,8 +58,8 @@ public class LevelManager : MonoBehaviour
 
         ui.EnableInGameUI(true);
         cameraEffects.EnableCameraEffect();
-        
-        GameManager.instance.activeWaveManager.ActivateWaveManager();
+
+        GameManager.instance.PrepareLevel(GameManager.instance.activeWaveManager);
     }
 
     private IEnumerator LoadMainMenuCo()

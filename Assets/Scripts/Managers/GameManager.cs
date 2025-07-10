@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -18,7 +17,7 @@ public class GameManager : MonoBehaviour
     private int enemyAmount;
     private LevelManager levelManager;
     private CameraEffects cameraEffects;
-
+    private EnemyPortal enemyPortal;
 
     void Awake()
     {
@@ -36,7 +35,6 @@ public class GameManager : MonoBehaviour
         {
             maxHP += 9999;
             totalCurrency += 9999;
-            PrepareLevel(activeWaveManager, totalCurrency);
         }
     }
 
@@ -50,7 +48,9 @@ public class GameManager : MonoBehaviour
         isGameLost = false;
         enemiesKilled = 0;
         currentHP = maxHP;
+
         activeWaveManager = sceneWaveManager;
+        enemyPortal = activeWaveManager.enemyPortal;
 
         if (sceneCurrency != 0)
             totalCurrency = (int)sceneCurrency;
@@ -75,19 +75,13 @@ public class GameManager : MonoBehaviour
     public void IncreaseCurrencyFromKill(int changeValue)
     {
         enemiesKilled++;
-        DecreaseEnemyCount();
-
         totalCurrency += changeValue;
         uiInGame.UpdateCurrencyText(totalCurrency);
     }
 
     public void DecreaseEnemyCount()
     {
-        int remainingEnemies = activeWaveManager.GetEnemyCount() - enemiesKilled;
-        uiInGame.UpdateEnemyCountText(remainingEnemies);
-
-        if (remainingEnemies <= 0)
-            activeWaveManager.HandleWaveCompletion();
+        uiInGame.UpdateEnemyCountText(enemyPortal.GetActiveEnemies().Count);
     }
 
     public bool HasEnoughCurrency(int price)

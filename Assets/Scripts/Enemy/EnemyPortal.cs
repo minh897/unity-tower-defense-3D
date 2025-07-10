@@ -108,7 +108,7 @@ public class EnemyPortal : MonoBehaviour
     public void RemoveActiveEnemy(GameObject enemyToRemove)
     {
         activeEnemies.Remove(enemyToRemove);
-        // myWaveManager.HandleWaveCompletion();
+        myWaveManager.HandleWaveCompletion();
     }
 
     private IEnumerator PlayFlyPortalFXCo()

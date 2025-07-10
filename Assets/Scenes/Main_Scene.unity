@@ -6505,17 +6505,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 119212764}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &198181755 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2388462769687098139, guid: 9e1ea9eae771b886eab27393527e9f20, type: 3}
-  m_PrefabInstance: {fileID: 819274446}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fc2bc54b156bb9f0abdcceb9ce4c30f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &210602945
 GameObject:
   m_ObjectHideFlags: 0
@@ -22966,7 +22955,7 @@ PrefabInstance:
     - target: {fileID: 8220702945432436402, guid: 9e1ea9eae771b886eab27393527e9f20, type: 3}
       propertyPath: uITextBlinkEffect
       value: 
-      objectReference: {fileID: 198181755}
+      objectReference: {fileID: 0}
     - target: {fileID: 8275547208765579829, guid: 9e1ea9eae771b886eab27393527e9f20, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

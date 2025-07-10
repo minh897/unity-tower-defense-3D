@@ -8,13 +8,17 @@ public class PlayerCastle : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.GetComponent<Enemy>().RemoveEnemy();
+            Enemy enemy = other.GetComponent<Enemy>();
+            enemy.RemoveEnemy();
 
             if (gameManager == null)
                 gameManager = FindFirstObjectByType<GameManager>();
 
             if (gameManager != null)
+            {
                 gameManager.UpdateHP(-1);
+                gameManager.DecreaseEnemyCount();
+            }
         }
     }
 }
