@@ -17,7 +17,6 @@ public class PlayerCastle : MonoBehaviour
             if (gameManager != null)
             {
                 gameManager.UpdateHP(-1);
-                gameManager.DecreaseEnemyCount();
             }
         }
     }

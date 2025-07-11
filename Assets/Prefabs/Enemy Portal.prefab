@@ -15030,7 +15030,7 @@ GameObject:
   - component: {fileID: 391389089437768508}
   - component: {fileID: 2618622690087899506}
   m_Layer: 15
-  m_Name: Portal Enemy
+  m_Name: Enemy Portal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

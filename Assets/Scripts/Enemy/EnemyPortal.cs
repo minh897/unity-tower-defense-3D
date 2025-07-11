@@ -13,9 +13,10 @@ public class EnemyPortal : MonoBehaviour
 
     private float spawnTimer;
     private Coroutine flyPortalFXCo;
+    private ObjectPoolManager objectPool;
+    private GameManager myGameManager;
     private List<GameObject> enemiesToCreate = new();
     private List<GameObject> activeEnemies = new();
-    private ObjectPoolManager objectPool;
 
     public Vector3[] currentWaypoints { get; private set; }
 
@@ -23,8 +24,11 @@ public class EnemyPortal : MonoBehaviour
     {
         CollectWaypoints();
 
-        // if (myWaveManager == null)
-        //     myWaveManager = FindFirstObjectByType<LevelSetup>().GetWaveManager();
+        if (myGameManager == null)
+            myGameManager = FindFirstObjectByType<GameManager>();
+
+        if (myWaveManager == null)
+            myWaveManager = FindFirstObjectByType<WaveManager>();
     }
 
     void Start()
@@ -108,7 +112,9 @@ public class EnemyPortal : MonoBehaviour
     public void RemoveActiveEnemy(GameObject enemyToRemove)
     {
         activeEnemies.Remove(enemyToRemove);
-        myWaveManager.HandleWaveCompletion();
+        myGameManager.IncreaseKilledEnemy();
+        myWaveManager.DecreaseEnemyAmount();
+        myWaveManager.HandleWaveCompletion(activeEnemies.Count);
     }
 
     private IEnumerator PlayFlyPortalFXCo()

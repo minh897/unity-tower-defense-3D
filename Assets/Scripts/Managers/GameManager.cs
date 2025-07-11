@@ -6,7 +6,6 @@ public class GameManager : MonoBehaviour
     public int totalCurrency;
     public static GameManager instance;
 
-    public int enemiesKilled { get; private set; }
     public UIInGame uiInGame { get; private set; }
     public WaveManager activeWaveManager { get; private set; }
 
@@ -14,7 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int currentHP;
 
     private bool isGameLost;
-    private int enemyAmount;
+    private int enemiesKilled;
     private LevelManager levelManager;
     private CameraEffects cameraEffects;
     private EnemyPortal enemyPortal;
@@ -35,6 +34,7 @@ public class GameManager : MonoBehaviour
         {
             maxHP += 9999;
             totalCurrency += 9999;
+            PrepareLevel();
         }
     }
 
@@ -43,21 +43,17 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CompleteLevelCo());
     }
 
-    public void PrepareLevel(WaveManager sceneWaveManager, int? sceneCurrency = 0)
+    public void PrepareLevel()
     {
         isGameLost = false;
         enemiesKilled = 0;
         currentHP = maxHP;
 
-        activeWaveManager = sceneWaveManager;
         enemyPortal = activeWaveManager.enemyPortal;
-
-        if (sceneCurrency != 0)
-            totalCurrency = (int)sceneCurrency;
 
         uiInGame.UpdateCurrencyText(totalCurrency);
         uiInGame.UpdateHealthPointUIText(currentHP, maxHP);
-        uiInGame.UpdateEnemyCountText(enemyAmount);
+        uiInGame.UpdateEnemyCountText(0);
 
         activeWaveManager.ActivateWaveManager();
     }
@@ -74,14 +70,8 @@ public class GameManager : MonoBehaviour
 
     public void IncreaseCurrencyFromKill(int changeValue)
     {
-        enemiesKilled++;
         totalCurrency += changeValue;
         uiInGame.UpdateCurrencyText(totalCurrency);
-    }
-
-    public void DecreaseEnemyCount()
-    {
-        uiInGame.UpdateEnemyCountText(enemyPortal.GetActiveEnemies().Count);
     }
 
     public bool HasEnoughCurrency(int price)
@@ -118,4 +108,8 @@ public class GameManager : MonoBehaviour
     }
 
     public bool IsTestingLevel() => levelManager == null;
+
+    public void IncreaseKilledEnemy() => enemiesKilled++;
+
+    public int GetKilledEnemies() => enemiesKilled;
 }

@@ -23,7 +23,7 @@ public class EnemyFlyingBoss : EnemyFlying
         if (creationTimer < 0 && unitsCreated < amountToCreate)
         {
             creationTimer = cooldown;
-            CreateNewBossUnit();
+            // CreateNewBossUnit();
         }
     }
 
@@ -48,13 +48,13 @@ public class EnemyFlyingBoss : EnemyFlying
     {
         foreach (var enemy in createdEnemies)
         {
-            enemy.Die();
+            enemy.GetKilled();
         }
     }
 
-    public override void Die()
+    public override void GetKilled()
     {
         EleminateAllUnits();
-        base.Die();
+        base.GetKilled();
     }
 }

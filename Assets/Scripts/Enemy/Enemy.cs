@@ -254,11 +254,11 @@ public class Enemy : MonoBehaviour, IDamagable
         {
             // Use flag isDead in case Die() is called twice
             isDead = true;
-            Die();
+            GetKilled();
         }
     }
 
-    public virtual void Die()
+    public virtual void GetKilled()
     {
         RemoveEnemy();
         gameManager.IncreaseCurrencyFromKill(enemyWorth);

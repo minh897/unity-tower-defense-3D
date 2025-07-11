@@ -66,7 +66,7 @@ public class TileAnimator : MonoBehaviour
             ShowCurrentGrid(mainSceneGrid, isMainGridShow);
     }
 
-    private void CollectMainSceneObjects()
+    public void CollectMainSceneObjects()
     {
         mainMenuObjects.AddRange(mainSceneGrid.GetTileSetup());
         mainMenuObjects.AddRange(CollectExtraObject());

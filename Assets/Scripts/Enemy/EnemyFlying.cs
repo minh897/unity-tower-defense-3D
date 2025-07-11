@@ -22,7 +22,7 @@ public class EnemyFlying : Enemy
         foreach (var tower in observingTowers)
             tower.ResetAttack();
 
-        foreach (var harpoon in GetComponentsInChildren<ProjectileCannon>())
+        foreach (var harpoon in GetComponentsInChildren<ProjectileHarpoon>())
             objectPool.Remove(harpoon.gameObject);
 
         base.RemoveEnemy();

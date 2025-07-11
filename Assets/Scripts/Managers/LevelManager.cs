@@ -19,6 +19,15 @@ public class LevelManager : MonoBehaviour
         currentActiveGrid = FindFirstObjectByType<GridBuilder>();
     }
 
+    IEnumerator Start()
+    {
+        ui.EnableMainMenuUI(false);
+
+        yield return tileAnimator.GetCurrentActiveRoutine();
+
+        ui.EnableMainMenuUI(true);
+    }
+
     private void RemoveAllEnemies()
     {
         Enemy[] enemiesArray = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
@@ -59,7 +68,7 @@ public class LevelManager : MonoBehaviour
         ui.EnableInGameUI(true);
         cameraEffects.EnableCameraEffect();
 
-        GameManager.instance.PrepareLevel(GameManager.instance.activeWaveManager);
+        GameManager.instance.PrepareLevel();
     }
 
     private IEnumerator LoadMainMenuCo()
