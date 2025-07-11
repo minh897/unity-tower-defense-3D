@@ -4,7 +4,12 @@
 TagManager:
   serializedVersion: 3
   tags:
+<<<<<<< HEAD
   - Road
+=======
+  - Enemy
+  - FxTemporaire
+>>>>>>> development
   layers:
   - Default
   - TransparentFX
@@ -14,6 +19,7 @@ TagManager:
   - UI
   - Road
   - Field
+<<<<<<< HEAD
   - 
   - 
   - 
@@ -22,6 +28,16 @@ TagManager:
   - 
   - 
   - 
+=======
+  - Enemy
+  - Untargetable
+  - Fly Road
+  - Fly Enemy
+  - Tower
+  - Enemy Projectile
+  - Interactable
+  - Uninteractable
+>>>>>>> development
   - 
   - 
   - 
