@@ -1,10 +1,12 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public int totalCurrency;
     public static GameManager instance;
+
+    public int totalCurrency;
 
     public UIInGame uiInGame { get; private set; }
     public WaveManager activeWaveManager { get; private set; }
@@ -14,8 +16,8 @@ public class GameManager : MonoBehaviour
 
     private bool isGameLost;
     private int enemiesKilled;
-    private LevelManager levelManager;
     private CameraEffects cameraEffects;
+    private LevelManager levelManager;
     private EnemyPortal enemyPortal;
 
     void Awake()
@@ -107,7 +109,15 @@ public class GameManager : MonoBehaviour
         uiInGame.EnableVictoryUI(true);
     }
 
-    public bool IsTestingLevel() => levelManager == null;
+    public bool IsTestingLevel()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+
+        if (sceneName.Contains("Test"))
+            return true;
+
+        return false;
+    }
 
     public void IncreaseKilledEnemy() => enemiesKilled++;
 

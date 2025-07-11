@@ -255,7 +255,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHP: 4
-  maxHP: 100
+  maxHP: 5
+  enemyWorth: 10
   turnSpeed: 10
   centerPoint: {fileID: 16363884469243093}
   enemyType: 3
@@ -270,7 +271,7 @@ NavMeshAgent:
   m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.2
-  m_Speed: 1.2
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

@@ -2844,7 +2844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerName: Harpoon
-  towerPrice: 50
+  towerPrice: 300
   towerAttackRange: 5
   towerToBuild: {fileID: 923819258365670075, guid: 5b049e7252b62e85693b4b5eb3bb7d83, type: 3}
   towerNameText: {fileID: 5317302882099104802}
@@ -12450,7 +12450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerName: Hammer
-  towerPrice: 50
+  towerPrice: 100
   towerAttackRange: 7
   towerToBuild: {fileID: 8631700495229431575, guid: ae9557bc89bedc952bd69429f87c3ebc, type: 3}
   towerNameText: {fileID: 5452061144490564528}
@@ -16666,7 +16666,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 50
+  m_text: 500
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: af556f52a07a702d4b7b11e316433187, type: 2}
   m_sharedMaterial: {fileID: -2901810360563362657, guid: af556f52a07a702d4b7b11e316433187, type: 2}
@@ -16693,7 +16693,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.15
+  m_fontSize: 25.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -18935,7 +18935,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerName: Spider Nest
-  towerPrice: 50
+  towerPrice: 500
   towerAttackRange: 3
   towerToBuild: {fileID: 7016929490065090533, guid: a337bc708bd48c7b6b6f9bfc0831b821, type: 3}
   towerNameText: {fileID: 8913425464806560607}
@@ -19700,7 +19700,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 50
+  m_text: 300
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: af556f52a07a702d4b7b11e316433187, type: 2}
   m_sharedMaterial: {fileID: -2901810360563362657, guid: af556f52a07a702d4b7b11e316433187, type: 2}
@@ -19727,7 +19727,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.15
+  m_fontSize: 25.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -20614,7 +20614,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 50
+  m_text: 100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: af556f52a07a702d4b7b11e316433187, type: 2}
   m_sharedMaterial: {fileID: -2901810360563362657, guid: af556f52a07a702d4b7b11e316433187, type: 2}
