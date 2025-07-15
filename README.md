@@ -18,7 +18,7 @@ This project was built while following a tutorial series to:
 - Get hands-on experience with Unity’s component-based architecture.
 
 ## How to Run
-1. Clone the repository: git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.
+1. Clone the repository: git clone https://github.com/minh897/Tower-Defense-3D.
 2. Open the project in Unity 6.
 3. Open the Main_Scene in the Scenes folder.
 5. Press Play to start the game.
