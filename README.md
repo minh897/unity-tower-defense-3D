@@ -17,12 +17,6 @@ This project was built while following a tutorial series to:
 - Understand common gameplay systems in tower defense mechanics.
 - Get hands-on experience with Unity’s component-based architecture.
 
-## How to Run
-1. Clone the repository: git clone https://github.com/minh897/Tower-Defense-3D.
-2. Open the project in Unity 6.
-3. Open the Main_Scene in the Scenes folder.
-5. Press Play to start the game.
-
 ## Credits
 - Based on a tutorial series by AlexDev on Udemy called "The Ultimate Guide to Creating a Tower Defense Game in Unity" (many thanks to AlexDev for this).
 - Assets used:
